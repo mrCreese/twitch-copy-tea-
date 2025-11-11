@@ -1,4 +1,5 @@
 import { AccountModule } from '../module/auth/account/account.module';
+import { SessionModule } from '../module/auth/session/session.module';
 import { IS_DEV_ENV } from '../shared/utils/is-dev.util';
 
 import { getGraphQLConfig } from './config/graph.config';
@@ -21,6 +22,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 		PrismaModule,
 		RedisModule,
 		AccountModule,
+		SessionModule,
 	],
 })
 export class CoreModule {}
