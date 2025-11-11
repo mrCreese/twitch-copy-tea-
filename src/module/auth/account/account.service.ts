@@ -9,6 +9,13 @@ import { ConflictException, Injectable } from '@nestjs/common';
 export class AccountService {
 	public constructor(private readonly prismaService: PrismaService) {}
 
+	async me(id: string) {
+		const user = await this.prismaService.user.findUnique({
+			where: { id },
+		});
+		return user;
+	}
+
 	public async create(input: CreateUserInput) {
 		const { username, email, password } = input;
 
@@ -39,10 +46,10 @@ export class AccountService {
 		/* 		await this.verificationService.sendVerificationToken(user);
 		 */ return true;
 	}
-
+	/* 
 	async findAll() {
 		const users = await this.prismaService.user.findMany();
 
 		return users;
-	}
+	} */
 }
