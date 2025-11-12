@@ -4,9 +4,10 @@ import { TOTP } from 'otpauth';
 
 import { PrismaService } from '@/src/core/prisma/prisma.service';
 import { RedisService } from '@/src/core/redis/redis.service';
+import { UserSession } from '@/src/shared/types/user-session.types';
+import { getSessionMetadata } from '@/src/shared/utils/session-metadata.utils';
 
 /* import { UserSession } from '@/src/shared/types/user-session.types';
-import { getSessionMetadata } from '@/src/shared/utils/session-metadata.utils';
 import { destroySession, saveSession } from '@/src/shared/utils/session.utl';
 
 import { VerificationService } from '../verification/verification.service'; */
@@ -22,6 +23,12 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
+/* 
+
+import { destroySession, saveSession } from '@/src/shared/utils/session.utl';
+
+import { VerificationService } from '../verification/verification.service'; */
+
 @Injectable()
 export class SessionService {
 	constructor(
@@ -31,7 +38,7 @@ export class SessionService {
 		/* private readonly verificationService: VerificationService, */
 	) {}
 
-	/* 	async findByUser(req: Request) {
+	async findByUser(req: Request) {
 		const userId = req.session.userId;
 		if (!userId) throw new NotFoundException('Utente non trovato');
 
@@ -68,9 +75,9 @@ export class SessionService {
 			...session,
 			id: sessionId,
 		};
-	} */
+	}
 
-	async login(req: Request, input: LoginInput /*  userAgent: string */) {
+	async login(req: Request, input: LoginInput, userAgent: string) {
 		const { login, password /* pin */ } = input;
 
 		const user = await this.prismaService.user.findFirst({
@@ -92,9 +99,12 @@ export class SessionService {
 			throw new UnauthorizedException('Password non valida');
 		}
 
+		const metadata = getSessionMetadata(req, userAgent);
+
 		return new Promise((resolve, reject) => {
 			req.session.createdAt = new Date();
 			req.session.userId = user.id;
+			req.session.metadata = metadata;
 
 			req.session.save(err => {
 				if (err) {
@@ -165,7 +175,7 @@ export class SessionService {
 		});
 	}
 
-	/* 	async cleaSession(req: Request) {
+	async cleaSession(req: Request) {
 		req.res?.clearCookie(
 			this.configService.getOrThrow<string>('SESSION_NAME'),
 		);
@@ -184,5 +194,5 @@ export class SessionService {
 		);
 
 		return true;
-	} */
+	}
 }

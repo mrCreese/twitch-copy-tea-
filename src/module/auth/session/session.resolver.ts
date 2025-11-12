@@ -1,6 +1,6 @@
-/* import { Authorization } from '@/src/shared/decatators/auth.decorator';
+import { Authorization } from '@/src/shared/decatators/auth.decorator';
 import { UserAgent } from '@/src/shared/decatators/userAgent.decorator';
- */
+
 import type { GqlContext } from '../../../shared/types/gql-context.types';
 import { UserModel } from '../account/models/user.model';
 
@@ -14,7 +14,7 @@ import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
 @Resolver('Session')
 export class SessionResolver {
 	constructor(private readonly sessionService: SessionService) {}
-	/* 
+
 	@Authorization()
 	@Query(() => [SessionModel], { name: 'findSessionByUser' })
 	async findByUser(@Context() { req }: GqlContext) {
@@ -25,15 +25,15 @@ export class SessionResolver {
 	@Query(() => SessionModel, { name: 'findCurrentSession' })
 	async findCurrent(@Context() { req }: GqlContext) {
 		return this.sessionService.findCurrent(req);
-	} */
+	}
 
 	@Mutation(() => UserModel, { name: 'loginUser' })
 	async login(
 		@Context() { req }: GqlContext,
 		@Args('data') input: LoginInput,
-		/* 	@UserAgent() userAgent: string, */
+		@UserAgent() userAgent: string,
 	) {
-		return this.sessionService.login(req, input /* userAgent */);
+		return this.sessionService.login(req, input, userAgent);
 	}
 
 	/* 	@Authorization() */
@@ -42,7 +42,7 @@ export class SessionResolver {
 		return this.sessionService.logout(req);
 	}
 
-	/* 	@Mutation(() => Boolean, { name: 'clearSessionCookie' })
+	@Mutation(() => Boolean, { name: 'clearSessionCookie' })
 	async cleaSession(@Context() { req }: GqlContext) {
 		return this.sessionService.cleaSession(req);
 	}
@@ -51,5 +51,5 @@ export class SessionResolver {
 	@Mutation(() => Boolean, { name: 'removeSession' })
 	async remove(@Context() { req }: GqlContext, @Args('id') id: string) {
 		return this.sessionService.remove(req, id);
-	} */
+	}
 }
