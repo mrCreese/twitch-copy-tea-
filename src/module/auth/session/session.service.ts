@@ -5,10 +5,10 @@ import { TOTP } from 'otpauth';
 import { PrismaService } from '@/src/core/prisma/prisma.service';
 import { RedisService } from '@/src/core/redis/redis.service';
 import { UserSession } from '@/src/shared/types/user-session.types';
-import { getSessionMetadata } from '@/src/shared/utils/session-metadata.utils';
+import { getSessionMetadata } from '@/src/shared/utils/session-metadata.util';
+import { destroySession, saveSession } from '@/src/shared/utils/session.util';
 
 /* import { UserSession } from '@/src/shared/types/user-session.types';
-import { destroySession, saveSession } from '@/src/shared/utils/session.utl';
 
 import { VerificationService } from '../verification/verification.service'; */
 
@@ -25,7 +25,7 @@ import { ConfigService } from '@nestjs/config';
 
 /* 
 
-import { destroySession, saveSession } from '@/src/shared/utils/session.utl';
+;
 
 import { VerificationService } from '../verification/verification.service'; */
 
@@ -101,22 +101,7 @@ export class SessionService {
 
 		const metadata = getSessionMetadata(req, userAgent);
 
-		return new Promise((resolve, reject) => {
-			req.session.createdAt = new Date();
-			req.session.userId = user.id;
-			req.session.metadata = metadata;
-
-			req.session.save(err => {
-				if (err) {
-					return reject(
-						new InternalServerErrorException(
-							'Errore durante salvataggio sessione',
-						),
-					);
-				}
-				return resolve(user);
-			});
-		});
+		return saveSession(req, user, metadata);
 
 		/* 		if (!user.isEmailVerified) {
 			await this.verificationService.sendVerificationToken(user);
@@ -151,28 +136,11 @@ export class SessionService {
 
 		const metadata = getSessionMetadata(req, userAgent);
 
-		return saveSession(req, user, metadata); */
+		 */
 	}
 
 	async logout(req: Request) {
-		/* return destroySession(req, this.configService); */
-
-		return new Promise((resolve, reject) => {
-			req.session.destroy(err => {
-				if (err) {
-					return reject(
-						new InternalServerErrorException(
-							'Errore durante salvataggio sessione',
-						),
-					);
-				}
-
-				req.res?.clearCookie(
-					this.configService.getOrThrow('SESSION_NAME'),
-				);
-				return resolve(true);
-			});
-		});
+		return destroySession(req, this.configService);
 	}
 
 	async cleaSession(req: Request) {

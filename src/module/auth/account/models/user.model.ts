@@ -25,6 +25,12 @@ export class UserModel implements User {
 	@Field(() => String, { nullable: true })
 	bio: string;
 
+	@Field(() => Boolean)
+	isVerified: boolean;
+
+	@Field(() => Boolean)
+	isEmailVerified: boolean;
+
 	@Field(() => Date)
 	createdAt: Date;
 
@@ -42,8 +48,7 @@ export class UserModel implements User {
 
 
 
-	@Field(() => Boolean)
-	isVerified: boolean;
+
 
 	@Field(() => Boolean)
 	isDeactivated: boolean;
@@ -51,5 +56,4 @@ export class UserModel implements User {
 	@Field(() => Date, { nullable: true })
 	deactivatedAt: Date;
 
-	@Field(() => Boolean)
-	isEmailVerified: boolean; */
+ */

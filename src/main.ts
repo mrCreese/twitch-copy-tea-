@@ -5,7 +5,7 @@ import * as session from 'express-session';
 import { CoreModule } from './core/core.module';
 import { RedisService } from './core/redis/redis.service';
 import { ms, type StringValue } from './shared/utils/ms.util';
-import { parseBoolean } from './shared/utils/parse-boolean.utils';
+import { parseBoolean } from './shared/utils/parse-boolean.util';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
