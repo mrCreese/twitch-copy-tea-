@@ -8,6 +8,8 @@ import { UserSession } from '@/src/shared/types/user-session.types';
 import { getSessionMetadata } from '@/src/shared/utils/session-metadata.util';
 import { destroySession, saveSession } from '@/src/shared/utils/session.util';
 
+import { VerificationService } from '../verification/verification.service';
+
 /* import { UserSession } from '@/src/shared/types/user-session.types';
 
 import { VerificationService } from '../verification/verification.service'; */
@@ -23,11 +25,8 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-/* 
-
-;
-
-import { VerificationService } from '../verification/verification.service'; */
+/* import { UserSession } from '@/src/shared/types/user-session.types';
+ */
 
 @Injectable()
 export class SessionService {
@@ -35,7 +34,7 @@ export class SessionService {
 		private readonly prismaService: PrismaService,
 		private readonly configService: ConfigService,
 		private readonly redisService: RedisService,
-		/* private readonly verificationService: VerificationService, */
+		private readonly verificationService: VerificationService,
 	) {}
 
 	async findByUser(req: Request) {
@@ -99,17 +98,17 @@ export class SessionService {
 			throw new UnauthorizedException('Password non valida');
 		}
 
-		const metadata = getSessionMetadata(req, userAgent);
-
-		return saveSession(req, user, metadata);
-
-		/* 		if (!user.isEmailVerified) {
+		if (!user.isEmailVerified) {
 			await this.verificationService.sendVerificationToken(user);
 			throw new BadRequestException(
 				'Account non autentificato. Verificare email',
 			);
 		}
-		if (user.isTotpEnabled) {
+
+		const metadata = getSessionMetadata(req, userAgent);
+
+		return saveSession(req, user, metadata);
+		/* 	if (user.isTotpEnabled) {
 			if (!pin) {
 				return {
 					message: 'Necessario codice per concludere autorizazione',

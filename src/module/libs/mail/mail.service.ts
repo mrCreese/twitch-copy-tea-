@@ -16,12 +16,13 @@ export class MailService {
 		private readonly configService: ConfigService,
 	) {}
 
-	async sendVerificationToken(email: string, token: string) {
+	async sendVerificationToken(email: string, token: string): Promise<any> {
 		const domain = this.configService.getOrThrow<string>('ALLOWED_ORIGIN');
 		const html = await render(VerificationTemplate({ domain, token }));
 
 		return this.sendMail(email, 'Verifica account', html);
 	}
+
 	async sendResetPasswordToken(
 		email: string,
 		token: string,

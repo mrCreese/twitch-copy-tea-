@@ -6,7 +6,7 @@ import { generateToken } from '@/src/shared/utils/generate-token.util';
 import { getSessionMetadata } from '@/src/shared/utils/session-metadata.util';
 import { saveSession } from '@/src/shared/utils/session.util';
 
-//import { MailService } from '../../libs/mail/mail.service';
+import { MailService } from '../../libs/mail/mail.service';
 
 import { VerificationInput } from './inputs/verification.input';
 import {
@@ -19,7 +19,7 @@ import {
 export class VerificationService {
 	constructor(
 		private readonly prismaService: PrismaService,
-		/* private readonly mailService: MailService, */
+		private readonly mailService: MailService,
 	) {}
 
 	async verify(req: Request, input: VerificationInput, userAgent: string) {
@@ -62,10 +62,10 @@ export class VerificationService {
 			TokenType.EMAIL_VERIFY,
 			true,
 		);
-		/* 	await this.mailService.sendVerificationToken(
+		await this.mailService.sendVerificationToken(
 			user.email,
 			verificationToken.token,
-		); */
+		);
 		return true;
 	}
 }
