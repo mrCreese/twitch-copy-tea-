@@ -31,9 +31,9 @@ export default function PasswordRecoveryTemplate({token,domain,metadata}:  Passw
                         <Text className='text-base text-black'>
                             Per creare una nuova password clicare sul link sotto            
                         </Text>
-                  <Link href={resetLink} className='infline-flex justify-center items-center rounded-md text-sm font-medium text-white bg-[#18B9AE] px-5 py-2'>
-                        Resetare nla password
-                  </Link>
+                        <Link href={resetLink} className='infline-flex justify-center items-center rounded-md text-sm font-medium text-white bg-[#18B9AE] px-5 py-2'>
+                            Resetare la password
+                        </Link>
                     </Section>
 
                     <Section className='bg-gray-100 rounded-lg p-6 mb-6'>

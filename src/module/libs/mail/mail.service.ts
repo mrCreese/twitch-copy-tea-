@@ -27,7 +27,7 @@ export class MailService {
 		email: string,
 		token: string,
 		metadata: SessionMetadata,
-	) {
+	): Promise<any> {
 		const domain = this.configService.getOrThrow<string>('ALLOWED_ORIGIN');
 		const html = await render(
 			PasswordRecoveryTemplate({ domain, token, metadata }),
@@ -40,13 +40,13 @@ export class MailService {
 		email: string,
 		token: string,
 		metadata: SessionMetadata,
-	) {
+	): Promise<any> {
 		const html = await render(DeactivateTemplate({ token, metadata }));
 
 		return this.sendMail(email, 'Deactivate Account', html);
 	}
 
-	async sendAccountDeletion(email: string) {
+	async sendAccountDeletion(email: string): Promise<any> {
 		const domain = this.configService.getOrThrow<string>('ALLOWED_ORIGIN');
 		const html = await render(AccountDeletionTemplate({ domain }));
 

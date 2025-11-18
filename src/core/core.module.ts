@@ -1,4 +1,5 @@
 import { AccountModule } from '../module/auth/account/account.module';
+import { PasswordRecoveryModule } from '../module/auth/password-recovery/password-recovery.module';
 import { SessionModule } from '../module/auth/session/session.module';
 import { VerificationModule } from '../module/auth/verification/verification.module';
 import { MailModule } from '../module/libs/mail/mail.module';
@@ -27,6 +28,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 		SessionModule,
 		VerificationModule,
 		MailModule,
+		PasswordRecoveryModule,
 	],
 })
 export class CoreModule {}
