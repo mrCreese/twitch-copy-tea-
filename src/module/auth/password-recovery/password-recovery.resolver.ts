@@ -1,8 +1,7 @@
 import { UserAgent } from '@/src/shared/decatators/userAgent.decorator';
 import { GqlContext } from '@/src/shared/types/gql-context.types';
 
-/* import { NewPasswordInput } from './inputs/new-password.input';
- */
+import { NewPasswordInput } from './inputs/new-password.input';
 import { ResetPasswordInput } from './inputs/reset-password.input';
 import { PasswordRecoveryService } from './password-recovery.service';
 import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
@@ -26,8 +25,8 @@ export class PasswordRecoveryResolver {
 		);
 	}
 
-	/* 	@Mutation(() => Boolean, { name: 'newPassword' })
+	@Mutation(() => Boolean, { name: 'newPassword' })
 	async newPassword(@Args('data') input: NewPasswordInput) {
 		return this.passwordRecoveryService.newPassword(input);
-	} */
+	}
 }

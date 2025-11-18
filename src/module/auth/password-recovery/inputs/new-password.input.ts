@@ -1,4 +1,4 @@
-/* import {
+import {
 	IsNotEmpty,
 	IsString,
 	IsUUID,
@@ -30,4 +30,3 @@ export class NewPasswordInput {
 	@IsNotEmpty()
 	token: string;
 }
- */

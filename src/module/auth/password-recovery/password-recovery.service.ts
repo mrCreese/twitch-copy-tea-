@@ -8,7 +8,7 @@ import { getSessionMetadata } from '@/src/shared/utils/session-metadata.util';
 
 import { MailService } from '../../libs/mail/mail.service';
 
-//import { NewPasswordInput } from './inputs/new-password.input';
+import { NewPasswordInput } from './inputs/new-password.input';
 import { ResetPasswordInput } from './inputs/reset-password.input';
 import {
 	BadRequestException,
@@ -53,7 +53,7 @@ export class PasswordRecoveryService {
 		return true;
 	}
 
-	/* 	async newPassword(input: NewPasswordInput) {
+	async newPassword(input: NewPasswordInput) {
 		const { password, token } = input;
 
 		const existingToken = await this.prismaService.token.findUnique({
@@ -83,5 +83,5 @@ export class PasswordRecoveryService {
 		});
 
 		return true;
-	} */
+	}
 }
