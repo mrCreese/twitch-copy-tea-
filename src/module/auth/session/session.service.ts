@@ -5,6 +5,7 @@ import { TOTP } from 'otpauth';
 import { PrismaService } from '@/src/core/prisma/prisma.service';
 import { RedisService } from '@/src/core/redis/redis.service';
 import { UserSession } from '@/src/shared/types/user-session.types';
+import creaTotp from '@/src/shared/utils/create-totp.util';
 import { getSessionMetadata } from '@/src/shared/utils/session-metadata.util';
 import { destroySession, saveSession } from '@/src/shared/utils/session.util';
 
@@ -77,7 +78,7 @@ export class SessionService {
 	}
 
 	async login(req: Request, input: LoginInput, userAgent: string) {
-		const { login, password /* pin */ } = input;
+		const { login, password, pin } = input;
 
 		const user = await this.prismaService.user.findFirst({
 			where: {
@@ -104,30 +105,17 @@ export class SessionService {
 				'Account non autentificato. Verificare email',
 			);
 		}
-
-		const metadata = getSessionMetadata(req, userAgent);
-
-		return saveSession(req, user, metadata);
-		/* 	if (user.isTotpEnabled) {
+		if (user.isTotpEnabled) {
 			if (!pin) {
 				return {
 					message: 'Necessario codice per concludere autorizazione',
 				};
 			}
 
-			if (!user.totpSecret) {
-				throw new BadRequestException(
-					"TOTP secret non trovato per l'utente",
-				);
-			}
-			const totp = new TOTP({
-				issuer: 'CreeseStream',
-				label: `${user.email}`,
-				algorithm: 'SHA1',
-				digits: 6,
-				secret: user.totpSecret,
-			});
+			const totp = creaTotp(user.email, user.totpSecret || undefined);
+
 			const delta = totp.validate({ token: pin });
+
 			if (delta === null) {
 				throw new BadRequestException('Code errato');
 			}
@@ -135,7 +123,7 @@ export class SessionService {
 
 		const metadata = getSessionMetadata(req, userAgent);
 
-		 */
+		return { user: saveSession(req, user, metadata) };
 	}
 
 	async logout(req: Request) {

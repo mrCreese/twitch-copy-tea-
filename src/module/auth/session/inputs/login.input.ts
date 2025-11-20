@@ -21,10 +21,10 @@ export class LoginInput {
 	@MinLength(8)
 	password: string;
 
-	/* 	@Field(() => String, { nullable: true })
+	@Field(() => String, { nullable: true })
 	@IsOptional()
 	@IsString()
 	@IsNotEmpty()
 	@Length(6, 6)
-	pin?: string; */
+	pin?: string;
 }
