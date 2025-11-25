@@ -7,8 +7,8 @@ export default function creaTotp(email: string, secret: string | undefined) {
 		algorithm: 'SHA1',
 		digits: 6,
 		secret,
-		period: 240,
+		//	period: 240, // periodo di validita
 	});
-
+	//	console.log(totp.generate());
 	return totp;
 }

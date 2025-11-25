@@ -15,7 +15,7 @@ export async function generateToken(
 		token = uuidv4();
 	} else {
 		token = Math.floor(
-			Math.random() + (1000000 - 100000) + 100000,
+			Math.random() * (1000000 - 100000) + 100000,
 		).toString();
 	}
 

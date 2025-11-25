@@ -1,4 +1,5 @@
 import { AccountModule } from '../module/auth/account/account.module';
+import { DeactivateModule } from '../module/auth/deactivate/deactivate.module';
 import { PasswordRecoveryModule } from '../module/auth/password-recovery/password-recovery.module';
 import { SessionModule } from '../module/auth/session/session.module';
 import { TotpModule } from '../module/auth/totp/totp.module';
@@ -31,6 +32,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 		MailModule,
 		PasswordRecoveryModule,
 		TotpModule,
+		DeactivateModule,
 	],
 })
 export class CoreModule {}

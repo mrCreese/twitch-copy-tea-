@@ -34,6 +34,12 @@ export class UserModel implements User {
 	@Field(() => Boolean)
 	isTotpEnabled: boolean;
 
+	@Field(() => Boolean)
+	isDeactivated: boolean;
+
+	@Field(() => Date, { nullable: true })
+	deactivatedAt: Date;
+
 	@Field(() => String, { nullable: true })
 	totpSecret: string;
 
@@ -43,18 +49,3 @@ export class UserModel implements User {
 	@Field(() => Date)
 	updatedAt: Date;
 }
-
-/* 
-
-
-
-
-
-
-	@Field(() => Boolean)
-	isDeactivated: boolean;
-
-	@Field(() => Date, { nullable: true })
-	deactivatedAt: Date;
-
- */
