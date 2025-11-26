@@ -4,6 +4,7 @@ import { PasswordRecoveryModule } from '../module/auth/password-recovery/passwor
 import { SessionModule } from '../module/auth/session/session.module';
 import { TotpModule } from '../module/auth/totp/totp.module';
 import { VerificationModule } from '../module/auth/verification/verification.module';
+import { CronModule } from '../module/cron/cron.module';
 import { MailModule } from '../module/libs/mail/mail.module';
 import { IS_DEV_ENV } from '../shared/utils/is-dev.util';
 
@@ -33,6 +34,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 		PasswordRecoveryModule,
 		TotpModule,
 		DeactivateModule,
+		CronModule,
 	],
 })
 export class CoreModule {}
