@@ -1,11 +1,13 @@
 import { AccountModule } from '../module/auth/account/account.module';
 import { DeactivateModule } from '../module/auth/deactivate/deactivate.module';
 import { PasswordRecoveryModule } from '../module/auth/password-recovery/password-recovery.module';
+import { ProfileModule } from '../module/auth/profile/profile.module';
 import { SessionModule } from '../module/auth/session/session.module';
 import { TotpModule } from '../module/auth/totp/totp.module';
 import { VerificationModule } from '../module/auth/verification/verification.module';
 import { CronModule } from '../module/cron/cron.module';
 import { MailModule } from '../module/libs/mail/mail.module';
+import { StorageModule } from '../module/libs/storage/storage.module';
 import { IS_DEV_ENV } from '../shared/utils/is-dev.util';
 
 import { getGraphQLConfig } from './config/graph.config';
@@ -35,6 +37,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 		TotpModule,
 		DeactivateModule,
 		CronModule,
+		StorageModule,
+		ProfileModule,
 	],
 })
 export class CoreModule {}
