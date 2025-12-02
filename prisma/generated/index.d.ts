@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model SocailLink
+ * 
+ */
+export type SocailLink = $Result.DefaultSelection<Prisma.$SocailLinkPayload>
+/**
  * Model Token
  * 
  */
@@ -169,6 +174,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.socailLink`: Exposes CRUD operations for the **SocailLink** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SocailLinks
+    * const socailLinks = await prisma.socailLink.findMany()
+    * ```
+    */
+  get socailLink(): Prisma.SocailLinkDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.token`: Exposes CRUD operations for the **Token** model.
@@ -621,6 +636,7 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    SocailLink: 'SocailLink',
     Token: 'Token'
   };
 
@@ -640,7 +656,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "token"
+      modelProps: "user" | "socailLink" | "token"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -715,6 +731,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      SocailLink: {
+        payload: Prisma.$SocailLinkPayload<ExtArgs>
+        fields: Prisma.SocailLinkFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SocailLinkFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocailLinkPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SocailLinkFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocailLinkPayload>
+          }
+          findFirst: {
+            args: Prisma.SocailLinkFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocailLinkPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SocailLinkFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocailLinkPayload>
+          }
+          findMany: {
+            args: Prisma.SocailLinkFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocailLinkPayload>[]
+          }
+          create: {
+            args: Prisma.SocailLinkCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocailLinkPayload>
+          }
+          createMany: {
+            args: Prisma.SocailLinkCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SocailLinkCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocailLinkPayload>[]
+          }
+          delete: {
+            args: Prisma.SocailLinkDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocailLinkPayload>
+          }
+          update: {
+            args: Prisma.SocailLinkUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocailLinkPayload>
+          }
+          deleteMany: {
+            args: Prisma.SocailLinkDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SocailLinkUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SocailLinkUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocailLinkPayload>[]
+          }
+          upsert: {
+            args: Prisma.SocailLinkUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocailLinkPayload>
+          }
+          aggregate: {
+            args: Prisma.SocailLinkAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSocailLink>
+          }
+          groupBy: {
+            args: Prisma.SocailLinkGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SocailLinkGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SocailLinkCountArgs<ExtArgs>
+            result: $Utils.Optional<SocailLinkCountAggregateOutputType> | number
           }
         }
       }
@@ -889,6 +979,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    socailLink?: SocailLinkOmit
     token?: TokenOmit
   }
 
@@ -971,10 +1062,12 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     tokens: number
+    socialLinks: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tokens?: boolean | UserCountOutputTypeCountTokensArgs
+    socialLinks?: boolean | UserCountOutputTypeCountSocialLinksArgs
   }
 
   // Custom InputTypes
@@ -993,6 +1086,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TokenWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSocialLinksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SocailLinkWhereInput
   }
 
 
@@ -1245,6 +1345,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     tokens?: boolean | User$tokensArgs<ExtArgs>
+    socialLinks?: boolean | User$socialLinksArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1305,6 +1406,7 @@ export namespace Prisma {
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "username" | "displayName" | "avatar" | "bio" | "isVerified" | "isEmailVerified" | "isTotpEnabled" | "totpSecret" | "isDeactivated" | "deactivatedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tokens?: boolean | User$tokensArgs<ExtArgs>
+    socialLinks?: boolean | User$socialLinksArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1314,6 +1416,7 @@ export namespace Prisma {
     name: "User"
     objects: {
       tokens: Prisma.$TokenPayload<ExtArgs>[]
+      socialLinks: Prisma.$SocailLinkPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1726,6 +1829,7 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     tokens<T extends User$tokensArgs<ExtArgs> = {}>(args?: Subset<T, User$tokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    socialLinks<T extends User$socialLinksArgs<ExtArgs> = {}>(args?: Subset<T, User$socialLinksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SocailLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2182,6 +2286,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.socialLinks
+   */
+  export type User$socialLinksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocailLink
+     */
+    select?: SocailLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocailLink
+     */
+    omit?: SocailLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocailLinkInclude<ExtArgs> | null
+    where?: SocailLinkWhereInput
+    orderBy?: SocailLinkOrderByWithRelationInput | SocailLinkOrderByWithRelationInput[]
+    cursor?: SocailLinkWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SocailLinkScalarFieldEnum | SocailLinkScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2197,6 +2325,1143 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SocailLink
+   */
+
+  export type AggregateSocailLink = {
+    _count: SocailLinkCountAggregateOutputType | null
+    _avg: SocailLinkAvgAggregateOutputType | null
+    _sum: SocailLinkSumAggregateOutputType | null
+    _min: SocailLinkMinAggregateOutputType | null
+    _max: SocailLinkMaxAggregateOutputType | null
+  }
+
+  export type SocailLinkAvgAggregateOutputType = {
+    position: number | null
+  }
+
+  export type SocailLinkSumAggregateOutputType = {
+    position: number | null
+  }
+
+  export type SocailLinkMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    url: string | null
+    position: number | null
+    userId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SocailLinkMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    url: string | null
+    position: number | null
+    userId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SocailLinkCountAggregateOutputType = {
+    id: number
+    title: number
+    url: number
+    position: number
+    userId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SocailLinkAvgAggregateInputType = {
+    position?: true
+  }
+
+  export type SocailLinkSumAggregateInputType = {
+    position?: true
+  }
+
+  export type SocailLinkMinAggregateInputType = {
+    id?: true
+    title?: true
+    url?: true
+    position?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SocailLinkMaxAggregateInputType = {
+    id?: true
+    title?: true
+    url?: true
+    position?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SocailLinkCountAggregateInputType = {
+    id?: true
+    title?: true
+    url?: true
+    position?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SocailLinkAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SocailLink to aggregate.
+     */
+    where?: SocailLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SocailLinks to fetch.
+     */
+    orderBy?: SocailLinkOrderByWithRelationInput | SocailLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SocailLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SocailLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SocailLinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SocailLinks
+    **/
+    _count?: true | SocailLinkCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SocailLinkAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SocailLinkSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SocailLinkMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SocailLinkMaxAggregateInputType
+  }
+
+  export type GetSocailLinkAggregateType<T extends SocailLinkAggregateArgs> = {
+        [P in keyof T & keyof AggregateSocailLink]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSocailLink[P]>
+      : GetScalarType<T[P], AggregateSocailLink[P]>
+  }
+
+
+
+
+  export type SocailLinkGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SocailLinkWhereInput
+    orderBy?: SocailLinkOrderByWithAggregationInput | SocailLinkOrderByWithAggregationInput[]
+    by: SocailLinkScalarFieldEnum[] | SocailLinkScalarFieldEnum
+    having?: SocailLinkScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SocailLinkCountAggregateInputType | true
+    _avg?: SocailLinkAvgAggregateInputType
+    _sum?: SocailLinkSumAggregateInputType
+    _min?: SocailLinkMinAggregateInputType
+    _max?: SocailLinkMaxAggregateInputType
+  }
+
+  export type SocailLinkGroupByOutputType = {
+    id: string
+    title: string
+    url: string
+    position: number
+    userId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: SocailLinkCountAggregateOutputType | null
+    _avg: SocailLinkAvgAggregateOutputType | null
+    _sum: SocailLinkSumAggregateOutputType | null
+    _min: SocailLinkMinAggregateOutputType | null
+    _max: SocailLinkMaxAggregateOutputType | null
+  }
+
+  type GetSocailLinkGroupByPayload<T extends SocailLinkGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SocailLinkGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SocailLinkGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SocailLinkGroupByOutputType[P]>
+            : GetScalarType<T[P], SocailLinkGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SocailLinkSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    url?: boolean
+    position?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | SocailLink$userArgs<ExtArgs>
+  }, ExtArgs["result"]["socailLink"]>
+
+  export type SocailLinkSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    url?: boolean
+    position?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | SocailLink$userArgs<ExtArgs>
+  }, ExtArgs["result"]["socailLink"]>
+
+  export type SocailLinkSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    url?: boolean
+    position?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | SocailLink$userArgs<ExtArgs>
+  }, ExtArgs["result"]["socailLink"]>
+
+  export type SocailLinkSelectScalar = {
+    id?: boolean
+    title?: boolean
+    url?: boolean
+    position?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SocailLinkOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "url" | "position" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["socailLink"]>
+  export type SocailLinkInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | SocailLink$userArgs<ExtArgs>
+  }
+  export type SocailLinkIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | SocailLink$userArgs<ExtArgs>
+  }
+  export type SocailLinkIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | SocailLink$userArgs<ExtArgs>
+  }
+
+  export type $SocailLinkPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SocailLink"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      url: string
+      position: number
+      userId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["socailLink"]>
+    composites: {}
+  }
+
+  type SocailLinkGetPayload<S extends boolean | null | undefined | SocailLinkDefaultArgs> = $Result.GetResult<Prisma.$SocailLinkPayload, S>
+
+  type SocailLinkCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SocailLinkFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SocailLinkCountAggregateInputType | true
+    }
+
+  export interface SocailLinkDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SocailLink'], meta: { name: 'SocailLink' } }
+    /**
+     * Find zero or one SocailLink that matches the filter.
+     * @param {SocailLinkFindUniqueArgs} args - Arguments to find a SocailLink
+     * @example
+     * // Get one SocailLink
+     * const socailLink = await prisma.socailLink.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SocailLinkFindUniqueArgs>(args: SelectSubset<T, SocailLinkFindUniqueArgs<ExtArgs>>): Prisma__SocailLinkClient<$Result.GetResult<Prisma.$SocailLinkPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SocailLink that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SocailLinkFindUniqueOrThrowArgs} args - Arguments to find a SocailLink
+     * @example
+     * // Get one SocailLink
+     * const socailLink = await prisma.socailLink.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SocailLinkFindUniqueOrThrowArgs>(args: SelectSubset<T, SocailLinkFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SocailLinkClient<$Result.GetResult<Prisma.$SocailLinkPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SocailLink that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SocailLinkFindFirstArgs} args - Arguments to find a SocailLink
+     * @example
+     * // Get one SocailLink
+     * const socailLink = await prisma.socailLink.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SocailLinkFindFirstArgs>(args?: SelectSubset<T, SocailLinkFindFirstArgs<ExtArgs>>): Prisma__SocailLinkClient<$Result.GetResult<Prisma.$SocailLinkPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SocailLink that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SocailLinkFindFirstOrThrowArgs} args - Arguments to find a SocailLink
+     * @example
+     * // Get one SocailLink
+     * const socailLink = await prisma.socailLink.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SocailLinkFindFirstOrThrowArgs>(args?: SelectSubset<T, SocailLinkFindFirstOrThrowArgs<ExtArgs>>): Prisma__SocailLinkClient<$Result.GetResult<Prisma.$SocailLinkPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SocailLinks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SocailLinkFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SocailLinks
+     * const socailLinks = await prisma.socailLink.findMany()
+     * 
+     * // Get first 10 SocailLinks
+     * const socailLinks = await prisma.socailLink.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const socailLinkWithIdOnly = await prisma.socailLink.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SocailLinkFindManyArgs>(args?: SelectSubset<T, SocailLinkFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SocailLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SocailLink.
+     * @param {SocailLinkCreateArgs} args - Arguments to create a SocailLink.
+     * @example
+     * // Create one SocailLink
+     * const SocailLink = await prisma.socailLink.create({
+     *   data: {
+     *     // ... data to create a SocailLink
+     *   }
+     * })
+     * 
+     */
+    create<T extends SocailLinkCreateArgs>(args: SelectSubset<T, SocailLinkCreateArgs<ExtArgs>>): Prisma__SocailLinkClient<$Result.GetResult<Prisma.$SocailLinkPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SocailLinks.
+     * @param {SocailLinkCreateManyArgs} args - Arguments to create many SocailLinks.
+     * @example
+     * // Create many SocailLinks
+     * const socailLink = await prisma.socailLink.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SocailLinkCreateManyArgs>(args?: SelectSubset<T, SocailLinkCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SocailLinks and returns the data saved in the database.
+     * @param {SocailLinkCreateManyAndReturnArgs} args - Arguments to create many SocailLinks.
+     * @example
+     * // Create many SocailLinks
+     * const socailLink = await prisma.socailLink.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SocailLinks and only return the `id`
+     * const socailLinkWithIdOnly = await prisma.socailLink.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SocailLinkCreateManyAndReturnArgs>(args?: SelectSubset<T, SocailLinkCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SocailLinkPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SocailLink.
+     * @param {SocailLinkDeleteArgs} args - Arguments to delete one SocailLink.
+     * @example
+     * // Delete one SocailLink
+     * const SocailLink = await prisma.socailLink.delete({
+     *   where: {
+     *     // ... filter to delete one SocailLink
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SocailLinkDeleteArgs>(args: SelectSubset<T, SocailLinkDeleteArgs<ExtArgs>>): Prisma__SocailLinkClient<$Result.GetResult<Prisma.$SocailLinkPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SocailLink.
+     * @param {SocailLinkUpdateArgs} args - Arguments to update one SocailLink.
+     * @example
+     * // Update one SocailLink
+     * const socailLink = await prisma.socailLink.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SocailLinkUpdateArgs>(args: SelectSubset<T, SocailLinkUpdateArgs<ExtArgs>>): Prisma__SocailLinkClient<$Result.GetResult<Prisma.$SocailLinkPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SocailLinks.
+     * @param {SocailLinkDeleteManyArgs} args - Arguments to filter SocailLinks to delete.
+     * @example
+     * // Delete a few SocailLinks
+     * const { count } = await prisma.socailLink.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SocailLinkDeleteManyArgs>(args?: SelectSubset<T, SocailLinkDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SocailLinks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SocailLinkUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SocailLinks
+     * const socailLink = await prisma.socailLink.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SocailLinkUpdateManyArgs>(args: SelectSubset<T, SocailLinkUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SocailLinks and returns the data updated in the database.
+     * @param {SocailLinkUpdateManyAndReturnArgs} args - Arguments to update many SocailLinks.
+     * @example
+     * // Update many SocailLinks
+     * const socailLink = await prisma.socailLink.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SocailLinks and only return the `id`
+     * const socailLinkWithIdOnly = await prisma.socailLink.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SocailLinkUpdateManyAndReturnArgs>(args: SelectSubset<T, SocailLinkUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SocailLinkPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SocailLink.
+     * @param {SocailLinkUpsertArgs} args - Arguments to update or create a SocailLink.
+     * @example
+     * // Update or create a SocailLink
+     * const socailLink = await prisma.socailLink.upsert({
+     *   create: {
+     *     // ... data to create a SocailLink
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SocailLink we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SocailLinkUpsertArgs>(args: SelectSubset<T, SocailLinkUpsertArgs<ExtArgs>>): Prisma__SocailLinkClient<$Result.GetResult<Prisma.$SocailLinkPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SocailLinks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SocailLinkCountArgs} args - Arguments to filter SocailLinks to count.
+     * @example
+     * // Count the number of SocailLinks
+     * const count = await prisma.socailLink.count({
+     *   where: {
+     *     // ... the filter for the SocailLinks we want to count
+     *   }
+     * })
+    **/
+    count<T extends SocailLinkCountArgs>(
+      args?: Subset<T, SocailLinkCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SocailLinkCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SocailLink.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SocailLinkAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SocailLinkAggregateArgs>(args: Subset<T, SocailLinkAggregateArgs>): Prisma.PrismaPromise<GetSocailLinkAggregateType<T>>
+
+    /**
+     * Group by SocailLink.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SocailLinkGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SocailLinkGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SocailLinkGroupByArgs['orderBy'] }
+        : { orderBy?: SocailLinkGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SocailLinkGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSocailLinkGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SocailLink model
+   */
+  readonly fields: SocailLinkFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SocailLink.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SocailLinkClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends SocailLink$userArgs<ExtArgs> = {}>(args?: Subset<T, SocailLink$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SocailLink model
+   */
+  interface SocailLinkFieldRefs {
+    readonly id: FieldRef<"SocailLink", 'String'>
+    readonly title: FieldRef<"SocailLink", 'String'>
+    readonly url: FieldRef<"SocailLink", 'String'>
+    readonly position: FieldRef<"SocailLink", 'Int'>
+    readonly userId: FieldRef<"SocailLink", 'String'>
+    readonly createdAt: FieldRef<"SocailLink", 'DateTime'>
+    readonly updatedAt: FieldRef<"SocailLink", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SocailLink findUnique
+   */
+  export type SocailLinkFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocailLink
+     */
+    select?: SocailLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocailLink
+     */
+    omit?: SocailLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocailLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which SocailLink to fetch.
+     */
+    where: SocailLinkWhereUniqueInput
+  }
+
+  /**
+   * SocailLink findUniqueOrThrow
+   */
+  export type SocailLinkFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocailLink
+     */
+    select?: SocailLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocailLink
+     */
+    omit?: SocailLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocailLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which SocailLink to fetch.
+     */
+    where: SocailLinkWhereUniqueInput
+  }
+
+  /**
+   * SocailLink findFirst
+   */
+  export type SocailLinkFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocailLink
+     */
+    select?: SocailLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocailLink
+     */
+    omit?: SocailLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocailLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which SocailLink to fetch.
+     */
+    where?: SocailLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SocailLinks to fetch.
+     */
+    orderBy?: SocailLinkOrderByWithRelationInput | SocailLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SocailLinks.
+     */
+    cursor?: SocailLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SocailLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SocailLinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SocailLinks.
+     */
+    distinct?: SocailLinkScalarFieldEnum | SocailLinkScalarFieldEnum[]
+  }
+
+  /**
+   * SocailLink findFirstOrThrow
+   */
+  export type SocailLinkFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocailLink
+     */
+    select?: SocailLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocailLink
+     */
+    omit?: SocailLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocailLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which SocailLink to fetch.
+     */
+    where?: SocailLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SocailLinks to fetch.
+     */
+    orderBy?: SocailLinkOrderByWithRelationInput | SocailLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SocailLinks.
+     */
+    cursor?: SocailLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SocailLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SocailLinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SocailLinks.
+     */
+    distinct?: SocailLinkScalarFieldEnum | SocailLinkScalarFieldEnum[]
+  }
+
+  /**
+   * SocailLink findMany
+   */
+  export type SocailLinkFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocailLink
+     */
+    select?: SocailLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocailLink
+     */
+    omit?: SocailLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocailLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which SocailLinks to fetch.
+     */
+    where?: SocailLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SocailLinks to fetch.
+     */
+    orderBy?: SocailLinkOrderByWithRelationInput | SocailLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SocailLinks.
+     */
+    cursor?: SocailLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SocailLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SocailLinks.
+     */
+    skip?: number
+    distinct?: SocailLinkScalarFieldEnum | SocailLinkScalarFieldEnum[]
+  }
+
+  /**
+   * SocailLink create
+   */
+  export type SocailLinkCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocailLink
+     */
+    select?: SocailLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocailLink
+     */
+    omit?: SocailLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocailLinkInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SocailLink.
+     */
+    data: XOR<SocailLinkCreateInput, SocailLinkUncheckedCreateInput>
+  }
+
+  /**
+   * SocailLink createMany
+   */
+  export type SocailLinkCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SocailLinks.
+     */
+    data: SocailLinkCreateManyInput | SocailLinkCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SocailLink createManyAndReturn
+   */
+  export type SocailLinkCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocailLink
+     */
+    select?: SocailLinkSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocailLink
+     */
+    omit?: SocailLinkOmit<ExtArgs> | null
+    /**
+     * The data used to create many SocailLinks.
+     */
+    data: SocailLinkCreateManyInput | SocailLinkCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocailLinkIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SocailLink update
+   */
+  export type SocailLinkUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocailLink
+     */
+    select?: SocailLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocailLink
+     */
+    omit?: SocailLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocailLinkInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SocailLink.
+     */
+    data: XOR<SocailLinkUpdateInput, SocailLinkUncheckedUpdateInput>
+    /**
+     * Choose, which SocailLink to update.
+     */
+    where: SocailLinkWhereUniqueInput
+  }
+
+  /**
+   * SocailLink updateMany
+   */
+  export type SocailLinkUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SocailLinks.
+     */
+    data: XOR<SocailLinkUpdateManyMutationInput, SocailLinkUncheckedUpdateManyInput>
+    /**
+     * Filter which SocailLinks to update
+     */
+    where?: SocailLinkWhereInput
+    /**
+     * Limit how many SocailLinks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SocailLink updateManyAndReturn
+   */
+  export type SocailLinkUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocailLink
+     */
+    select?: SocailLinkSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocailLink
+     */
+    omit?: SocailLinkOmit<ExtArgs> | null
+    /**
+     * The data used to update SocailLinks.
+     */
+    data: XOR<SocailLinkUpdateManyMutationInput, SocailLinkUncheckedUpdateManyInput>
+    /**
+     * Filter which SocailLinks to update
+     */
+    where?: SocailLinkWhereInput
+    /**
+     * Limit how many SocailLinks to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocailLinkIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SocailLink upsert
+   */
+  export type SocailLinkUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocailLink
+     */
+    select?: SocailLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocailLink
+     */
+    omit?: SocailLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocailLinkInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SocailLink to update in case it exists.
+     */
+    where: SocailLinkWhereUniqueInput
+    /**
+     * In case the SocailLink found by the `where` argument doesn't exist, create a new SocailLink with this data.
+     */
+    create: XOR<SocailLinkCreateInput, SocailLinkUncheckedCreateInput>
+    /**
+     * In case the SocailLink was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SocailLinkUpdateInput, SocailLinkUncheckedUpdateInput>
+  }
+
+  /**
+   * SocailLink delete
+   */
+  export type SocailLinkDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocailLink
+     */
+    select?: SocailLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocailLink
+     */
+    omit?: SocailLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocailLinkInclude<ExtArgs> | null
+    /**
+     * Filter which SocailLink to delete.
+     */
+    where: SocailLinkWhereUniqueInput
+  }
+
+  /**
+   * SocailLink deleteMany
+   */
+  export type SocailLinkDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SocailLinks to delete
+     */
+    where?: SocailLinkWhereInput
+    /**
+     * Limit how many SocailLinks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SocailLink.user
+   */
+  export type SocailLink$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * SocailLink without action
+   */
+  export type SocailLinkDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocailLink
+     */
+    select?: SocailLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocailLink
+     */
+    omit?: SocailLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocailLinkInclude<ExtArgs> | null
   }
 
 
@@ -3338,6 +4603,19 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+  export const SocailLinkScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    url: 'url',
+    position: 'position',
+    userId: 'userId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SocailLinkScalarFieldEnum = (typeof SocailLinkScalarFieldEnum)[keyof typeof SocailLinkScalarFieldEnum]
+
+
   export const TokenScalarFieldEnum: {
     id: 'id',
     token: 'token',
@@ -3416,6 +4694,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
    * Reference to a field of type 'TokenType'
    */
   export type EnumTokenTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TokenType'>
@@ -3430,16 +4722,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
+   * Reference to a field of type 'Float'
    */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
     
 
 
   /**
-   * Reference to a field of type 'Int[]'
+   * Reference to a field of type 'Float[]'
    */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -3466,6 +4758,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     tokens?: TokenListRelationFilter
+    socialLinks?: SocailLinkListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -3485,6 +4778,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     tokens?: TokenOrderByRelationAggregateInput
+    socialLinks?: SocailLinkOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -3507,6 +4801,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     tokens?: TokenListRelationFilter
+    socialLinks?: SocailLinkListRelationFilter
   }, "id" | "email" | "username">
 
   export type UserOrderByWithAggregationInput = {
@@ -3549,6 +4844,73 @@ export namespace Prisma {
     deactivatedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type SocailLinkWhereInput = {
+    AND?: SocailLinkWhereInput | SocailLinkWhereInput[]
+    OR?: SocailLinkWhereInput[]
+    NOT?: SocailLinkWhereInput | SocailLinkWhereInput[]
+    id?: StringFilter<"SocailLink"> | string
+    title?: StringFilter<"SocailLink"> | string
+    url?: StringFilter<"SocailLink"> | string
+    position?: IntFilter<"SocailLink"> | number
+    userId?: StringNullableFilter<"SocailLink"> | string | null
+    createdAt?: DateTimeFilter<"SocailLink"> | Date | string
+    updatedAt?: DateTimeFilter<"SocailLink"> | Date | string
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }
+
+  export type SocailLinkOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    url?: SortOrder
+    position?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type SocailLinkWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SocailLinkWhereInput | SocailLinkWhereInput[]
+    OR?: SocailLinkWhereInput[]
+    NOT?: SocailLinkWhereInput | SocailLinkWhereInput[]
+    title?: StringFilter<"SocailLink"> | string
+    url?: StringFilter<"SocailLink"> | string
+    position?: IntFilter<"SocailLink"> | number
+    userId?: StringNullableFilter<"SocailLink"> | string | null
+    createdAt?: DateTimeFilter<"SocailLink"> | Date | string
+    updatedAt?: DateTimeFilter<"SocailLink"> | Date | string
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }, "id">
+
+  export type SocailLinkOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    url?: SortOrder
+    position?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SocailLinkCountOrderByAggregateInput
+    _avg?: SocailLinkAvgOrderByAggregateInput
+    _max?: SocailLinkMaxOrderByAggregateInput
+    _min?: SocailLinkMinOrderByAggregateInput
+    _sum?: SocailLinkSumOrderByAggregateInput
+  }
+
+  export type SocailLinkScalarWhereWithAggregatesInput = {
+    AND?: SocailLinkScalarWhereWithAggregatesInput | SocailLinkScalarWhereWithAggregatesInput[]
+    OR?: SocailLinkScalarWhereWithAggregatesInput[]
+    NOT?: SocailLinkScalarWhereWithAggregatesInput | SocailLinkScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SocailLink"> | string
+    title?: StringWithAggregatesFilter<"SocailLink"> | string
+    url?: StringWithAggregatesFilter<"SocailLink"> | string
+    position?: IntWithAggregatesFilter<"SocailLink"> | number
+    userId?: StringNullableWithAggregatesFilter<"SocailLink"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"SocailLink"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SocailLink"> | Date | string
   }
 
   export type TokenWhereInput = {
@@ -3633,6 +4995,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tokens?: TokenCreateNestedManyWithoutUserInput
+    socialLinks?: SocailLinkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -3652,6 +5015,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    socialLinks?: SocailLinkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -3671,6 +5035,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tokens?: TokenUpdateManyWithoutUserNestedInput
+    socialLinks?: SocailLinkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -3690,6 +5055,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    socialLinks?: SocailLinkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -3742,6 +5108,75 @@ export namespace Prisma {
     totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
     isDeactivated?: BoolFieldUpdateOperationsInput | boolean
     deactivatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SocailLinkCreateInput = {
+    id?: string
+    title: string
+    url: string
+    position: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user?: UserCreateNestedOneWithoutSocialLinksInput
+  }
+
+  export type SocailLinkUncheckedCreateInput = {
+    id?: string
+    title: string
+    url: string
+    position: number
+    userId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SocailLinkUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    position?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutSocialLinksNestedInput
+  }
+
+  export type SocailLinkUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    position?: IntFieldUpdateOperationsInput | number
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SocailLinkCreateManyInput = {
+    id?: string
+    title: string
+    url: string
+    position: number
+    userId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SocailLinkUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    position?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SocailLinkUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    position?: IntFieldUpdateOperationsInput | number
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3878,12 +5313,22 @@ export namespace Prisma {
     none?: TokenWhereInput
   }
 
+  export type SocailLinkListRelationFilter = {
+    every?: SocailLinkWhereInput
+    some?: SocailLinkWhereInput
+    none?: SocailLinkWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
   export type TokenOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SocailLinkOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -4013,16 +5458,81 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type EnumTokenTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.TokenType | EnumTokenTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.TokenType[] | ListEnumTokenTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.TokenType[] | ListEnumTokenTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumTokenTypeFilter<$PrismaModel> | $Enums.TokenType
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type UserNullableScalarRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
+  }
+
+  export type SocailLinkCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    url?: SortOrder
+    position?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SocailLinkAvgOrderByAggregateInput = {
+    position?: SortOrder
+  }
+
+  export type SocailLinkMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    url?: SortOrder
+    position?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SocailLinkMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    url?: SortOrder
+    position?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SocailLinkSumOrderByAggregateInput = {
+    position?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type EnumTokenTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.TokenType | EnumTokenTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TokenType[] | ListEnumTokenTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TokenType[] | ListEnumTokenTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTokenTypeFilter<$PrismaModel> | $Enums.TokenType
   }
 
   export type TokenCountOrderByAggregateInput = {
@@ -4072,11 +5582,25 @@ export namespace Prisma {
     connect?: TokenWhereUniqueInput | TokenWhereUniqueInput[]
   }
 
+  export type SocailLinkCreateNestedManyWithoutUserInput = {
+    create?: XOR<SocailLinkCreateWithoutUserInput, SocailLinkUncheckedCreateWithoutUserInput> | SocailLinkCreateWithoutUserInput[] | SocailLinkUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SocailLinkCreateOrConnectWithoutUserInput | SocailLinkCreateOrConnectWithoutUserInput[]
+    createMany?: SocailLinkCreateManyUserInputEnvelope
+    connect?: SocailLinkWhereUniqueInput | SocailLinkWhereUniqueInput[]
+  }
+
   export type TokenUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<TokenCreateWithoutUserInput, TokenUncheckedCreateWithoutUserInput> | TokenCreateWithoutUserInput[] | TokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: TokenCreateOrConnectWithoutUserInput | TokenCreateOrConnectWithoutUserInput[]
     createMany?: TokenCreateManyUserInputEnvelope
     connect?: TokenWhereUniqueInput | TokenWhereUniqueInput[]
+  }
+
+  export type SocailLinkUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<SocailLinkCreateWithoutUserInput, SocailLinkUncheckedCreateWithoutUserInput> | SocailLinkCreateWithoutUserInput[] | SocailLinkUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SocailLinkCreateOrConnectWithoutUserInput | SocailLinkCreateOrConnectWithoutUserInput[]
+    createMany?: SocailLinkCreateManyUserInputEnvelope
+    connect?: SocailLinkWhereUniqueInput | SocailLinkWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -4113,6 +5637,20 @@ export namespace Prisma {
     deleteMany?: TokenScalarWhereInput | TokenScalarWhereInput[]
   }
 
+  export type SocailLinkUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SocailLinkCreateWithoutUserInput, SocailLinkUncheckedCreateWithoutUserInput> | SocailLinkCreateWithoutUserInput[] | SocailLinkUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SocailLinkCreateOrConnectWithoutUserInput | SocailLinkCreateOrConnectWithoutUserInput[]
+    upsert?: SocailLinkUpsertWithWhereUniqueWithoutUserInput | SocailLinkUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SocailLinkCreateManyUserInputEnvelope
+    set?: SocailLinkWhereUniqueInput | SocailLinkWhereUniqueInput[]
+    disconnect?: SocailLinkWhereUniqueInput | SocailLinkWhereUniqueInput[]
+    delete?: SocailLinkWhereUniqueInput | SocailLinkWhereUniqueInput[]
+    connect?: SocailLinkWhereUniqueInput | SocailLinkWhereUniqueInput[]
+    update?: SocailLinkUpdateWithWhereUniqueWithoutUserInput | SocailLinkUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SocailLinkUpdateManyWithWhereWithoutUserInput | SocailLinkUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SocailLinkScalarWhereInput | SocailLinkScalarWhereInput[]
+  }
+
   export type TokenUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<TokenCreateWithoutUserInput, TokenUncheckedCreateWithoutUserInput> | TokenCreateWithoutUserInput[] | TokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: TokenCreateOrConnectWithoutUserInput | TokenCreateOrConnectWithoutUserInput[]
@@ -4125,6 +5663,44 @@ export namespace Prisma {
     update?: TokenUpdateWithWhereUniqueWithoutUserInput | TokenUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: TokenUpdateManyWithWhereWithoutUserInput | TokenUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: TokenScalarWhereInput | TokenScalarWhereInput[]
+  }
+
+  export type SocailLinkUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SocailLinkCreateWithoutUserInput, SocailLinkUncheckedCreateWithoutUserInput> | SocailLinkCreateWithoutUserInput[] | SocailLinkUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SocailLinkCreateOrConnectWithoutUserInput | SocailLinkCreateOrConnectWithoutUserInput[]
+    upsert?: SocailLinkUpsertWithWhereUniqueWithoutUserInput | SocailLinkUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SocailLinkCreateManyUserInputEnvelope
+    set?: SocailLinkWhereUniqueInput | SocailLinkWhereUniqueInput[]
+    disconnect?: SocailLinkWhereUniqueInput | SocailLinkWhereUniqueInput[]
+    delete?: SocailLinkWhereUniqueInput | SocailLinkWhereUniqueInput[]
+    connect?: SocailLinkWhereUniqueInput | SocailLinkWhereUniqueInput[]
+    update?: SocailLinkUpdateWithWhereUniqueWithoutUserInput | SocailLinkUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SocailLinkUpdateManyWithWhereWithoutUserInput | SocailLinkUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SocailLinkScalarWhereInput | SocailLinkScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutSocialLinksInput = {
+    create?: XOR<UserCreateWithoutSocialLinksInput, UserUncheckedCreateWithoutSocialLinksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSocialLinksInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneWithoutSocialLinksNestedInput = {
+    create?: XOR<UserCreateWithoutSocialLinksInput, UserUncheckedCreateWithoutSocialLinksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSocialLinksInput
+    upsert?: UserUpsertWithoutSocialLinksInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSocialLinksInput, UserUpdateWithoutSocialLinksInput>, UserUncheckedUpdateWithoutSocialLinksInput>
   }
 
   export type UserCreateNestedOneWithoutTokensInput = {
@@ -4294,6 +5870,33 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedEnumTokenTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.TokenType | EnumTokenTypeFieldRefInput<$PrismaModel>
     in?: $Enums.TokenType[] | ListEnumTokenTypeFieldRefInput<$PrismaModel>
@@ -4339,6 +5942,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SocailLinkCreateWithoutUserInput = {
+    id?: string
+    title: string
+    url: string
+    position: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SocailLinkUncheckedCreateWithoutUserInput = {
+    id?: string
+    title: string
+    url: string
+    position: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SocailLinkCreateOrConnectWithoutUserInput = {
+    where: SocailLinkWhereUniqueInput
+    create: XOR<SocailLinkCreateWithoutUserInput, SocailLinkUncheckedCreateWithoutUserInput>
+  }
+
+  export type SocailLinkCreateManyUserInputEnvelope = {
+    data: SocailLinkCreateManyUserInput | SocailLinkCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TokenUpsertWithWhereUniqueWithoutUserInput = {
     where: TokenWhereUniqueInput
     update: XOR<TokenUpdateWithoutUserInput, TokenUncheckedUpdateWithoutUserInput>
@@ -4368,6 +5999,127 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Token"> | Date | string
   }
 
+  export type SocailLinkUpsertWithWhereUniqueWithoutUserInput = {
+    where: SocailLinkWhereUniqueInput
+    update: XOR<SocailLinkUpdateWithoutUserInput, SocailLinkUncheckedUpdateWithoutUserInput>
+    create: XOR<SocailLinkCreateWithoutUserInput, SocailLinkUncheckedCreateWithoutUserInput>
+  }
+
+  export type SocailLinkUpdateWithWhereUniqueWithoutUserInput = {
+    where: SocailLinkWhereUniqueInput
+    data: XOR<SocailLinkUpdateWithoutUserInput, SocailLinkUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SocailLinkUpdateManyWithWhereWithoutUserInput = {
+    where: SocailLinkScalarWhereInput
+    data: XOR<SocailLinkUpdateManyMutationInput, SocailLinkUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type SocailLinkScalarWhereInput = {
+    AND?: SocailLinkScalarWhereInput | SocailLinkScalarWhereInput[]
+    OR?: SocailLinkScalarWhereInput[]
+    NOT?: SocailLinkScalarWhereInput | SocailLinkScalarWhereInput[]
+    id?: StringFilter<"SocailLink"> | string
+    title?: StringFilter<"SocailLink"> | string
+    url?: StringFilter<"SocailLink"> | string
+    position?: IntFilter<"SocailLink"> | number
+    userId?: StringNullableFilter<"SocailLink"> | string | null
+    createdAt?: DateTimeFilter<"SocailLink"> | Date | string
+    updatedAt?: DateTimeFilter<"SocailLink"> | Date | string
+  }
+
+  export type UserCreateWithoutSocialLinksInput = {
+    id?: string
+    email: string
+    password: string
+    username: string
+    displayName: string
+    avatar?: string | null
+    bio?: string | null
+    isVerified?: boolean
+    isEmailVerified?: boolean
+    isTotpEnabled?: boolean
+    totpSecret?: string | null
+    isDeactivated?: boolean
+    deactivatedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tokens?: TokenCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSocialLinksInput = {
+    id?: string
+    email: string
+    password: string
+    username: string
+    displayName: string
+    avatar?: string | null
+    bio?: string | null
+    isVerified?: boolean
+    isEmailVerified?: boolean
+    isTotpEnabled?: boolean
+    totpSecret?: string | null
+    isDeactivated?: boolean
+    deactivatedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSocialLinksInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSocialLinksInput, UserUncheckedCreateWithoutSocialLinksInput>
+  }
+
+  export type UserUpsertWithoutSocialLinksInput = {
+    update: XOR<UserUpdateWithoutSocialLinksInput, UserUncheckedUpdateWithoutSocialLinksInput>
+    create: XOR<UserCreateWithoutSocialLinksInput, UserUncheckedCreateWithoutSocialLinksInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSocialLinksInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSocialLinksInput, UserUncheckedUpdateWithoutSocialLinksInput>
+  }
+
+  export type UserUpdateWithoutSocialLinksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
+    totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeactivated?: BoolFieldUpdateOperationsInput | boolean
+    deactivatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tokens?: TokenUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSocialLinksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isTotpEnabled?: BoolFieldUpdateOperationsInput | boolean
+    totpSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeactivated?: BoolFieldUpdateOperationsInput | boolean
+    deactivatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutTokensInput = {
     id?: string
     email: string
@@ -4384,6 +6136,7 @@ export namespace Prisma {
     deactivatedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    socialLinks?: SocailLinkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTokensInput = {
@@ -4402,6 +6155,7 @@ export namespace Prisma {
     deactivatedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    socialLinks?: SocailLinkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTokensInput = {
@@ -4436,6 +6190,7 @@ export namespace Prisma {
     deactivatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    socialLinks?: SocailLinkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTokensInput = {
@@ -4454,6 +6209,7 @@ export namespace Prisma {
     deactivatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    socialLinks?: SocailLinkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TokenCreateManyUserInput = {
@@ -4461,6 +6217,15 @@ export namespace Prisma {
     token: string
     type: $Enums.TokenType
     expiresIn: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SocailLinkCreateManyUserInput = {
+    id?: string
+    title: string
+    url: string
+    position: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4488,6 +6253,33 @@ export namespace Prisma {
     token?: StringFieldUpdateOperationsInput | string
     type?: EnumTokenTypeFieldUpdateOperationsInput | $Enums.TokenType
     expiresIn?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SocailLinkUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    position?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SocailLinkUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    position?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SocailLinkUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    position?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

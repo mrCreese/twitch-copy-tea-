@@ -7,6 +7,10 @@ import { PrismaService } from '@/src/core/prisma/prisma.service';
 import { StorageService } from '../../libs/storage/storage.service';
 
 import { ChangeProfileInfoInput } from './inputs/change-profile-info.input';
+import {
+	SocialLinkInput,
+	SocialLinkOrderInput,
+} from './inputs/social-link.input';
 import { ConflictException, Injectable } from '@nestjs/common';
 import { FileUpload } from 'graphql-upload/processRequest.mjs';
 
@@ -81,6 +85,71 @@ export class ProfileService {
 			data: { username, displayName, bio },
 		});
 
+		return true;
+	}
+
+	async findSocialLinks(user: User) {
+		const socialLinks = await this.prismaService.socailLink.findMany({
+			where: { userId: user.id },
+			orderBy: { position: 'asc' },
+		});
+
+		return socialLinks;
+	}
+
+	async createSocialLink(user: User, input: SocialLinkInput) {
+		const { title, url } = input;
+
+		const lastSociallink = await this.prismaService.socailLink.findFirst({
+			where: { userId: user.id },
+			orderBy: { position: 'desc' },
+		});
+		const newPosition = lastSociallink ? lastSociallink.position + 1 : 1;
+
+		await this.prismaService.socailLink.create({
+			data: {
+				title,
+				url,
+				position: newPosition,
+				user: { connect: { id: user.id } },
+			},
+		});
+
+		return true;
+	}
+
+	async reorderSocialLinks(list: SocialLinkOrderInput[]) {
+		if (!list.length) {
+			return;
+		}
+
+		const updatePromises = list.map(socialLink => {
+			return this.prismaService.socailLink.update({
+				where: { id: socialLink.id },
+				data: { position: socialLink.position },
+			});
+		});
+
+		await Promise.all(updatePromises);
+
+		return true;
+	}
+
+	async updateSocialLink(id: string, input: SocialLinkInput) {
+		const { title, url } = input;
+		await this.prismaService.socailLink.update({
+			where: { id },
+			data: {
+				title,
+				url,
+			},
+		});
+
+		return true;
+	}
+
+	async removeSocialLink(id: string) {
+		await this.prismaService.socailLink.delete({ where: { id } });
 		return true;
 	}
 }
