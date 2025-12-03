@@ -8,6 +8,7 @@ import { VerificationModule } from '../module/auth/verification/verification.mod
 import { CronModule } from '../module/cron/cron.module';
 import { MailModule } from '../module/libs/mail/mail.module';
 import { StorageModule } from '../module/libs/storage/storage.module';
+import { StreamModule } from '../module/stream/stream.module';
 import { IS_DEV_ENV } from '../shared/utils/is-dev.util';
 
 import { getGraphQLConfig } from './config/graph.config';
@@ -39,6 +40,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 		CronModule,
 		StorageModule,
 		ProfileModule,
+		StreamModule,
 	],
 })
 export class CoreModule {}
