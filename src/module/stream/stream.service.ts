@@ -19,6 +19,7 @@ export class StreamService {
 			skip: skip ?? 0,
 			where: { user: { isDeactivated: false }, ...whereClause },
 			include: { user: true },
+			orderBy: { createdAt: 'desc' },
 		});
 
 		return streams;
