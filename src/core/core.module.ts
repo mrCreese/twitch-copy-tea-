@@ -29,6 +29,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 			imports: [ConfigModule],
 			inject: [ConfigService],
 		}),
+		LivekitModule.registerAsync({}),
 		PrismaModule,
 		RedisModule,
 		AccountModule,
