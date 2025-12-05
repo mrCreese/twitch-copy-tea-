@@ -6,6 +6,7 @@ import { SessionModule } from '../module/auth/session/session.module';
 import { TotpModule } from '../module/auth/totp/totp.module';
 import { VerificationModule } from '../module/auth/verification/verification.module';
 import { CronModule } from '../module/cron/cron.module';
+import { LivekitModule } from '../module/libs/livekit/livekit.module';
 import { MailModule } from '../module/libs/mail/mail.module';
 import { StorageModule } from '../module/libs/storage/storage.module';
 import { StreamModule } from '../module/stream/stream.module';
@@ -39,6 +40,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 		DeactivateModule,
 		CronModule,
 		StorageModule,
+		LivekitModule,
 		ProfileModule,
 		StreamModule,
 	],
