@@ -67,8 +67,9 @@ export class StreamService {
 	}
 
 	async changeThumbnail(user: User, file: FileUpload) {
-		if (user.avatar) {
-			await this.storageService.remove(user.avatar);
+		const stream = await this.findByUserId(user);
+		if (stream?.thumbnailUrl) {
+			await this.storageService.remove(stream.thumbnailUrl);
 		}
 
 		const chunks: Buffer[] = [];
@@ -77,13 +78,13 @@ export class StreamService {
 		}
 
 		const buffer = Buffer.concat(chunks);
-		const fileName = `/channels/${user.username}.webp`;
+		const fileName = `/streams/${user.username}.webp`;
 
 		const isGif = file?.filename?.endsWith('.gif');
 		const sharpOptions = isGif ? { animated: true } : {};
 
 		const processedBuffer = await sharp(buffer, sharpOptions)
-			.resize(512, 512)
+			.resize(1280, 720)
 			.webp()
 			.toBuffer();
 
@@ -93,28 +94,34 @@ export class StreamService {
 			'image/webp',
 		);
 
-		await this.prismaService.user.update({
-			where: { id: user.id },
-			data: { avatar: fileName },
+		await this.prismaService.stream.update({
+			where: { userId: user.id },
+			data: { thumbnailUrl: fileName },
 		});
 
 		return true;
 	}
 
-	async removeAvatar(user: User) {
-		if (!user.avatar) return;
+	async removeThumbnail(user: User) {
+		const stream = await this.findByUserId(user);
+		if (!stream?.thumbnailUrl) return;
 
-		await this.storageService.remove(user.avatar);
+		await this.storageService.remove(stream.thumbnailUrl);
 
-		await this.prismaService.user.update({
-			where: { id: user.id },
-			data: { avatar: null },
+		await this.prismaService.stream.update({
+			where: { userId: user.id },
+			data: { thumbnailUrl: null },
 		});
 
 		return true;
 	}
 
-	private findByUserId(user: User) {}
+	private async findByUserId(user: User) {
+		const stream = await this.prismaService.stream.findUnique({
+			where: { userId: user.id },
+		});
+		return stream;
+	}
 
 	private findBySearchTermFilter(
 		searchTerm: string,

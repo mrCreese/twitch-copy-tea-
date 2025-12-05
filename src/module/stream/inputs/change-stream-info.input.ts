@@ -1,4 +1,4 @@
-import { IsNegative, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 import { Field, InputType } from '@nestjs/graphql';
 
@@ -6,11 +6,11 @@ import { Field, InputType } from '@nestjs/graphql';
 export class ChangeStreamInput {
 	@Field(() => String)
 	@IsString()
-	@IsNegative()
+	@IsNotEmpty()
 	title: string;
 
 	@Field(() => String)
 	@IsString()
-	@IsNegative()
+	@IsNotEmpty()
 	categoryId: string;
 }
