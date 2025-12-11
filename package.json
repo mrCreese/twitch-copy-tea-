@@ -53,6 +53,7 @@
 		"livekit-server-sdk": "^1.2.7",
 		"otpauth": "^9.4.1",
 		"qrcode": "^1.5.4",
+		"raw-body": "^3.0.2",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
 		"reflect-metadata": "^0.2.2",

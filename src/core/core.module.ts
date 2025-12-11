@@ -11,6 +11,7 @@ import { MailModule } from '../module/libs/mail/mail.module';
 import { StorageModule } from '../module/libs/storage/storage.module';
 import { IngressModule } from '../module/stream/ingress/ingress.module';
 import { StreamModule } from '../module/stream/stream.module';
+import { WebhookModule } from '../module/webhook/webhook.module';
 import { IS_DEV_ENV } from '../shared/utils/is-dev.util';
 
 import { getGraphQLConfig } from './config/graph.config';
@@ -51,6 +52,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 		ProfileModule,
 		StreamModule,
 		IngressModule,
+		WebhookModule,
 	],
 })
 export class CoreModule {}
