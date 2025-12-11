@@ -9,10 +9,12 @@ import { CronModule } from '../module/cron/cron.module';
 import { LivekitModule } from '../module/libs/livekit/livekit.module';
 import { MailModule } from '../module/libs/mail/mail.module';
 import { StorageModule } from '../module/libs/storage/storage.module';
+import { IngressModule } from '../module/stream/ingress/ingress.module';
 import { StreamModule } from '../module/stream/stream.module';
 import { IS_DEV_ENV } from '../shared/utils/is-dev.util';
 
 import { getGraphQLConfig } from './config/graph.config';
+import { getLiveKitConfig } from './config/livekit.config';
 import { PrismaModule } from './prisma/prisma.module';
 import { RedisModule } from './redis/redis.module';
 import { ApolloDriver } from '@nestjs/apollo';
@@ -29,7 +31,11 @@ import { GraphQLModule } from '@nestjs/graphql';
 			imports: [ConfigModule],
 			inject: [ConfigService],
 		}),
-		LivekitModule.registerAsync({}),
+		LivekitModule.registerAsync({
+			imports: [ConfigModule],
+			useFactory: getLiveKitConfig,
+			inject: [ConfigService],
+		}),
 		PrismaModule,
 		RedisModule,
 		AccountModule,
@@ -44,6 +50,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 		LivekitModule,
 		ProfileModule,
 		StreamModule,
+		IngressModule,
 	],
 })
 export class CoreModule {}

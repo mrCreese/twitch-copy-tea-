@@ -11,7 +11,10 @@ export class LivekitModule {
 	static register(options: TypeLiveKitOptions): DynamicModule {
 		return {
 			module: LivekitModule,
-			providers: [{ provide: LiveKitOptionsSymbol, useValue: options }],
+			providers: [
+				{ provide: LiveKitOptionsSymbol, useValue: options },
+				LivekitService,
+			],
 			exports: [LivekitService],
 			global: true,
 		};
@@ -27,6 +30,7 @@ export class LivekitModule {
 					useFactory: options.useFactory,
 					inject: options.inject || [],
 				},
+				LivekitService,
 			],
 			exports: [LivekitService],
 			global: true,
