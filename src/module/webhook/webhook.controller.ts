@@ -17,11 +17,14 @@ export class WebhookController {
 	@HttpCode(HttpStatus.OK)
 	async receiveWebhookLiveKit(
 		@Body() body: string,
-		@Headers('Authorization') authorization: string,
+		@Headers('authorization') authorization: string,
 	) {
-		if (!authorization) {
+		console.log('WEBHOOK ARRIVATO');
+		console.log(authorization);
+		console.log(body.toString());
+		/* 	if (!authorization) {
 			throw new UnauthorizedException('Manca header autorizzazione');
-		}
+		} */
 		return this.webhookService.receiveWebhookLiveKit(body, authorization);
 	}
 }

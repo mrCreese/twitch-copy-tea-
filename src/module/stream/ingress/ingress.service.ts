@@ -20,7 +20,7 @@ export class IngressService {
 	) {}
 
 	async create(user: User, ingresstype: IngressInput) {
-		await this.reaetIngresses(user);
+		await this.resetIngresses(user);
 
 		const options: CreateIngressOptions = {
 			name: user.username,
@@ -28,7 +28,6 @@ export class IngressService {
 			participantName: user.username,
 			participantIdentity: user.id,
 		};
-		console.log(options);
 
 		if (ingresstype === IngressInput.WHIP_INPUT) {
 			options.bypassTranscoding = true;
@@ -48,8 +47,6 @@ export class IngressService {
 			options,
 		);
 
-		console.log(ingress);
-
 		if (!ingress || !ingress.url || !ingress.streamKey) {
 			throw new BadRequestException(
 				'Non è stato possibile creare stream',
@@ -68,22 +65,21 @@ export class IngressService {
 		return true;
 	}
 
-	private async reaetIngresses(user: User) {
+	private async resetIngresses(user: User) {
 		const ingresses = await this.livekitService.ingress.listIngress({
 			roomName: user.id,
 		});
-
-		const rooms = await this.livekitService.room.listRooms([user.id]);
-
-		for (const room of rooms) {
-			await this.livekitService.room.deleteRoom(room.name);
-		}
 
 		for (const ingress of ingresses) {
 			if (ingress.ingressId) {
 				await this.livekitService.ingress.deleteIngress(
 					ingress.ingressId,
 				);
+			}
+			const rooms = await this.livekitService.room.listRooms([user.id]);
+
+			for (const room of rooms) {
+				await this.livekitService.room.deleteRoom(room.name);
 			}
 		}
 	}
