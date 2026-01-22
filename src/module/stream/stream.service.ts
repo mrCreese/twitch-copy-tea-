@@ -31,7 +31,7 @@ export class StreamService {
 			take: take ?? 12,
 			skip: skip ?? 0,
 			where: { user: { isDeactivated: false }, ...whereClause },
-			include: { user: true },
+			include: { user: true, category: true },
 			orderBy: { createdAt: 'desc' },
 		});
 
@@ -52,7 +52,7 @@ export class StreamService {
 
 		const streams = await this.prismaService.stream.findMany({
 			where: { user: { isDeactivated: false } },
-			include: { user: true },
+			include: { user: true, category: true },
 			take: total,
 			skip: 0,
 		});
@@ -65,7 +65,7 @@ export class StreamService {
 
 		await this.prismaService.stream.update({
 			where: { userId: user.id },
-			data: { title },
+			data: { title, category: { connect: { id: categoryId } } },
 		});
 		return true;
 	}

@@ -99,7 +99,7 @@ model Category {
 
   title        String
   slug         String  @unique
-  desription   String?
+  description  String?
   thumbnailUrl String  @map("thumbnail_url")
 
   streams Stream[]
