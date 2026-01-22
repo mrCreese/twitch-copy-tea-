@@ -11,8 +11,8 @@ import type { MiddlewareConsumer } from '@nestjs/common/interfaces';
 })
 export class WebhookModule {
 	public configure(consumer: MiddlewareConsumer) {
-		/* 		consumer
+		consumer
 			.apply(RawBodyMiddleware)
-			.forRoutes({ path: 'webhook/livekit', method: RequestMethod.POST }); */
+			.forRoutes({ path: 'webhook/livekit', method: RequestMethod.POST });
 	}
 }

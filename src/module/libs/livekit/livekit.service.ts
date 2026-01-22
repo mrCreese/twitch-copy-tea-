@@ -1,5 +1,6 @@
 import {
 	IngressClient,
+	IngressInput,
 	RoomServiceClient,
 	WebhookReceiver,
 } from 'livekit-server-sdk';

@@ -5,6 +5,8 @@ import { FileVsalidationPipe } from '@/src/shared/pipes/file-validation.pipe';
 
 import { ChangeStreamInput } from './inputs/change-stream-info.input';
 import { FiltersInput } from './inputs/filter.input';
+import { GenerateStreamTokenInput } from './inputs/generate-stream-token.input';
+import { GenerateStreamTokenModel } from './models/generate-stream-token.model';
 import { StreamModel } from './models/stream.model';
 import { StreamService } from './stream.service';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
@@ -47,5 +49,10 @@ export class StreamResolver {
 	@Mutation(() => Boolean, { name: 'removeStreamThumbnail' })
 	async removeThumbnail(@Authorized() user: User) {
 		return this.streamService.removeThumbnail(user);
+	}
+
+	@Mutation(() => GenerateStreamTokenModel, { name: 'generateSteamToken' })
+	async generateToken(@Args('data') input: GenerateStreamTokenInput) {
+		return this.streamService.generateStreamToken(input);
 	}
 }
