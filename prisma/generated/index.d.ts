@@ -6000,7 +6000,7 @@ export namespace Prisma {
     id: string | null
     title: string | null
     slug: string | null
-    desription: string | null
+    description: string | null
     thumbnailUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6010,7 +6010,7 @@ export namespace Prisma {
     id: string | null
     title: string | null
     slug: string | null
-    desription: string | null
+    description: string | null
     thumbnailUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6020,7 +6020,7 @@ export namespace Prisma {
     id: number
     title: number
     slug: number
-    desription: number
+    description: number
     thumbnailUrl: number
     createdAt: number
     updatedAt: number
@@ -6032,7 +6032,7 @@ export namespace Prisma {
     id?: true
     title?: true
     slug?: true
-    desription?: true
+    description?: true
     thumbnailUrl?: true
     createdAt?: true
     updatedAt?: true
@@ -6042,7 +6042,7 @@ export namespace Prisma {
     id?: true
     title?: true
     slug?: true
-    desription?: true
+    description?: true
     thumbnailUrl?: true
     createdAt?: true
     updatedAt?: true
@@ -6052,7 +6052,7 @@ export namespace Prisma {
     id?: true
     title?: true
     slug?: true
-    desription?: true
+    description?: true
     thumbnailUrl?: true
     createdAt?: true
     updatedAt?: true
@@ -6135,7 +6135,7 @@ export namespace Prisma {
     id: string
     title: string
     slug: string
-    desription: string | null
+    description: string | null
     thumbnailUrl: string
     createdAt: Date
     updatedAt: Date
@@ -6162,7 +6162,7 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     slug?: boolean
-    desription?: boolean
+    description?: boolean
     thumbnailUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6174,7 +6174,7 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     slug?: boolean
-    desription?: boolean
+    description?: boolean
     thumbnailUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6184,7 +6184,7 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     slug?: boolean
-    desription?: boolean
+    description?: boolean
     thumbnailUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6194,13 +6194,13 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     slug?: boolean
-    desription?: boolean
+    description?: boolean
     thumbnailUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "desription" | "thumbnailUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["category"]>
+  export type CategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "description" | "thumbnailUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["category"]>
   export type CategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     streams?: boolean | Category$streamsArgs<ExtArgs>
     _count?: boolean | CategoryCountOutputTypeDefaultArgs<ExtArgs>
@@ -6217,7 +6217,7 @@ export namespace Prisma {
       id: string
       title: string
       slug: string
-      desription: string | null
+      description: string | null
       thumbnailUrl: string
       createdAt: Date
       updatedAt: Date
@@ -6648,7 +6648,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Category", 'String'>
     readonly title: FieldRef<"Category", 'String'>
     readonly slug: FieldRef<"Category", 'String'>
-    readonly desription: FieldRef<"Category", 'String'>
+    readonly description: FieldRef<"Category", 'String'>
     readonly thumbnailUrl: FieldRef<"Category", 'String'>
     readonly createdAt: FieldRef<"Category", 'DateTime'>
     readonly updatedAt: FieldRef<"Category", 'DateTime'>
@@ -7164,7 +7164,7 @@ export namespace Prisma {
     id: 'id',
     title: 'title',
     slug: 'slug',
-    desription: 'desription',
+    description: 'description',
     thumbnailUrl: 'thumbnailUrl',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -7620,7 +7620,7 @@ export namespace Prisma {
     id?: StringFilter<"Category"> | string
     title?: StringFilter<"Category"> | string
     slug?: StringFilter<"Category"> | string
-    desription?: StringNullableFilter<"Category"> | string | null
+    description?: StringNullableFilter<"Category"> | string | null
     thumbnailUrl?: StringFilter<"Category"> | string
     createdAt?: DateTimeFilter<"Category"> | Date | string
     updatedAt?: DateTimeFilter<"Category"> | Date | string
@@ -7631,7 +7631,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     slug?: SortOrder
-    desription?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
     thumbnailUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -7645,7 +7645,7 @@ export namespace Prisma {
     OR?: CategoryWhereInput[]
     NOT?: CategoryWhereInput | CategoryWhereInput[]
     title?: StringFilter<"Category"> | string
-    desription?: StringNullableFilter<"Category"> | string | null
+    description?: StringNullableFilter<"Category"> | string | null
     thumbnailUrl?: StringFilter<"Category"> | string
     createdAt?: DateTimeFilter<"Category"> | Date | string
     updatedAt?: DateTimeFilter<"Category"> | Date | string
@@ -7656,7 +7656,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     slug?: SortOrder
-    desription?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
     thumbnailUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -7672,7 +7672,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Category"> | string
     title?: StringWithAggregatesFilter<"Category"> | string
     slug?: StringWithAggregatesFilter<"Category"> | string
-    desription?: StringNullableWithAggregatesFilter<"Category"> | string | null
+    description?: StringNullableWithAggregatesFilter<"Category"> | string | null
     thumbnailUrl?: StringWithAggregatesFilter<"Category"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Category"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Category"> | Date | string
@@ -8054,7 +8054,7 @@ export namespace Prisma {
     id?: string
     title: string
     slug: string
-    desription?: string | null
+    description?: string | null
     thumbnailUrl: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -8065,7 +8065,7 @@ export namespace Prisma {
     id?: string
     title: string
     slug: string
-    desription?: string | null
+    description?: string | null
     thumbnailUrl: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -8076,7 +8076,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
-    desription?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnailUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8087,7 +8087,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
-    desription?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnailUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8098,7 +8098,7 @@ export namespace Prisma {
     id?: string
     title: string
     slug: string
-    desription?: string | null
+    description?: string | null
     thumbnailUrl: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -8108,7 +8108,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
-    desription?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnailUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8118,7 +8118,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
-    desription?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnailUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8515,7 +8515,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     slug?: SortOrder
-    desription?: SortOrder
+    description?: SortOrder
     thumbnailUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -8525,7 +8525,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     slug?: SortOrder
-    desription?: SortOrder
+    description?: SortOrder
     thumbnailUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -8535,7 +8535,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     slug?: SortOrder
-    desription?: SortOrder
+    description?: SortOrder
     thumbnailUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9409,7 +9409,7 @@ export namespace Prisma {
     id?: string
     title: string
     slug: string
-    desription?: string | null
+    description?: string | null
     thumbnailUrl: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9419,7 +9419,7 @@ export namespace Prisma {
     id?: string
     title: string
     slug: string
-    desription?: string | null
+    description?: string | null
     thumbnailUrl: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9496,7 +9496,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
-    desription?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnailUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9506,7 +9506,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
-    desription?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     thumbnailUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

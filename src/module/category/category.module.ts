@@ -1,9 +1,8 @@
-import { CategoryController } from './category.resolver';
+import { CategoryResolver } from './category.resolver';
 import { CategoryService } from './category.service';
 import { Module } from '@nestjs/common';
 
 @Module({
-	controllers: [CategoryController],
-	providers: [CategoryService],
+	providers: [CategoryResolver, CategoryService],
 })
 export class CategoryModule {}
