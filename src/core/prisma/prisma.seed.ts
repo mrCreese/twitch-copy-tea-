@@ -1,8 +1,16 @@
-import { PrismaClient } from '@/prisma/generated';
+import { hash } from 'argon2';
+
+import { Prisma, PrismaClient } from '../../../prisma/generated';
 
 import { BadRequestException, Logger } from '@nestjs/common';
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+	transactionOptions: {
+		maxWait: 5000,
+		timeout: 10000,
+		isolationLevel: Prisma.TransactionIsolationLevel.Serializable,
+	},
+});
 
 async function main() {
 	try {
@@ -14,8 +22,80 @@ async function main() {
 			prisma.stream.deleteMany(),
 			prisma.category.deleteMany(),
 		]);
+		await prisma.category.createMany({ data: categoriesData });
+		Logger.log('Categories created with success');
+
+		const categories = await prisma.category.findMany();
+		const categoriesBySlug = Object.fromEntries(
+			categories.map(category => [category.slug, category]),
+		);
+		await prisma.$transaction(async tx => {
+			for (const username of usernames) {
+				const randomCatetgory =
+					categoriesBySlug[
+						Object.keys(categoriesBySlug)[
+							Math.floor(
+								Math.random() *
+									Object.keys(categoriesBySlug).length,
+							)
+						]
+					];
+
+				const userExists = await tx.user.findUnique({
+					where: { username },
+				});
+
+				if (!userExists) {
+					const createdUser = await tx.user.create({
+						data: {
+							email: `${username}@twichcopy.com`,
+							password: await hash('12345678'),
+							username,
+							displayName: username,
+							avatar: `/channels/${username}.webp`,
+							isEmailVerified: true,
+							socialLinks: {
+								createMany: {
+									data: [
+										{
+											title: 'Telegram',
+											url: `https://t.me/${username}`,
+											position: 1,
+										},
+										{
+											title: 'YouTube',
+											url: `https://youtube.com/@${username}`,
+											position: 2,
+										},
+									],
+								},
+							},
+						},
+					});
+					const randomTitles = streamTitles[randomCatetgory.slug];
+					console.log(randomCatetgory.slug, randomTitles);
+					const randomTitle =
+						randomTitles[
+							Math.floor(Math.random() * randomTitles.length)
+						];
+
+					await tx.stream.create({
+						data: {
+							title: randomTitle,
+							thumbnailUrl: `/streams/${createdUser.username}.webp`,
+							user: { connect: { id: createdUser.id } },
+							category: { connect: { id: randomCatetgory.id } },
+						},
+					});
+					Logger.log(
+						`User "${createdUser.username}" and streams created with success`,
+					);
+				}
+			}
+		});
+		Logger.log('All date created with success');
 	} catch (error) {
-		Logger.log(error);
+		Logger.error(error);
 		throw new BadRequestException(
 			'Errore durante inserimento in banca dati',
 		);
@@ -28,238 +108,259 @@ async function main() {
 }
 main();
 
+const categoriesData = [
+	// --- GENERICHE / TEMATICHE ---
+	{
+		title: 'Just Chatting',
+		slug: 'just-chatting',
+		description: 'Chiacchiere libere e interazione con la community.',
+		thumbnailUrl: '/categories/just-chatting.webp',
+	},
+	{
+		title: 'Music',
+		slug: 'music',
+		description: 'Chiacchiere musicali e interazione con la community.',
+		thumbnailUrl: '/categories/music.webp',
+	},
 
+	{
+		title: 'Retro Gaming',
+		slug: 'retro-gaming',
+		description: 'Classici del passato e nostalgia videoludica.',
+		thumbnailUrl: '/categories/retro-gaming.webp',
+	},
 
-const categoriesData=export const categories = [
-  // --- GENERICHE / TEMATICHE ---
-  {
-    title: "Just Chatting",
-    slug: "just-chatting",
-    description: "Chiacchiere libere e interazione con la community.",
-    thumbnailUrl: "/categories/just-chatting.webp",
-  },
-  {
-    title: "Gaming Competitivo",
-    slug: "gaming-competitivo",
-    description: "Ranked, tornei e gameplay ad alto livello.",
-    thumbnailUrl: "/categories/gaming-competitivo.webp",
-  },
-  {
-    title: "Indie Games",
-    slug: "indie-games",
-    description: "Scoperta di giochi indie e titoli alternativi.",
-    thumbnailUrl: "/categories/indie-games.webp",
-  },
-  {
-    title: "Retro Gaming",
-    slug: "retro-gaming",
-    description: "Classici del passato e nostalgia videoludica.",
-    thumbnailUrl: "/categories/retro-gaming.webp",
-  },
-  {
-    title: "Horror Games",
-    slug: "horror-games",
-    description: "Esperienze horror, jumpscare e tensione.",
-    thumbnailUrl: "/categories/horror-games.webp",
-  },
-  {
-    title: "FPS & Shooter",
-    slug: "fps-shooter",
-    description: "Azione frenetica e scontri a fuoco.",
-    thumbnailUrl: "/categories/fps-shooter.webp",
-  },
-  {
-    title: "MMORPG",
-    slug: "mmorpg",
-    description: "Avventure online, grinding e raid.",
-    thumbnailUrl: "/categories/mmorpg.webp",
-  },
-  {
-    title: "Roleplay",
-    slug: "roleplay",
-    description: "Storie immersive e interpretazione di personaggi.",
-    thumbnailUrl: "/categories/roleplay.webp",
-  },
-  {
-    title: "Speedrun",
-    slug: "speedrun",
-    description: "Completare giochi nel minor tempo possibile.",
-    thumbnailUrl: "/categories/speedrun.webp",
-  },
-  {
-    title: "IRL Streaming",
-    slug: "irl-streaming",
-    description: "Streaming nella vita reale.",
-    thumbnailUrl: "/categories/irl-streaming.webp",
-  },
+	// --- GIOCHI SINGLE / FRANCHISE ---
+	{
+		title: 'Cyberpunk 2077',
+		slug: 'cyberpunk-2077',
+		description: 'Night City, build futuristiche e storyline.',
+		thumbnailUrl: '/categories/cyberpunk-2077.webp',
+	},
+	{
+		title: 'Dark Souls',
+		slug: 'dark-souls',
+		description: 'Sfida estrema e boss leggendari.',
+		thumbnailUrl: '/categories/dark-souls.webp',
+	},
 
-  // --- GIOCHI SINGLE / FRANCHISE ---
-  {
-    title: "Cyberpunk 2077",
-    slug: "cyberpunk-2077",
-    description: "Night City, build futuristiche e storyline.",
-    thumbnailUrl: "/categories/cyberpunk-2077.webp",
-  },
-  {
-    title: "Dark Souls",
-    slug: "dark-souls",
-    description: "Sfida estrema e boss leggendari.",
-    thumbnailUrl: "/categories/dark-souls.webp",
-  },
-  {
-    title: "Elden Ring",
-    slug: "elden-ring",
-    description: "Open world soulslike e combattimenti epici.",
-    thumbnailUrl: "/categories/elden-ring.webp",
-  },
-  {
-    title: "Bloodborne",
-    slug: "bloodborne",
-    description: "Atmosfere gotiche e combattimenti frenetici.",
-    thumbnailUrl: "/categories/bloodborne.webp",
-  },
-  {
-    title: "Sekiro",
-    slug: "sekiro",
-    description: "Combattimento tecnico e precisione assoluta.",
-    thumbnailUrl: "/categories/sekiro.webp",
-  },
-  {
-    title: "Grand Theft Auto V",
-    slug: "gta-v",
-    description: "Crimine, caos e modalità online.",
-    thumbnailUrl: "/categories/gta-v.webp",
-  },
-  {
-    title: "GTA Roleplay",
-    slug: "gta-roleplay",
-    description: "Roleplay narrativo su server GTA.",
-    thumbnailUrl: "/categories/gta-roleplay.webp",
-  },
-  {
-    title: "Red Dead Redemption 2",
-    slug: "red-dead-redemption-2",
-    description: "Avventura western e storytelling.",
-    thumbnailUrl: "/categories/red-dead-redemption-2.webp",
-  },
-  {
-    title: "The Witcher 3",
-    slug: "the-witcher-3",
-    description: "Fantasy, mostri e scelte narrative.",
-    thumbnailUrl: "/categories/the-witcher-3.webp",
-  },
-  {
-    title: "Skyrim",
-    slug: "skyrim",
-    description: "Mod, esplorazione e avventure epiche.",
-    thumbnailUrl: "/categories/skyrim.webp",
-  },
+	{
+		title: 'Grand Theft Auto V',
+		slug: 'gta-v',
+		description: 'Crimine, caos e modalità online.',
+		thumbnailUrl: '/categories/gta-v.webp',
+	},
 
-  // --- MULTIPLAYER / LIVE SERVICE ---
-  {
-    title: "League of Legends",
-    slug: "league-of-legends",
-    description: "MOBA competitivo e ranked.",
-    thumbnailUrl: "/categories/league-of-legends.webp",
-  },
-  {
-    title: "Valorant",
-    slug: "valorant",
-    description: "FPS tattico e abilità degli agenti.",
-    thumbnailUrl: "/categories/valorant.webp",
-  },
-  {
-    title: "Counter-Strike 2",
-    slug: "counter-strike-2",
-    description: "Shooter competitivo e precisione.",
-    thumbnailUrl: "/categories/counter-strike-2.webp",
-  },
-  {
-    title: "Fortnite",
-    slug: "fortnite",
-    description: "Battle royale e creatività.",
-    thumbnailUrl: "/categories/fortnite.webp",
-  },
-  {
-    title: "Call of Duty",
-    slug: "call-of-duty",
-    description: "Azione FPS veloce e multiplayer.",
-    thumbnailUrl: "/categories/call-of-duty.webp",
-  },
-  {
-    title: "Apex Legends",
-    slug: "apex-legends",
-    description: "Battle royale frenetico a squadre.",
-    thumbnailUrl: "/categories/apex-legends.webp",
-  },
-  {
-    title: "Overwatch 2",
-    slug: "overwatch-2",
-    description: "Hero shooter e gioco di squadra.",
-    thumbnailUrl: "/categories/overwatch-2.webp",
-  },
+	{
+		title: 'Red Dead Redemption 2',
+		slug: 'red-dead-redemption-2',
+		description: 'Avventura western e storytelling.',
+		thumbnailUrl: '/categories/red-dead-redemption-2.webp',
+	},
+	{
+		title: 'The Witcher 3',
+		slug: 'the-witcher-3',
+		description: 'Fantasy, mostri e scelte narrative.',
+		thumbnailUrl: '/categories/the-witcher-3.webp',
+	},
 
-  // --- SURVIVAL / SANDBOX ---
-  {
-    title: "Minecraft",
-    slug: "minecraft",
-    description: "Costruzione, survival e creatività.",
-    thumbnailUrl: "/categories/minecraft.webp",
-  },
-  {
-    title: "Rust",
-    slug: "rust",
-    description: "Survival hardcore e PvP.",
-    thumbnailUrl: "/categories/rust.webp",
-  },
-  {
-    title: "ARK Survival",
-    slug: "ark-survival",
-    description: "Dinosauri, crafting e sopravvivenza.",
-    thumbnailUrl: "/categories/ark-survival.webp",
-  },
-  {
-    title: "Valheim",
-    slug: "valheim",
-    description: "Survival cooperativo a tema vichingo.",
-    thumbnailUrl: "/categories/valheim.webp",
-  },
-  {
-    title: "Subnautica",
-    slug: "subnautica",
-    description: "Esplorazione subacquea e survival.",
-    thumbnailUrl: "/categories/subnautica.webp",
-  },
+	// --- MULTIPLAYER / LIVE SERVICE ---
 
-  // --- VARI / CASUAL ---
-  {
-    title: "Among Us",
-    slug: "among-us",
-    description: "Party game e deduzione sociale.",
-    thumbnailUrl: "/categories/among-us.webp",
-  },
-  {
-    title: "Fall Guys",
-    slug: "fall-guys",
-    description: "Caos colorato e competizioni casual.",
-    thumbnailUrl: "/categories/fall-guys.webp",
-  },
-  {
-    title: "Hades",
-    slug: "hades",
-    description: "Roguelike action e mitologia.",
-    thumbnailUrl: "/categories/hades.webp",
-  },
-  {
-    title: "Stardew Valley",
-    slug: "stardew-valley",
-    description: "Relax, farming e vita di villaggio.",
-    thumbnailUrl: "/categories/stardew-valley.webp",
-  },
-  {
-    title: "Dead by Daylight",
-    slug: "dead-by-daylight",
-    description: "Horror multiplayer asimmetrico.",
-    thumbnailUrl: "/categories/dead-by-daylight.webp",
-  },
+	{
+		title: 'Fortnite',
+		slug: 'fortnite',
+		description: 'Battle royale e creatività.',
+		thumbnailUrl: '/categories/fortnite.webp',
+	},
+	{
+		title: 'Call of Duty',
+		slug: 'call-of-duty',
+		description: 'Azione FPS veloce e multiplayer.',
+		thumbnailUrl: '/categories/call-of-duty.webp',
+	},
+
+	// --- SURVIVAL / SANDBOX ---
+	{
+		title: 'Minecraft',
+		slug: 'minecraft',
+		description: 'Costruzione, survival e creatività.',
+		thumbnailUrl: '/categories/minecraft.webp',
+	},
+];
+
+const streamTitles: Record<string, string[]> = {
+	// --- GENERICHE ---
+	'just-chatting': [
+		'Chiacchiere random con la chat',
+		'Rispondo alle vostre domande',
+		'Talk serale chill',
+		'Parliamo di tutto',
+		'Community night 💬',
+		'Q&A con i follower',
+		'Late night talk',
+		'Reaction e commenti live',
+		'Stream improvvisato',
+		'Relax & chiacchiere',
+	],
+
+	music: [
+		'Musica chill dal vivo 🎶',
+		'Ascoltiamo musica insieme',
+		'Talk musicali con la chat',
+		'Playlist della community',
+		'Scopriamo nuova musica',
+		'Vibes musicali',
+		'Serata musica & relax',
+		'Commentiamo album e artisti',
+		'Musica in sottofondo + chat',
+		'Chill music stream',
+	],
+
+	'retro-gaming': [
+		'Ritorno ai classici',
+		'Retro night 🎮',
+		'Vecchia scuola',
+		'Nostalgia pura',
+		'Capolavori senza tempo',
+		'Gameplay old school',
+		'Quando i giochi erano difficili',
+		'Pixel vibes',
+		'Sfida retrò',
+		"Ricordi d'infanzia",
+	],
+
+	// --- GIOCHI SINGLE ---
+	'cyberpunk-2077': [
+		'Night City blind run',
+		'Esploriamo Night City',
+		'Build cyberpunk',
+		'Story mode',
+		'Missioni secondarie',
+		'Cyber vibes',
+		'Scelte difficili',
+		'Gameplay futuristico',
+		'Run immersiva',
+		'Finale alternativo?',
+	],
+
+	'dark-souls': [
+		'Prepare to die 💀',
+		'Prima run blind',
+		'Boss fight',
+		'Tentativi infiniti',
+		'Sfida estrema',
+		'Build strength',
+		'Lore & gameplay',
+		'Dark Souls night',
+		'Skill test',
+		'No hit? forse',
+	],
+
+	'gta-v': [
+		'Caos totale',
+		'Story mode',
+		'Missioni secondarie',
+		'GTA chill',
+		'Gameplay libero',
+		'Momenti random',
+		'Crimine & caos',
+		'Serata GTA',
+		'Open world fun',
+		'Esploriamo la mappa',
+	],
+
+	'red-dead-redemption-2': [
+		'Avventura western',
+		'Story mode',
+		'Esplorazione libera',
+		'Vita da fuorilegge',
+		'Caccia leggendaria',
+		'Momenti cinematici',
+		'Side quest',
+		'Red Dead vibes',
+		'Run immersiva',
+		'Finale epico',
+	],
+
+	'the-witcher-3': [
+		'Caccia ai mostri',
+		'Story mode',
+		'Scelte narrative',
+		'Side quest leggendarie',
+		'Build Geralt',
+		'Lore & gameplay',
+		'Fantasy vibes',
+		'Run completa',
+		'Espansioni',
+		'Avventura epica',
+	],
+
+	// --- MULTIPLAYER ---
+	fortnite: [
+		'Battle royale',
+		'Solo win?',
+		'Squad con la chat',
+		'Gameplay chill',
+		'Drop caldo',
+		'Endgame fight',
+		'Creative mode',
+		'Fortnite night',
+		'Victory royale?',
+		'Partite rapide',
+	],
+
+	'call-of-duty': [
+		'FPS action',
+		'Multiplayer frenzy',
+		'Killstreak time',
+		'Gameplay veloce',
+		'Warm-up',
+		'Ranked',
+		'Caos totale',
+		'Hardpoint',
+		'Serata COD',
+		'Tryhard mode',
+	],
+
+	// --- SURVIVAL ---
+	minecraft: [
+		'Nuovo mondo survival',
+		'Costruiamo la base',
+		'Hardcore mode',
+		'Con la community',
+		'Mega progetto',
+		'Redstone time',
+		'Esplorazione',
+		'Build creativa',
+		'Avventura infinita',
+		'Minecraft chill',
+	],
+};
+
+const usernames: string[] = [
+	'creese',
+	'shadowfox',
+	'neonwolf',
+	'pixelhunter',
+	'darkorbit',
+	'cyberghost',
+	'nightblade',
+	'voidrunner',
+	'ironclaw',
+	'frostbyte',
+	'stormrider',
+	'quantumx',
+	'silentcrow',
+	'redviper',
+	'blacknova',
+	'lunarsoul',
+	'ghostunit',
+	'toxicrain',
+	'hyperdrive',
+	'deadpixel',
+	'skullzone',
+	'bluecomet',
+	'digitalash',
+	'firebyte',
+	'crypticone',
 ];

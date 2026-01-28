@@ -6,6 +6,7 @@ import { SessionModule } from '../module/auth/session/session.module';
 import { TotpModule } from '../module/auth/totp/totp.module';
 import { VerificationModule } from '../module/auth/verification/verification.module';
 import { CategoryModule } from '../module/category/category.module';
+import { ChatModule } from '../module/chat/chat.module';
 import { CronModule } from '../module/cron/cron.module';
 import { LivekitModule } from '../module/libs/livekit/livekit.module';
 import { MailModule } from '../module/libs/mail/mail.module';
@@ -55,6 +56,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 		IngressModule,
 		WebhookModule,
 		CategoryModule,
+		ChatModule,
 	],
 })
 export class CoreModule {}
