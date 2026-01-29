@@ -1,6 +1,6 @@
 import type { User } from '@/prisma/generated';
 import { Authorization } from '@/src/shared/decatators/auth.decorator';
-import { Authorized } from '@/src/shared/decatators/authorized.decoratot';
+import { Authorized } from '@/src/shared/decatators/authorized.decorator';
 import { FileVsalidationPipe } from '@/src/shared/pipes/file-validation.pipe';
 
 import { ChangeStreamInput } from './inputs/change-stream-info.input';

@@ -23,12 +23,8 @@ export class ChatService {
 		return messages;
 	}
 
-	async sendMessage(
-		userId: string,
-		streamId: string,
-		input: SendMessageInput,
-	) {
-		const { text } = input;
+	async sendMessage(userId: string, input: SendMessageInput) {
+		const { text, streamId } = input;
 
 		const stream = await this.prismaService.stream.findUnique({
 			where: { id: streamId },
@@ -42,15 +38,16 @@ export class ChatService {
 			throw new BadRequestException('Stream non in live');
 		}
 
-		await this.prismaService.chatMessage.create({
+		const message = await this.prismaService.chatMessage.create({
 			data: {
 				text,
 				user: { connect: { id: userId } },
 				stream: { connect: { id: stream.id } },
 			},
+			include: { stream: true },
 		});
 
-		return true;
+		return message;
 	}
 
 	async changeSettings(user: User, input: ChangeChatSettingsInput) {

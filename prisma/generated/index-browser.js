@@ -167,7 +167,7 @@ exports.Prisma.StreamScalarFieldEnum = {
   serverUrl: 'serverUrl',
   streamKey: 'streamKey',
   isLive: 'isLive',
-  ischatEnabled: 'ischatEnabled',
+  isChatEnabled: 'isChatEnabled',
   isChatFollowersOnly: 'isChatFollowersOnly',
   isChatPremiumFollowersOnly: 'isChatPremiumFollowersOnly',
   userId: 'userId',

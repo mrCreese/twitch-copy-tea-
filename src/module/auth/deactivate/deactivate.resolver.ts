@@ -1,6 +1,6 @@
 import { User } from '@/prisma/generated';
 import { Authorization } from '@/src/shared/decatators/auth.decorator';
-import { Authorized } from '@/src/shared/decatators/authorized.decoratot';
+import { Authorized } from '@/src/shared/decatators/authorized.decorator';
 import { UserAgent } from '@/src/shared/decatators/userAgent.decorator';
 import { GqlContext } from '@/src/shared/types/gql-context.types';
 
