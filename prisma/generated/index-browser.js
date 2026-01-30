@@ -195,6 +195,14 @@ exports.Prisma.CategoryScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.FollowScalarFieldEnum = {
+  id: 'id',
+  followerId: 'followerId',
+  followingId: 'followingId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -221,7 +229,8 @@ exports.Prisma.ModelName = {
   Token: 'Token',
   Stream: 'Stream',
   ChatMessage: 'ChatMessage',
-  Category: 'Category'
+  Category: 'Category',
+  Follow: 'Follow'
 };
 
 /**

@@ -4,16 +4,21 @@ import { User } from '@/prisma/generated';
 import { Authorization } from '@/src/shared/decatators/auth.decorator';
 import { Authorized } from '@/src/shared/decatators/authorized.decorator';
 
+import { PUB_SUB } from '../libs/pubsub/pubsub.provider';
+
 import { ChatService } from './chat.service';
 import { ChangeChatSettingsInput } from './inputs/change-chat-settings.input';
 import { SendMessageInput } from './inputs/send-message.input';
 import { ChatMessageModel } from './models/chat-message.model';
+import { Inject } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 
 @Resolver('Chat')
 export class ChatResolver {
-	private readonly pubSub: PubSub;
-	constructor(private readonly chatService: ChatService) {}
+	constructor(
+		private readonly chatService: ChatService,
+		@Inject(PUB_SUB) private readonly pubSub: PubSub,
+	) {}
 
 	@Query(() => [ChatMessageModel], { name: 'findChatMessagesByStream' })
 	async findByStream(@Args('streamId') streamId: string) {
@@ -57,6 +62,7 @@ export class ChatResolver {
 		},
 	})
 	chatMessageAdded(@Args('streamId') streamId: string) {
+		console.log('Subscription initialized');
 		return this.pubSub.asyncIterableIterator('CHAT_MESSAGE_ADDED');
 	}
 }

@@ -13,7 +13,34 @@ export function getGraphQLConfig(
 		path: confiService.getOrThrow<string>('GRAPHQL_PREFIX'),
 		autoSchemaFile: join(process.cwd(), 'src/core/graphql/schema.gql'),
 		sortSchema: true,
-		context: ({ req, res }) => ({ req, res }),
-		installSubscriptionHandlers: true,
+
+		subscriptions: {
+			'graphql-ws': {
+				onConnect: context => {
+					console.log('🟢 GraphQL WS connected');
+				},
+			},
+		},
+		context: ({ req, res, extra }) => {
+			// HTTP
+			if (req) {
+				return { req, res };
+			}
+
+			// WS
+			if (extra) {
+				return {
+					req: {
+						headers: {
+							authorization:
+								extra.connectionParams?.Authorization ||
+								extra.connectionParams?.authorization,
+						},
+					},
+				};
+			}
+		},
+		/* context: ({ req, res }) => ({ req, res }),
+		installSubscriptionHandlers: true, */
 	};
 }

@@ -8,6 +8,7 @@ import { VerificationModule } from '../module/auth/verification/verification.mod
 import { CategoryModule } from '../module/category/category.module';
 import { ChatModule } from '../module/chat/chat.module';
 import { CronModule } from '../module/cron/cron.module';
+import { FollowModule } from '../module/follow/follow.module';
 import { LivekitModule } from '../module/libs/livekit/livekit.module';
 import { MailModule } from '../module/libs/mail/mail.module';
 import { StorageModule } from '../module/libs/storage/storage.module';
@@ -57,6 +58,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 		WebhookModule,
 		CategoryModule,
 		ChatModule,
+		FollowModule,
 	],
 })
 export class CoreModule {}
