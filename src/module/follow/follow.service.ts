@@ -27,7 +27,6 @@ export class FollowService {
 			orderBy: { createdAt: 'desc' },
 			include: { following: true },
 		});
-
 		return following;
 	}
 
