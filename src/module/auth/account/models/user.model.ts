@@ -1,4 +1,5 @@
 import type { User } from '@/prisma/generated';
+import { FollowModel } from '@/src/module/follow/models/follow.model';
 import { StreamModel } from '@/src/module/stream/models/stream.model';
 
 import { SocialLinkModel } from '../../profile/models/social-link.model';
@@ -28,6 +29,9 @@ export class UserModel implements User {
 	@Field(() => String, { nullable: true })
 	bio: string;
 
+	@Field(() => String, { nullable: true })
+	telegramId: string;
+
 	@Field(() => Boolean)
 	isVerified: boolean;
 
@@ -48,6 +52,12 @@ export class UserModel implements User {
 
 	@Field(() => [SocialLinkModel])
 	socialLinks: SocialLinkModel[];
+
+	@Field(() => [FollowModel])
+	followers: FollowModel[];
+
+	@Field(() => [FollowModel])
+	followings: FollowModel[];
 
 	@Field(() => StreamModel)
 	stream: StreamModel;

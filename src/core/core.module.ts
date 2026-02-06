@@ -6,12 +6,14 @@ import { SessionModule } from '../module/auth/session/session.module';
 import { TotpModule } from '../module/auth/totp/totp.module';
 import { VerificationModule } from '../module/auth/verification/verification.module';
 import { CategoryModule } from '../module/category/category.module';
+import { ChannelModule } from '../module/channel/channel.module';
 import { ChatModule } from '../module/chat/chat.module';
 import { CronModule } from '../module/cron/cron.module';
 import { FollowModule } from '../module/follow/follow.module';
 import { LivekitModule } from '../module/libs/livekit/livekit.module';
 import { MailModule } from '../module/libs/mail/mail.module';
 import { StorageModule } from '../module/libs/storage/storage.module';
+import { NotificationModule } from '../module/notification/notification.module';
 import { IngressModule } from '../module/stream/ingress/ingress.module';
 import { StreamModule } from '../module/stream/stream.module';
 import { WebhookModule } from '../module/webhook/webhook.module';
@@ -59,6 +61,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 		CategoryModule,
 		ChatModule,
 		FollowModule,
+		ChannelModule,
+		NotificationModule,
 	],
 })
 export class CoreModule {}
