@@ -1,5 +1,7 @@
 import type { User } from '@/prisma/generated';
 import { FollowModel } from '@/src/module/follow/models/follow.model';
+import { NotificationSettingModel } from '@/src/module/notification/models/notification-settings.model';
+import { NotificationModel } from '@/src/module/notification/models/notification.model';
 import { StreamModel } from '@/src/module/stream/models/stream.model';
 
 import { SocialLinkModel } from '../../profile/models/social-link.model';
@@ -61,6 +63,12 @@ export class UserModel implements User {
 
 	@Field(() => StreamModel)
 	stream: StreamModel;
+
+	@Field(() => [NotificationModel])
+	notifications: NotificationModel[];
+
+	@Field(() => NotificationSettingModel)
+	notificationSettings: NotificationSettingModel;
 
 	@Field(() => Date)
 	createdAt: Date;

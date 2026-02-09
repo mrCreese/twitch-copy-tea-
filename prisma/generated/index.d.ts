@@ -66,7 +66,8 @@ export namespace $Enums {
   export const TokenType: {
   EMAIL_VERIFY: 'EMAIL_VERIFY',
   PASSWORD_RESET: 'PASSWORD_RESET',
-  DEACTIVATE_ACCOUNT: 'DEACTIVATE_ACCOUNT'
+  DEACTIVATE_ACCOUNT: 'DEACTIVATE_ACCOUNT',
+  TELEGRAM_AUTH: 'TELEGRAM_AUTH'
 };
 
 export type TokenType = (typeof TokenType)[keyof typeof TokenType]
@@ -1626,7 +1627,6 @@ export namespace Prisma {
     socialLinks: number
     chatMessages: number
     notifications: number
-    notificationsSettings: number
     followers: number
     followings: number
   }
@@ -1636,7 +1636,6 @@ export namespace Prisma {
     socialLinks?: boolean | UserCountOutputTypeCountSocialLinksArgs
     chatMessages?: boolean | UserCountOutputTypeCountChatMessagesArgs
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
-    notificationsSettings?: boolean | UserCountOutputTypeCountNotificationsSettingsArgs
     followers?: boolean | UserCountOutputTypeCountFollowersArgs
     followings?: boolean | UserCountOutputTypeCountFollowingsArgs
   }
@@ -1678,13 +1677,6 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: NotificationWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountNotificationsSettingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: NotificationSettingsWhereInput
   }
 
   /**
@@ -2111,7 +2103,7 @@ export namespace Prisma {
       stream: Prisma.$StreamPayload<ExtArgs> | null
       chatMessages: Prisma.$ChatMessagePayload<ExtArgs>[]
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
-      notificationsSettings: Prisma.$NotificationSettingsPayload<ExtArgs>[]
+      notificationsSettings: Prisma.$NotificationSettingsPayload<ExtArgs> | null
       followers: Prisma.$FollowPayload<ExtArgs>[]
       followings: Prisma.$FollowPayload<ExtArgs>[]
     }
@@ -2531,7 +2523,7 @@ export namespace Prisma {
     stream<T extends User$streamArgs<ExtArgs> = {}>(args?: Subset<T, User$streamArgs<ExtArgs>>): Prisma__StreamClient<$Result.GetResult<Prisma.$StreamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     chatMessages<T extends User$chatMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$chatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    notificationsSettings<T extends User$notificationsSettingsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsSettingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationSettingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    notificationsSettings<T extends User$notificationsSettingsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsSettingsArgs<ExtArgs>>): Prisma__NotificationSettingsClient<$Result.GetResult<Prisma.$NotificationSettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     followers<T extends User$followersArgs<ExtArgs> = {}>(args?: Subset<T, User$followersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     followings<T extends User$followingsArgs<ExtArgs> = {}>(args?: Subset<T, User$followingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -3098,11 +3090,6 @@ export namespace Prisma {
      */
     include?: NotificationSettingsInclude<ExtArgs> | null
     where?: NotificationSettingsWhereInput
-    orderBy?: NotificationSettingsOrderByWithRelationInput | NotificationSettingsOrderByWithRelationInput[]
-    cursor?: NotificationSettingsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: NotificationSettingsScalarFieldEnum | NotificationSettingsScalarFieldEnum[]
   }
 
   /**
@@ -5555,7 +5542,7 @@ export namespace Prisma {
     id: string
     siteNotifications: boolean
     telegramNotifications: boolean
-    userId: string | null
+    userId: string
     createdAt: Date
     updatedAt: Date
     _count: NotificationSettingsCountAggregateOutputType | null
@@ -5584,7 +5571,7 @@ export namespace Prisma {
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | NotificationSettings$userArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["notificationSettings"]>
 
   export type NotificationSettingsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5594,7 +5581,7 @@ export namespace Prisma {
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | NotificationSettings$userArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["notificationSettings"]>
 
   export type NotificationSettingsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5604,7 +5591,7 @@ export namespace Prisma {
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | NotificationSettings$userArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["notificationSettings"]>
 
   export type NotificationSettingsSelectScalar = {
@@ -5618,25 +5605,25 @@ export namespace Prisma {
 
   export type NotificationSettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "siteNotifications" | "telegramNotifications" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["notificationSettings"]>
   export type NotificationSettingsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | NotificationSettings$userArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type NotificationSettingsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | NotificationSettings$userArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type NotificationSettingsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | NotificationSettings$userArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $NotificationSettingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "NotificationSettings"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       siteNotifications: boolean
       telegramNotifications: boolean
-      userId: string | null
+      userId: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["notificationSettings"]>
@@ -6033,7 +6020,7 @@ export namespace Prisma {
    */
   export interface Prisma__NotificationSettingsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends NotificationSettings$userArgs<ExtArgs> = {}>(args?: Subset<T, NotificationSettings$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6462,25 +6449,6 @@ export namespace Prisma {
      * Limit how many NotificationSettings to delete.
      */
     limit?: number
-  }
-
-  /**
-   * NotificationSettings.user
-   */
-  export type NotificationSettings$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
   }
 
   /**
@@ -12388,7 +12356,7 @@ export namespace Prisma {
     stream?: XOR<StreamNullableScalarRelationFilter, StreamWhereInput> | null
     chatMessages?: ChatMessageListRelationFilter
     notifications?: NotificationListRelationFilter
-    notificationsSettings?: NotificationSettingsListRelationFilter
+    notificationsSettings?: XOR<NotificationSettingsNullableScalarRelationFilter, NotificationSettingsWhereInput> | null
     followers?: FollowListRelationFilter
     followings?: FollowListRelationFilter
   }
@@ -12415,7 +12383,7 @@ export namespace Prisma {
     stream?: StreamOrderByWithRelationInput
     chatMessages?: ChatMessageOrderByRelationAggregateInput
     notifications?: NotificationOrderByRelationAggregateInput
-    notificationsSettings?: NotificationSettingsOrderByRelationAggregateInput
+    notificationsSettings?: NotificationSettingsOrderByWithRelationInput
     followers?: FollowOrderByRelationAggregateInput
     followings?: FollowOrderByRelationAggregateInput
   }
@@ -12445,7 +12413,7 @@ export namespace Prisma {
     stream?: XOR<StreamNullableScalarRelationFilter, StreamWhereInput> | null
     chatMessages?: ChatMessageListRelationFilter
     notifications?: NotificationListRelationFilter
-    notificationsSettings?: NotificationSettingsListRelationFilter
+    notificationsSettings?: XOR<NotificationSettingsNullableScalarRelationFilter, NotificationSettingsWhereInput> | null
     followers?: FollowListRelationFilter
     followings?: FollowListRelationFilter
   }, "id" | "email" | "username">
@@ -12633,17 +12601,17 @@ export namespace Prisma {
     id?: StringFilter<"NotificationSettings"> | string
     siteNotifications?: BoolFilter<"NotificationSettings"> | boolean
     telegramNotifications?: BoolFilter<"NotificationSettings"> | boolean
-    userId?: StringNullableFilter<"NotificationSettings"> | string | null
+    userId?: StringFilter<"NotificationSettings"> | string
     createdAt?: DateTimeFilter<"NotificationSettings"> | Date | string
     updatedAt?: DateTimeFilter<"NotificationSettings"> | Date | string
-    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type NotificationSettingsOrderByWithRelationInput = {
     id?: SortOrder
     siteNotifications?: SortOrder
     telegramNotifications?: SortOrder
-    userId?: SortOrderInput | SortOrder
+    userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -12659,14 +12627,14 @@ export namespace Prisma {
     telegramNotifications?: BoolFilter<"NotificationSettings"> | boolean
     createdAt?: DateTimeFilter<"NotificationSettings"> | Date | string
     updatedAt?: DateTimeFilter<"NotificationSettings"> | Date | string
-    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "userId">
 
   export type NotificationSettingsOrderByWithAggregationInput = {
     id?: SortOrder
     siteNotifications?: SortOrder
     telegramNotifications?: SortOrder
-    userId?: SortOrderInput | SortOrder
+    userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: NotificationSettingsCountOrderByAggregateInput
@@ -12681,7 +12649,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"NotificationSettings"> | string
     siteNotifications?: BoolWithAggregatesFilter<"NotificationSettings"> | boolean
     telegramNotifications?: BoolWithAggregatesFilter<"NotificationSettings"> | boolean
-    userId?: StringNullableWithAggregatesFilter<"NotificationSettings"> | string | null
+    userId?: StringWithAggregatesFilter<"NotificationSettings"> | string
     createdAt?: DateTimeWithAggregatesFilter<"NotificationSettings"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"NotificationSettings"> | Date | string
   }
@@ -13066,7 +13034,7 @@ export namespace Prisma {
     stream?: StreamCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsCreateNestedManyWithoutUserInput
+    notificationsSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
     followers?: FollowCreateNestedManyWithoutFollowerInput
     followings?: FollowCreateNestedManyWithoutFollowingInput
   }
@@ -13093,7 +13061,7 @@ export namespace Prisma {
     stream?: StreamUncheckedCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
+    notificationsSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
     followings?: FollowUncheckedCreateNestedManyWithoutFollowingInput
   }
@@ -13120,7 +13088,7 @@ export namespace Prisma {
     stream?: StreamUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUpdateManyWithoutUserNestedInput
+    notificationsSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
     followers?: FollowUpdateManyWithoutFollowerNestedInput
     followings?: FollowUpdateManyWithoutFollowingNestedInput
   }
@@ -13147,7 +13115,7 @@ export namespace Prisma {
     stream?: StreamUncheckedUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+    notificationsSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
     followings?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
   }
@@ -13353,14 +13321,14 @@ export namespace Prisma {
     telegramNotifications?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    user?: UserCreateNestedOneWithoutNotificationsSettingsInput
+    user: UserCreateNestedOneWithoutNotificationsSettingsInput
   }
 
   export type NotificationSettingsUncheckedCreateInput = {
     id?: string
     siteNotifications?: boolean
     telegramNotifications?: boolean
-    userId?: string | null
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -13371,14 +13339,14 @@ export namespace Prisma {
     telegramNotifications?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneWithoutNotificationsSettingsNestedInput
+    user?: UserUpdateOneRequiredWithoutNotificationsSettingsNestedInput
   }
 
   export type NotificationSettingsUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     siteNotifications?: BoolFieldUpdateOperationsInput | boolean
     telegramNotifications?: BoolFieldUpdateOperationsInput | boolean
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13387,7 +13355,7 @@ export namespace Prisma {
     id?: string
     siteNotifications?: boolean
     telegramNotifications?: boolean
-    userId?: string | null
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -13404,7 +13372,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     siteNotifications?: BoolFieldUpdateOperationsInput | boolean
     telegramNotifications?: BoolFieldUpdateOperationsInput | boolean
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13874,10 +13842,9 @@ export namespace Prisma {
     none?: NotificationWhereInput
   }
 
-  export type NotificationSettingsListRelationFilter = {
-    every?: NotificationSettingsWhereInput
-    some?: NotificationSettingsWhereInput
-    none?: NotificationSettingsWhereInput
+  export type NotificationSettingsNullableScalarRelationFilter = {
+    is?: NotificationSettingsWhereInput | null
+    isNot?: NotificationSettingsWhereInput | null
   }
 
   export type FollowListRelationFilter = {
@@ -13904,10 +13871,6 @@ export namespace Prisma {
   }
 
   export type NotificationOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type NotificationSettingsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14161,6 +14124,11 @@ export namespace Prisma {
     _max?: NestedEnumNotificationTypeFilter<$PrismaModel>
   }
 
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
   export type NotificationSettingsCountOrderByAggregateInput = {
     id?: SortOrder
     siteNotifications?: SortOrder
@@ -14289,11 +14257,6 @@ export namespace Prisma {
     categoryId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
   }
 
   export type StreamScalarRelationFilter = {
@@ -14431,11 +14394,10 @@ export namespace Prisma {
     connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
   }
 
-  export type NotificationSettingsCreateNestedManyWithoutUserInput = {
-    create?: XOR<NotificationSettingsCreateWithoutUserInput, NotificationSettingsUncheckedCreateWithoutUserInput> | NotificationSettingsCreateWithoutUserInput[] | NotificationSettingsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: NotificationSettingsCreateOrConnectWithoutUserInput | NotificationSettingsCreateOrConnectWithoutUserInput[]
-    createMany?: NotificationSettingsCreateManyUserInputEnvelope
-    connect?: NotificationSettingsWhereUniqueInput | NotificationSettingsWhereUniqueInput[]
+  export type NotificationSettingsCreateNestedOneWithoutUserInput = {
+    create?: XOR<NotificationSettingsCreateWithoutUserInput, NotificationSettingsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: NotificationSettingsCreateOrConnectWithoutUserInput
+    connect?: NotificationSettingsWhereUniqueInput
   }
 
   export type FollowCreateNestedManyWithoutFollowerInput = {
@@ -14486,11 +14448,10 @@ export namespace Prisma {
     connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
   }
 
-  export type NotificationSettingsUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<NotificationSettingsCreateWithoutUserInput, NotificationSettingsUncheckedCreateWithoutUserInput> | NotificationSettingsCreateWithoutUserInput[] | NotificationSettingsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: NotificationSettingsCreateOrConnectWithoutUserInput | NotificationSettingsCreateOrConnectWithoutUserInput[]
-    createMany?: NotificationSettingsCreateManyUserInputEnvelope
-    connect?: NotificationSettingsWhereUniqueInput | NotificationSettingsWhereUniqueInput[]
+  export type NotificationSettingsUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<NotificationSettingsCreateWithoutUserInput, NotificationSettingsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: NotificationSettingsCreateOrConnectWithoutUserInput
+    connect?: NotificationSettingsWhereUniqueInput
   }
 
   export type FollowUncheckedCreateNestedManyWithoutFollowerInput = {
@@ -14593,18 +14554,14 @@ export namespace Prisma {
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
   }
 
-  export type NotificationSettingsUpdateManyWithoutUserNestedInput = {
-    create?: XOR<NotificationSettingsCreateWithoutUserInput, NotificationSettingsUncheckedCreateWithoutUserInput> | NotificationSettingsCreateWithoutUserInput[] | NotificationSettingsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: NotificationSettingsCreateOrConnectWithoutUserInput | NotificationSettingsCreateOrConnectWithoutUserInput[]
-    upsert?: NotificationSettingsUpsertWithWhereUniqueWithoutUserInput | NotificationSettingsUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: NotificationSettingsCreateManyUserInputEnvelope
-    set?: NotificationSettingsWhereUniqueInput | NotificationSettingsWhereUniqueInput[]
-    disconnect?: NotificationSettingsWhereUniqueInput | NotificationSettingsWhereUniqueInput[]
-    delete?: NotificationSettingsWhereUniqueInput | NotificationSettingsWhereUniqueInput[]
-    connect?: NotificationSettingsWhereUniqueInput | NotificationSettingsWhereUniqueInput[]
-    update?: NotificationSettingsUpdateWithWhereUniqueWithoutUserInput | NotificationSettingsUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: NotificationSettingsUpdateManyWithWhereWithoutUserInput | NotificationSettingsUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: NotificationSettingsScalarWhereInput | NotificationSettingsScalarWhereInput[]
+  export type NotificationSettingsUpdateOneWithoutUserNestedInput = {
+    create?: XOR<NotificationSettingsCreateWithoutUserInput, NotificationSettingsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: NotificationSettingsCreateOrConnectWithoutUserInput
+    upsert?: NotificationSettingsUpsertWithoutUserInput
+    disconnect?: NotificationSettingsWhereInput | boolean
+    delete?: NotificationSettingsWhereInput | boolean
+    connect?: NotificationSettingsWhereUniqueInput
+    update?: XOR<XOR<NotificationSettingsUpdateToOneWithWhereWithoutUserInput, NotificationSettingsUpdateWithoutUserInput>, NotificationSettingsUncheckedUpdateWithoutUserInput>
   }
 
   export type FollowUpdateManyWithoutFollowerNestedInput = {
@@ -14701,18 +14658,14 @@ export namespace Prisma {
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
   }
 
-  export type NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<NotificationSettingsCreateWithoutUserInput, NotificationSettingsUncheckedCreateWithoutUserInput> | NotificationSettingsCreateWithoutUserInput[] | NotificationSettingsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: NotificationSettingsCreateOrConnectWithoutUserInput | NotificationSettingsCreateOrConnectWithoutUserInput[]
-    upsert?: NotificationSettingsUpsertWithWhereUniqueWithoutUserInput | NotificationSettingsUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: NotificationSettingsCreateManyUserInputEnvelope
-    set?: NotificationSettingsWhereUniqueInput | NotificationSettingsWhereUniqueInput[]
-    disconnect?: NotificationSettingsWhereUniqueInput | NotificationSettingsWhereUniqueInput[]
-    delete?: NotificationSettingsWhereUniqueInput | NotificationSettingsWhereUniqueInput[]
-    connect?: NotificationSettingsWhereUniqueInput | NotificationSettingsWhereUniqueInput[]
-    update?: NotificationSettingsUpdateWithWhereUniqueWithoutUserInput | NotificationSettingsUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: NotificationSettingsUpdateManyWithWhereWithoutUserInput | NotificationSettingsUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: NotificationSettingsScalarWhereInput | NotificationSettingsScalarWhereInput[]
+  export type NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<NotificationSettingsCreateWithoutUserInput, NotificationSettingsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: NotificationSettingsCreateOrConnectWithoutUserInput
+    upsert?: NotificationSettingsUpsertWithoutUserInput
+    disconnect?: NotificationSettingsWhereInput | boolean
+    delete?: NotificationSettingsWhereInput | boolean
+    connect?: NotificationSettingsWhereUniqueInput
+    update?: XOR<XOR<NotificationSettingsUpdateToOneWithWhereWithoutUserInput, NotificationSettingsUpdateWithoutUserInput>, NotificationSettingsUncheckedUpdateWithoutUserInput>
   }
 
   export type FollowUncheckedUpdateManyWithoutFollowerNestedInput = {
@@ -14793,12 +14746,10 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type UserUpdateOneWithoutNotificationsSettingsNestedInput = {
+  export type UserUpdateOneRequiredWithoutNotificationsSettingsNestedInput = {
     create?: XOR<UserCreateWithoutNotificationsSettingsInput, UserUncheckedCreateWithoutNotificationsSettingsInput>
     connectOrCreate?: UserCreateOrConnectWithoutNotificationsSettingsInput
     upsert?: UserUpsertWithoutNotificationsSettingsInput
-    disconnect?: UserWhereInput | boolean
-    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotificationsSettingsInput, UserUpdateWithoutNotificationsSettingsInput>, UserUncheckedUpdateWithoutNotificationsSettingsInput>
   }
@@ -15373,11 +15324,6 @@ export namespace Prisma {
     create: XOR<NotificationSettingsCreateWithoutUserInput, NotificationSettingsUncheckedCreateWithoutUserInput>
   }
 
-  export type NotificationSettingsCreateManyUserInputEnvelope = {
-    data: NotificationSettingsCreateManyUserInput | NotificationSettingsCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
   export type FollowCreateWithoutFollowerInput = {
     id?: string
     createdAt?: Date | string
@@ -15586,32 +15532,31 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Notification"> | Date | string
   }
 
-  export type NotificationSettingsUpsertWithWhereUniqueWithoutUserInput = {
-    where: NotificationSettingsWhereUniqueInput
+  export type NotificationSettingsUpsertWithoutUserInput = {
     update: XOR<NotificationSettingsUpdateWithoutUserInput, NotificationSettingsUncheckedUpdateWithoutUserInput>
     create: XOR<NotificationSettingsCreateWithoutUserInput, NotificationSettingsUncheckedCreateWithoutUserInput>
+    where?: NotificationSettingsWhereInput
   }
 
-  export type NotificationSettingsUpdateWithWhereUniqueWithoutUserInput = {
-    where: NotificationSettingsWhereUniqueInput
+  export type NotificationSettingsUpdateToOneWithWhereWithoutUserInput = {
+    where?: NotificationSettingsWhereInput
     data: XOR<NotificationSettingsUpdateWithoutUserInput, NotificationSettingsUncheckedUpdateWithoutUserInput>
   }
 
-  export type NotificationSettingsUpdateManyWithWhereWithoutUserInput = {
-    where: NotificationSettingsScalarWhereInput
-    data: XOR<NotificationSettingsUpdateManyMutationInput, NotificationSettingsUncheckedUpdateManyWithoutUserInput>
+  export type NotificationSettingsUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    siteNotifications?: BoolFieldUpdateOperationsInput | boolean
+    telegramNotifications?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type NotificationSettingsScalarWhereInput = {
-    AND?: NotificationSettingsScalarWhereInput | NotificationSettingsScalarWhereInput[]
-    OR?: NotificationSettingsScalarWhereInput[]
-    NOT?: NotificationSettingsScalarWhereInput | NotificationSettingsScalarWhereInput[]
-    id?: StringFilter<"NotificationSettings"> | string
-    siteNotifications?: BoolFilter<"NotificationSettings"> | boolean
-    telegramNotifications?: BoolFilter<"NotificationSettings"> | boolean
-    userId?: StringNullableFilter<"NotificationSettings"> | string | null
-    createdAt?: DateTimeFilter<"NotificationSettings"> | Date | string
-    updatedAt?: DateTimeFilter<"NotificationSettings"> | Date | string
+  export type NotificationSettingsUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    siteNotifications?: BoolFieldUpdateOperationsInput | boolean
+    telegramNotifications?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FollowUpsertWithWhereUniqueWithoutFollowerInput = {
@@ -15678,7 +15623,7 @@ export namespace Prisma {
     stream?: StreamCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsCreateNestedManyWithoutUserInput
+    notificationsSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
     followers?: FollowCreateNestedManyWithoutFollowerInput
     followings?: FollowCreateNestedManyWithoutFollowingInput
   }
@@ -15704,7 +15649,7 @@ export namespace Prisma {
     stream?: StreamUncheckedCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
+    notificationsSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
     followings?: FollowUncheckedCreateNestedManyWithoutFollowingInput
   }
@@ -15746,7 +15691,7 @@ export namespace Prisma {
     stream?: StreamUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUpdateManyWithoutUserNestedInput
+    notificationsSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
     followers?: FollowUpdateManyWithoutFollowerNestedInput
     followings?: FollowUpdateManyWithoutFollowingNestedInput
   }
@@ -15772,7 +15717,7 @@ export namespace Prisma {
     stream?: StreamUncheckedUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+    notificationsSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
     followings?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
   }
@@ -15798,7 +15743,7 @@ export namespace Prisma {
     socialLinks?: SocailLinkCreateNestedManyWithoutUserInput
     stream?: StreamCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsCreateNestedManyWithoutUserInput
+    notificationsSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
     followers?: FollowCreateNestedManyWithoutFollowerInput
     followings?: FollowCreateNestedManyWithoutFollowingInput
   }
@@ -15824,7 +15769,7 @@ export namespace Prisma {
     socialLinks?: SocailLinkUncheckedCreateNestedManyWithoutUserInput
     stream?: StreamUncheckedCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
+    notificationsSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
     followings?: FollowUncheckedCreateNestedManyWithoutFollowingInput
   }
@@ -15866,7 +15811,7 @@ export namespace Prisma {
     socialLinks?: SocailLinkUpdateManyWithoutUserNestedInput
     stream?: StreamUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUpdateManyWithoutUserNestedInput
+    notificationsSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
     followers?: FollowUpdateManyWithoutFollowerNestedInput
     followings?: FollowUpdateManyWithoutFollowingNestedInput
   }
@@ -15892,7 +15837,7 @@ export namespace Prisma {
     socialLinks?: SocailLinkUncheckedUpdateManyWithoutUserNestedInput
     stream?: StreamUncheckedUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+    notificationsSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
     followings?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
   }
@@ -16038,7 +15983,7 @@ export namespace Prisma {
     stream?: StreamCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsCreateNestedManyWithoutUserInput
+    notificationsSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
     followers?: FollowCreateNestedManyWithoutFollowerInput
     followings?: FollowCreateNestedManyWithoutFollowingInput
   }
@@ -16064,7 +16009,7 @@ export namespace Prisma {
     stream?: StreamUncheckedCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
+    notificationsSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
     followings?: FollowUncheckedCreateNestedManyWithoutFollowingInput
   }
@@ -16106,7 +16051,7 @@ export namespace Prisma {
     stream?: StreamUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUpdateManyWithoutUserNestedInput
+    notificationsSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
     followers?: FollowUpdateManyWithoutFollowerNestedInput
     followings?: FollowUpdateManyWithoutFollowingNestedInput
   }
@@ -16132,7 +16077,7 @@ export namespace Prisma {
     stream?: StreamUncheckedUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+    notificationsSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
     followings?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
   }
@@ -16184,7 +16129,7 @@ export namespace Prisma {
     socialLinks?: SocailLinkCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsCreateNestedManyWithoutUserInput
+    notificationsSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
     followers?: FollowCreateNestedManyWithoutFollowerInput
     followings?: FollowCreateNestedManyWithoutFollowingInput
   }
@@ -16210,7 +16155,7 @@ export namespace Prisma {
     socialLinks?: SocailLinkUncheckedCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
+    notificationsSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
     followings?: FollowUncheckedCreateNestedManyWithoutFollowingInput
   }
@@ -16293,7 +16238,7 @@ export namespace Prisma {
     socialLinks?: SocailLinkUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUpdateManyWithoutUserNestedInput
+    notificationsSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
     followers?: FollowUpdateManyWithoutFollowerNestedInput
     followings?: FollowUpdateManyWithoutFollowingNestedInput
   }
@@ -16319,7 +16264,7 @@ export namespace Prisma {
     socialLinks?: SocailLinkUncheckedUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+    notificationsSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
     followings?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
   }
@@ -16376,7 +16321,7 @@ export namespace Prisma {
     socialLinks?: SocailLinkCreateNestedManyWithoutUserInput
     stream?: StreamCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsCreateNestedManyWithoutUserInput
+    notificationsSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
     followers?: FollowCreateNestedManyWithoutFollowerInput
     followings?: FollowCreateNestedManyWithoutFollowingInput
   }
@@ -16402,7 +16347,7 @@ export namespace Prisma {
     socialLinks?: SocailLinkUncheckedCreateNestedManyWithoutUserInput
     stream?: StreamUncheckedCreateNestedOneWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
+    notificationsSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
     followings?: FollowUncheckedCreateNestedManyWithoutFollowingInput
   }
@@ -16483,7 +16428,7 @@ export namespace Prisma {
     socialLinks?: SocailLinkUpdateManyWithoutUserNestedInput
     stream?: StreamUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUpdateManyWithoutUserNestedInput
+    notificationsSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
     followers?: FollowUpdateManyWithoutFollowerNestedInput
     followings?: FollowUpdateManyWithoutFollowingNestedInput
   }
@@ -16509,7 +16454,7 @@ export namespace Prisma {
     socialLinks?: SocailLinkUncheckedUpdateManyWithoutUserNestedInput
     stream?: StreamUncheckedUpdateOneWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+    notificationsSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
     followings?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
   }
@@ -16661,7 +16606,7 @@ export namespace Prisma {
     stream?: StreamCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsCreateNestedManyWithoutUserInput
+    notificationsSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
     followings?: FollowCreateNestedManyWithoutFollowingInput
   }
 
@@ -16687,7 +16632,7 @@ export namespace Prisma {
     stream?: StreamUncheckedCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
+    notificationsSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
     followings?: FollowUncheckedCreateNestedManyWithoutFollowingInput
   }
 
@@ -16718,7 +16663,7 @@ export namespace Prisma {
     stream?: StreamCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsCreateNestedManyWithoutUserInput
+    notificationsSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
     followers?: FollowCreateNestedManyWithoutFollowerInput
   }
 
@@ -16744,7 +16689,7 @@ export namespace Prisma {
     stream?: StreamUncheckedCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
+    notificationsSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
   }
 
@@ -16786,7 +16731,7 @@ export namespace Prisma {
     stream?: StreamUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUpdateManyWithoutUserNestedInput
+    notificationsSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
     followings?: FollowUpdateManyWithoutFollowingNestedInput
   }
 
@@ -16812,7 +16757,7 @@ export namespace Prisma {
     stream?: StreamUncheckedUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+    notificationsSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
     followings?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
   }
 
@@ -16849,7 +16794,7 @@ export namespace Prisma {
     stream?: StreamUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUpdateManyWithoutUserNestedInput
+    notificationsSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
     followers?: FollowUpdateManyWithoutFollowerNestedInput
   }
 
@@ -16875,7 +16820,7 @@ export namespace Prisma {
     stream?: StreamUncheckedUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+    notificationsSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
   }
 
@@ -16910,14 +16855,6 @@ export namespace Prisma {
     message: string
     type: $Enums.NotificationType
     isRead?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type NotificationSettingsCreateManyUserInput = {
-    id?: string
-    siteNotifications?: boolean
-    telegramNotifications?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17037,30 +16974,6 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
     isRead?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type NotificationSettingsUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    siteNotifications?: BoolFieldUpdateOperationsInput | boolean
-    telegramNotifications?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type NotificationSettingsUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    siteNotifications?: BoolFieldUpdateOperationsInput | boolean
-    telegramNotifications?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type NotificationSettingsUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    siteNotifications?: BoolFieldUpdateOperationsInput | boolean
-    telegramNotifications?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

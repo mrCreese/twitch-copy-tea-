@@ -35,7 +35,7 @@ model User {
     chatMessages ChatMessage[]
 
     notifications         Notification[]
-    notificationsSettings NotificationSettings[]
+    notificationsSettings NotificationSettings?
 
     followers  Follow[] @relation(name: "followers")
     followings Follow[] @relation(name: "followings")
@@ -87,8 +87,8 @@ model NotificationSettings {
     siteNotifications     Boolean @default(true) @map("site_notifications")
     telegramNotifications Boolean @default(true) @map("telegram_notifications")
 
-    user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId String? @unique @map("user_id")
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId String @unique @map("user_id")
 
     createdAt DateTime @default(now()) @map("created_at")
     updatedAt DateTime @updatedAt @map("updated_at")
@@ -196,6 +196,7 @@ enum TokenType {
     EMAIL_VERIFY
     PASSWORD_RESET
     DEACTIVATE_ACCOUNT
+    TELEGRAM_AUTH
 
     @@map("token_type")
 }

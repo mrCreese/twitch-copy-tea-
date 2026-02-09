@@ -1,13 +1,15 @@
-import { User } from '@/prisma/generated';
+import { NotificationType, TokenType, User } from '@/prisma/generated';
 import { PrismaService } from '@/src/core/prisma/prisma.service';
+import { generateToken } from '@/src/shared/utils/generate-token.util';
 
+import { ChangeNotificationsSettingsInput } from './inputs/change-notifications-settings.input';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class NotificationService {
 	constructor(private readonly prismaService: PrismaService) {}
 
-	async findunreadCount(user: User) {
+	async findUnreadCount(user: User) {
 		const count = await this.prismaService.notification.count({
 			where: { isRead: false, userId: user.id },
 		});
@@ -27,5 +29,80 @@ export class NotificationService {
 		});
 
 		return notifications;
+	}
+
+	async changeSettings(user: User, input: ChangeNotificationsSettingsInput) {
+		const { siteNotifications, telegramNotifications } = input;
+
+		const notificationSettings =
+			await this.prismaService.notificationSettings.upsert({
+				where: { userId: user.id },
+				create: {
+					siteNotifications,
+					telegramNotifications,
+					user: { connect: { id: user.id } },
+				},
+				update: { siteNotifications, telegramNotifications },
+				include: { user: true },
+			});
+
+		if (
+			notificationSettings.telegramNotifications &&
+			!notificationSettings.user?.telegramId
+		) {
+			const telegramAuthToken = await generateToken(
+				this.prismaService,
+				user,
+				TokenType.TELEGRAM_AUTH,
+			);
+
+			return {
+				notificationSettings,
+				telegramAuthToken: telegramAuthToken.token,
+			};
+		}
+
+		if (
+			!notificationSettings.telegramNotifications &&
+			notificationSettings.user?.telegramId
+		) {
+			await this.prismaService.user.update({
+				where: { id: user.id },
+				data: { telegramId: null },
+			});
+
+			return {
+				notificationSettings,
+			};
+		}
+		return {
+			notificationSettings,
+		};
+	}
+
+	async createStreamStart(userId: string, channel: User) {
+		const notification = await this.prismaService.notification.create({
+			data: {
+				message: `<b className='font-medium'>Non perderti!</b>
+                <p>Ragiungici in diretta sul canale <a href='/${channel.username}' className='font-semobold'>${channel.displayName}</a>
+                </p>`,
+				type: NotificationType.STREAM_START,
+				user: { connect: { id: userId } },
+			},
+		});
+		return notification;
+	}
+
+	async createNewFollowing(userId: string, follower: User) {
+		const notification = await this.prismaService.notification.create({
+			data: {
+				message: `<b className='font-medium'>Avete un nuovo follower</b>
+                <p>Utente <a href='/${follower.username}' className='font-semobold'>${follower.displayName}</a>
+                </p>`,
+				type: NotificationType.NEW_FOLLOWER,
+				user: { connect: { id: userId } },
+			},
+		});
+		return notification;
 	}
 }
