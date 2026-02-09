@@ -13,6 +13,7 @@ import { FollowModule } from '../module/follow/follow.module';
 import { LivekitModule } from '../module/libs/livekit/livekit.module';
 import { MailModule } from '../module/libs/mail/mail.module';
 import { StorageModule } from '../module/libs/storage/storage.module';
+import { TelegramModule } from '../module/libs/telegram/telegram.module';
 import { NotificationModule } from '../module/notification/notification.module';
 import { IngressModule } from '../module/stream/ingress/ingress.module';
 import { StreamModule } from '../module/stream/stream.module';
@@ -63,6 +64,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 		FollowModule,
 		ChannelModule,
 		NotificationModule,
+		TelegramModule,
 	],
 })
 export class CoreModule {}

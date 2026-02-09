@@ -1,0 +1,19 @@
+import { TelegrafModule } from 'nestjs-telegraf';
+
+import { getTelegrafConfig } from '@/src/core/config/telegraf.config';
+
+import { TelegramService } from './telegram.service';
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+
+@Module({
+	imports: [
+		TelegrafModule.forRootAsync({
+			imports: [ConfigModule],
+			useFactory: getTelegrafConfig,
+			inject: [ConfigService],
+		}),
+	],
+	providers: [TelegramService],
+})
+export class TelegramModule {}
