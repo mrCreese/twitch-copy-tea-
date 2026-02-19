@@ -1,6 +1,7 @@
 import { User } from '@/prisma/generated';
 import { PrismaService } from '@/src/core/prisma/prisma.service';
 
+import { TelegramService } from '../libs/telegram/telegram.service';
 import { NotificationService } from '../notification/notification.service';
 
 import {
@@ -14,6 +15,7 @@ export class FollowService {
 	constructor(
 		private readonly prismaService: PrismaService,
 		private readonly notificationService: NotificationService,
+		private readonly telegramService: TelegramService,
 	) {}
 
 	async findMyFollowers(user: User) {
@@ -67,6 +69,15 @@ export class FollowService {
 		if (follow.following.notificationsSettings?.siteNotifications) {
 			await this.notificationService.createNewFollowing(
 				follow.following.id,
+				follow.follower,
+			);
+		}
+		if (
+			follow.following.notificationsSettings?.telegramNotifications &&
+			follow.following.telegramId
+		) {
+			await this.telegramService.sendNewFollowing(
+				follow.following.telegramId,
 				follow.follower,
 			);
 		}

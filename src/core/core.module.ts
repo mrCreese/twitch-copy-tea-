@@ -13,6 +13,7 @@ import { FollowModule } from '../module/follow/follow.module';
 import { LivekitModule } from '../module/libs/livekit/livekit.module';
 import { MailModule } from '../module/libs/mail/mail.module';
 import { StorageModule } from '../module/libs/storage/storage.module';
+import { StripeModule } from '../module/libs/stripe/stripe.module';
 import { TelegramModule } from '../module/libs/telegram/telegram.module';
 import { NotificationModule } from '../module/notification/notification.module';
 import { IngressModule } from '../module/stream/ingress/ingress.module';
@@ -22,6 +23,7 @@ import { IS_DEV_ENV } from '../shared/utils/is-dev.util';
 
 import { getGraphQLConfig } from './config/graph.config';
 import { getLiveKitConfig } from './config/livekit.config';
+import { getStripeConfig } from './config/stripe.config';
 import { PrismaModule } from './prisma/prisma.module';
 import { RedisModule } from './redis/redis.module';
 import { ApolloDriver } from '@nestjs/apollo';
@@ -41,6 +43,11 @@ import { GraphQLModule } from '@nestjs/graphql';
 		LivekitModule.registerAsync({
 			imports: [ConfigModule],
 			useFactory: getLiveKitConfig,
+			inject: [ConfigService],
+		}),
+		StripeModule.registerAsync({
+			imports: [ConfigModule],
+			useFactory: getStripeConfig,
 			inject: [ConfigService],
 		}),
 		PrismaModule,
@@ -65,6 +72,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 		ChannelModule,
 		NotificationModule,
 		TelegramModule,
+		StripeModule,
 	],
 })
 export class CoreModule {}

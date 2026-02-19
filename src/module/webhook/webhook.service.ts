@@ -1,9 +1,10 @@
 import { PrismaService } from '@/src/core/prisma/prisma.service';
 
 import { LivekitService } from '../libs/livekit/livekit.service';
+import { TelegramService } from '../libs/telegram/telegram.service';
 import { NotificationService } from '../notification/notification.service';
 
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class WebhookService {
@@ -11,6 +12,7 @@ export class WebhookService {
 		private readonly prismaService: PrismaService,
 		private readonly livekitService: LivekitService,
 		private readonly notificationService: NotificationService,
+		private readonly telegramServise: TelegramService,
 	) {}
 
 	async receiveWebhookLiveKit(body: string, authorization: string) {
@@ -29,21 +31,32 @@ export class WebhookService {
 
 			const followers = await this.prismaService.follow.findMany({
 				where: {
-					followingId: stream.user.id,
+					followingId: stream?.user?.id,
 					follower: { isDeactivated: false },
 				},
 				include: {
 					follower: { include: { notificationsSettings: true } },
 				},
 			});
-
+			if (!stream?.user) {
+				throw new NotFoundException('Stream not found');
+			}
 			for (const follow of followers) {
 				const follower = follow.follower;
 
 				if (follower.notificationsSettings?.siteNotifications) {
 					await this.notificationService.createStreamStart(
 						follower.id,
-						stream.user,
+						stream?.user,
+					);
+				}
+				if (
+					follower.notificationsSettings?.telegramNotifications &&
+					follower.telegramId
+				) {
+					await this.telegramServise.sendStreamStart(
+						follower.id,
+						stream?.user,
 					);
 				}
 			}

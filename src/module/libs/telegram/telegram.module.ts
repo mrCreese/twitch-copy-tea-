@@ -3,9 +3,10 @@ import { TelegrafModule } from 'nestjs-telegraf';
 import { getTelegrafConfig } from '@/src/core/config/telegraf.config';
 
 import { TelegramService } from './telegram.service';
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
+@Global()
 @Module({
 	imports: [
 		TelegrafModule.forRootAsync({
@@ -15,5 +16,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 		}),
 	],
 	providers: [TelegramService],
+	exports: [TelegramService],
 })
 export class TelegramModule {}

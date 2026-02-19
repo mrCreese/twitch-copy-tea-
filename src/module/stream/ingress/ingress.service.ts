@@ -83,4 +83,8 @@ export class IngressService {
 			}
 		}
 	}
+
+	async deleteIngressRequest(ingressId: string) {
+		await this.livekitService.ingress.deleteIngress(ingressId);
+	}
 }
