@@ -105,8 +105,8 @@ model NotificationSettings {
 model Transaction {
     id String @id @default(uuid())
 
-    amout   Float
-    curency String
+    amount   Float
+    currency String
 
     stripeSubscriptionId String?           @map("stripe_subscription_id")
     status               TransactionStatus @default(PENDING)
@@ -125,7 +125,7 @@ model SponsorshipPlan {
 
     title       String
     description String?
-    prise       Float
+    price       Float
 
     stripeProductId String @map("stripe_product_id")
     stripePlanId    String @map("stripe_plan_id")
