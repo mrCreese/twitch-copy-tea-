@@ -20,7 +20,8 @@
 		"test:e2e": "jest --config ./test/jest-e2e.json",
 		"db:push": "npx prisma db push",
 		"db:studio": "prisma studio",
-		"db:seed": "ts-node src/core/prisma/prisma.seed.ts"
+		"db:seed": "ts-node src/core/prisma/prisma.seed.ts",
+		"ngrok": "ngrok http 4000"
 	},
 	"dependencies": {
 		"@apollo/server": "^4.12.2",

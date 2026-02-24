@@ -1,4 +1,4 @@
-import type { User } from '@/prisma/generated';
+import type { SponsorshipPlan, User } from '@/prisma/generated';
 import type { SessionMetadata } from '@/src/shared/types/session-metadata.types';
 
 export const MESSAGES = {
@@ -71,4 +71,11 @@ export const MESSAGES = {
 		`<b>🎉 Hai un nuovo follower!</b>\n\n` +
 		`Follower: <a href="http://localhost:3000/${follower.username}">${follower.displayName}</a>\n\n` +
 		`👥 Numero totale di follower sul canale: <b>${followersCount}</b>`,
+	newSponsorship: (plan: SponsorshipPlan, sponsor: User) =>
+		`<b>🎉 Hai una nuova sponsorizzazione!</b>\n\n` +
+		`Avete ricevuto una nuova sponsorizzazione per il piano <b>${plan.title}</b>.\n` +
+		`💰 Costo: <b>${plan.price} €</b>\n` +
+		`👤 Benefattore: <a href="http://localhost:3000/${sponsor.username}">${sponsor.displayName}</a>\n` +
+		`📅 Data di registrazione: <b>${new Date().toLocaleDateString()} alle ${new Date().toLocaleTimeString()}</b>\n\n` +
+		`Ti ringraziamo per il tuo lavoro e per il supporto alla piattaforma TeaStreamCreese!`,
 };
