@@ -78,4 +78,13 @@ export const MESSAGES = {
 		`👤 Benefattore: <a href="http://localhost:3000/${sponsor.username}">${sponsor.displayName}</a>\n` +
 		`📅 Data di registrazione: <b>${new Date().toLocaleDateString()} alle ${new Date().toLocaleTimeString()}</b>\n\n` +
 		`Ti ringraziamo per il tuo lavoro e per il supporto alla piattaforma TeaStreamCreese!`,
+	enableTwoFactor:
+		`🔒 Aumenta la tua sicurezza!\n\n` +
+		`Attiva l'autenticazione a due fattori nelle <a href="http://localhost:3000/dashboard/settings">impostazioni dell'account</a>`,
+
+	verifyChannel:
+		`<b>🎉 Congratulazioni! Il tuo account è stato verificato</b>\n\n` +
+		`Siamo felici di annunciare che il tuo canale adesso è verificato e hai ricevuto gettone ufficiale.\n\n` +
+		`Gettone di verifica certifica l'autenticità del tuo canale e migliora la fiducia degli spettatori.\n\n` +
+		`Grazie per essere con noi e continua a far crescere il tuo canale con noi su TeStreamCreese!`,
 };

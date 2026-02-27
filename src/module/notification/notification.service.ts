@@ -127,4 +127,29 @@ export class NotificationService {
 		});
 		return notification;
 	}
+
+	async createEnableTwoFactor(userId: string) {
+		const notification = await this.prismaService.notification.create({
+			data: {
+				message: `<b className='font-medium'>Aumenta la tua sicurezza!</b>
+                <p>Attiva l'autenticazione a due fattori in impostazioni del tuo account, 
+                per aumentare livelo di sicurezza.</p>`,
+				type: NotificationType.ENABLE_TWO_FACTOR,
+				userId,
+			},
+		});
+		return notification;
+	}
+
+	async createVerifyChannel(userId: string) {
+		const notification = await this.prismaService.notification.create({
+			data: {
+				message: `<b className='font-medium'> Congratulazioni!</b>
+                <p>Il tuo canale adesso è verificato e hai ricevuto gettone ufficiale.</p>`,
+				type: NotificationType.VERIFIED_CHANNEL,
+				userId,
+			},
+		});
+		return notification;
+	}
 }

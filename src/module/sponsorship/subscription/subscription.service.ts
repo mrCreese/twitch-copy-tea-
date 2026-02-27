@@ -12,7 +12,7 @@ export class SubscriptionService {
 			await this.prisnaService.sponsorshipSubscription.findMany({
 				where: { channelId: user.id },
 				orderBy: { createdAt: 'desc' },
-				include: { plan: true, user: true },
+				include: { plan: true, user: true, channel: true },
 			});
 		return sponsors;
 	}
