@@ -1,0 +1,12 @@
+import { TypeStripeOptions } from '@/src/module/libs/stripe/types/stripe.types';
+
+import { ConfigService } from '@nestjs/config';
+
+export function getStripeConfig(
+	configService: ConfigService,
+): TypeStripeOptions {
+	return {
+		apiKey: configService.getOrThrow<string>('STRIPE_SECRET_KEY'),
+		config: { apiVersion: '2026-01-28.clover' },
+	};
+}
