@@ -1,5 +1,5 @@
-import { Body, Head, Heading, Html, Link, Preview, Section, Tailwind, Text } from "@react-email/components";
 import * as React from "react"
+import { Body, Head, Heading, Html, Link, Preview, Section, Tailwind, Text } from "@react-email/components";
 
 interface  AccountDeletionTemplateProps {
     domain:string

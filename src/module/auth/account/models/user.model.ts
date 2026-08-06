@@ -1,4 +1,7 @@
 import type { User } from '@/prisma/generated';
+import { FollowModel } from '@/src/module/follow/models/follow.model';
+import { NotificationSettingModel } from '@/src/module/notification/models/notification-settings.model';
+import { NotificationModel } from '@/src/module/notification/models/notification.model';
 import { StreamModel } from '@/src/module/stream/models/stream.model';
 
 import { SocialLinkModel } from '../../profile/models/social-link.model';
@@ -28,6 +31,9 @@ export class UserModel implements User {
 	@Field(() => String, { nullable: true })
 	bio: string;
 
+	@Field(() => String, { nullable: true })
+	telegramId: string;
+
 	@Field(() => Boolean)
 	isVerified: boolean;
 
@@ -49,8 +55,20 @@ export class UserModel implements User {
 	@Field(() => [SocialLinkModel])
 	socialLinks: SocialLinkModel[];
 
+	@Field(() => [FollowModel])
+	followers: FollowModel[];
+
+	@Field(() => [FollowModel])
+	followings: FollowModel[];
+
 	@Field(() => StreamModel)
 	stream: StreamModel;
+
+	@Field(() => [NotificationModel])
+	notifications: NotificationModel[];
+
+	@Field(() => NotificationSettingModel)
+	notificationSettings: NotificationSettingModel;
 
 	@Field(() => Date)
 	createdAt: Date;

@@ -1,0 +1,42 @@
+import { WebhookService } from './webhook.service';
+import {
+	Body,
+	Controller,
+	Headers,
+	HttpCode,
+	HttpStatus,
+	Post,
+	RawBody,
+	UnauthorizedException,
+} from '@nestjs/common';
+
+@Controller('webhook')
+export class WebhookController {
+	constructor(private readonly webhookService: WebhookService) {}
+
+	@Post('livekit')
+	@HttpCode(HttpStatus.OK)
+	async receiveWebhookLiveKit(
+		@Body() body: string,
+		@Headers('authorization') authorization: string,
+	) {
+		if (!authorization) {
+			throw new UnauthorizedException('Manca header autorizzazione');
+		}
+		return this.webhookService.receiveWebhookLiveKit(body, authorization);
+	}
+
+	@Post('stripe')
+	@HttpCode(HttpStatus.OK)
+	async receiveWebhookStripe(
+		@RawBody() rawBody: string,
+		@Headers('stripe-signature') sig: string,
+	) {
+		if (!sig) {
+			throw new UnauthorizedException('Manca Stripe firma nel header');
+		}
+		const event = this.webhookService.constructorStripeEvent(rawBody, sig);
+
+		await this.webhookService.receiveWebhookStripe(event);
+	}
+}

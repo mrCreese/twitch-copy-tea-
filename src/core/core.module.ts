@@ -5,13 +5,28 @@ import { ProfileModule } from '../module/auth/profile/profile.module';
 import { SessionModule } from '../module/auth/session/session.module';
 import { TotpModule } from '../module/auth/totp/totp.module';
 import { VerificationModule } from '../module/auth/verification/verification.module';
+import { CategoryModule } from '../module/category/category.module';
+import { ChannelModule } from '../module/channel/channel.module';
+import { ChatModule } from '../module/chat/chat.module';
 import { CronModule } from '../module/cron/cron.module';
+import { FollowModule } from '../module/follow/follow.module';
+import { LivekitModule } from '../module/libs/livekit/livekit.module';
 import { MailModule } from '../module/libs/mail/mail.module';
 import { StorageModule } from '../module/libs/storage/storage.module';
+import { StripeModule } from '../module/libs/stripe/stripe.module';
+import { TelegramModule } from '../module/libs/telegram/telegram.module';
+import { NotificationModule } from '../module/notification/notification.module';
+import { PlanModule } from '../module/sponsorship/plan/plan.module';
+import { SubscriptionModule } from '../module/sponsorship/subscription/subscription.module';
+import { TransactionModule } from '../module/sponsorship/transaction/transaction.module';
+import { IngressModule } from '../module/stream/ingress/ingress.module';
 import { StreamModule } from '../module/stream/stream.module';
+import { WebhookModule } from '../module/webhook/webhook.module';
 import { IS_DEV_ENV } from '../shared/utils/is-dev.util';
 
 import { getGraphQLConfig } from './config/graph.config';
+import { getLiveKitConfig } from './config/livekit.config';
+import { getStripeConfig } from './config/stripe.config';
 import { PrismaModule } from './prisma/prisma.module';
 import { RedisModule } from './redis/redis.module';
 import { ApolloDriver } from '@nestjs/apollo';
@@ -28,6 +43,16 @@ import { GraphQLModule } from '@nestjs/graphql';
 			imports: [ConfigModule],
 			inject: [ConfigService],
 		}),
+		LivekitModule.registerAsync({
+			imports: [ConfigModule],
+			useFactory: getLiveKitConfig,
+			inject: [ConfigService],
+		}),
+		StripeModule.registerAsync({
+			imports: [ConfigModule],
+			useFactory: getStripeConfig,
+			inject: [ConfigService],
+		}),
 		PrismaModule,
 		RedisModule,
 		AccountModule,
@@ -39,8 +64,21 @@ import { GraphQLModule } from '@nestjs/graphql';
 		DeactivateModule,
 		CronModule,
 		StorageModule,
+		LivekitModule,
 		ProfileModule,
 		StreamModule,
+		IngressModule,
+		WebhookModule,
+		CategoryModule,
+		ChatModule,
+		FollowModule,
+		ChannelModule,
+		NotificationModule,
+		TelegramModule,
+		StripeModule,
+		PlanModule,
+		TransactionModule,
+		SubscriptionModule,
 	],
 })
 export class CoreModule {}

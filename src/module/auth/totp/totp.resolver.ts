@@ -1,6 +1,6 @@
 import type { User } from '@/prisma/generated';
 import { Authorization } from '@/src/shared/decatators/auth.decorator';
-import { Authorized } from '@/src/shared/decatators/authorized.decoratot';
+import { Authorized } from '@/src/shared/decatators/authorized.decorator';
 
 import { EnableTotpInput } from './inputs/enable-totp.input';
 import { TotpModel } from './models/totp.model';
