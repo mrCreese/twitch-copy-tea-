@@ -1,6 +1,5 @@
 import { randomBytes } from 'crypto';
 import { encode } from 'hi-base32';
-import { TOTP } from 'otpauth';
 import * as QRCode from 'qrcode';
 
 import { User } from '@/prisma/generated';

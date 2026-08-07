@@ -23,7 +23,7 @@ export class FollowResolver {
 	}
 
 	@Authorization()
-	@Mutation(() => Boolean, { name: 'followChanel' })
+	@Mutation(() => Boolean, { name: 'followChannel' })
 	async follow(
 		@Authorized() user: User,
 		@Args('channelId') channelId: string,
@@ -32,7 +32,7 @@ export class FollowResolver {
 	}
 
 	@Authorization()
-	@Mutation(() => Boolean, { name: 'unfollowChanel' })
+	@Mutation(() => Boolean, { name: 'unfollowChannel' })
 	async unfollow(
 		@Authorized() user: User,
 		@Args('channelId') channelId: string,

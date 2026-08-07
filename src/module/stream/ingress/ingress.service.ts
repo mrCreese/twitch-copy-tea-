@@ -53,6 +53,13 @@ export class IngressService {
 			);
 		}
 
+		const stream = await this.prismaService.stream.findUnique({
+			where: {
+				userId: user.id,
+			},
+		});
+
+
 		await this.prismaService.stream.update({
 			where: { userId: user.id },
 			data: {

@@ -11,7 +11,7 @@ import { StreamModel } from './models/stream.model';
 import { StreamService } from './stream.service';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import GraphQLUpload from 'graphql-upload/GraphQLUpload.mjs';
-import { FileUpload } from 'graphql-upload/processRequest.mjs';
+import type { FileUpload } from 'graphql-upload/processRequest.mjs';
 
 @Resolver('Stream')
 export class StreamResolver {
@@ -51,7 +51,7 @@ export class StreamResolver {
 		return this.streamService.removeThumbnail(user);
 	}
 
-	@Mutation(() => GenerateStreamTokenModel, { name: 'generateSteamToken' })
+	@Mutation(() => GenerateStreamTokenModel, { name: 'generateStreamToken' })
 	async generateToken(@Args('data') input: GenerateStreamTokenInput) {
 		return this.streamService.generateStreamToken(input);
 	}

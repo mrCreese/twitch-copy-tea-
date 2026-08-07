@@ -44,7 +44,7 @@ export class ChatService {
 				user: { connect: { id: userId } },
 				stream: { connect: { id: stream.id } },
 			},
-			include: { stream: true },
+			include: { stream: true, user: true },
 		});
 
 		return message;

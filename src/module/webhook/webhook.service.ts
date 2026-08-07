@@ -42,7 +42,7 @@ export class WebhookService {
 					follower: { isDeactivated: false },
 				},
 				include: {
-					follower: { include: { notificationsSettings: true } },
+					follower: { include: { notificationSettings: true } },
 				},
 			});
 			if (!stream?.user) {
@@ -51,14 +51,14 @@ export class WebhookService {
 			for (const follow of followers) {
 				const follower = follow.follower;
 
-				if (follower.notificationsSettings?.siteNotifications) {
+				if (follower.notificationSettings?.siteNotifications) {
 					await this.notificationService.createStreamStart(
 						follower.id,
 						stream?.user,
 					);
 				}
 				if (
-					follower.notificationsSettings?.telegramNotifications &&
+					follower.notificationSettings?.telegramNotifications &&
 					follower.telegramId
 				) {
 					await this.telegramServise.sendStreamStart(
@@ -81,7 +81,6 @@ export class WebhookService {
 
 	async receiveWebhookStripe(event: Stripe.Event) {
 		const session = event.data.object as Stripe.Checkout.Session;
-
 		if (event.type === 'checkout.session.completed') {
 			const planId = session.metadata?.planId;
 			const userId = session.metadata?.userId;
@@ -89,18 +88,16 @@ export class WebhookService {
 
 			const expiresAt = new Date();
 
-			expiresAt.setDate(expiresAt.getDay() + 30);
-
+			expiresAt.setDate(expiresAt.getDate() + 30);
 			const sponsorshipSubscription =
 				await this.prismaService.sponsorshipSubscription.create({
 					data: { expiresAt, planId, userId, channelId },
 					include: {
 						plan: true,
 						user: true,
-						channel: { include: { notificationsSettings: true } },
+						channel: { include: { notificationSettings: true } },
 					},
 				});
-
 			await this.prismaService.transaction.updateMany({
 				where: {
 					stripeSubscriptionId: session.id,
@@ -110,7 +107,7 @@ export class WebhookService {
 			});
 
 			if (
-				sponsorshipSubscription.channel?.notificationsSettings
+				sponsorshipSubscription.channel?.notificationSettings
 					?.siteNotifications &&
 				sponsorshipSubscription.plan &&
 				sponsorshipSubscription.user
@@ -123,7 +120,7 @@ export class WebhookService {
 			}
 
 			if (
-				sponsorshipSubscription.channel?.notificationsSettings
+				sponsorshipSubscription.channel?.notificationSettings
 					?.telegramNotifications &&
 				sponsorshipSubscription.channel.telegramId &&
 				sponsorshipSubscription.plan &&

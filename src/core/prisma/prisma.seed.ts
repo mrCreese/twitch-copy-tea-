@@ -73,7 +73,6 @@ async function main() {
 						},
 					});
 					const randomTitles = streamTitles[randomCatetgory.slug];
-					console.log(randomCatetgory.slug, randomTitles);
 					const randomTitle =
 						randomTitles[
 							Math.floor(Math.random() * randomTitles.length)

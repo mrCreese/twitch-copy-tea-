@@ -2,6 +2,8 @@ import type { User } from '@/prisma/generated';
 import { FollowModel } from '@/src/module/follow/models/follow.model';
 import { NotificationSettingModel } from '@/src/module/notification/models/notification-settings.model';
 import { NotificationModel } from '@/src/module/notification/models/notification.model';
+import { PlanModel } from '@/src/module/sponsorship/plan/models/plan.model';
+import { SubscriptionModel } from '@/src/module/sponsorship/subscription/models/subscription.model';
 import { StreamModel } from '@/src/module/stream/models/stream.model';
 
 import { SocialLinkModel } from '../../profile/models/social-link.model';
@@ -61,18 +63,24 @@ export class UserModel implements User {
 	@Field(() => [FollowModel])
 	followings: FollowModel[];
 
-	@Field(() => StreamModel)
-	stream: StreamModel;
+	@Field(() => StreamModel, { nullable: true })
+	stream?: StreamModel;
 
 	@Field(() => [NotificationModel])
-	notifications: NotificationModel[];
+	notifications!: NotificationModel[];
 
-	@Field(() => NotificationSettingModel)
-	notificationSettings: NotificationSettingModel;
+	@Field(() => NotificationSettingModel, { nullable: true })
+	notificationSettings?: NotificationSettingModel;
+
+	@Field(() => [SubscriptionModel], { nullable: true })
+	sponsorshipSubscriptions?: SubscriptionModel[];
+
+	@Field(() => [PlanModel], { nullable: true })
+	sponsrshipPlans?: PlanModel[];
 
 	@Field(() => Date)
-	createdAt: Date;
+	createdAt!: Date;
 
 	@Field(() => Date)
-	updatedAt: Date;
+	updatedAt!: Date;
 }

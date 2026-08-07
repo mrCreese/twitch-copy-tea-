@@ -1,3 +1,4 @@
+import type { Context } from 'graphql-ws';
 import { join } from 'path';
 
 import { isDev } from '@/src/shared/utils/is-dev.util';
@@ -14,9 +15,12 @@ export function getGraphQLConfig(
 		autoSchemaFile: join(process.cwd(), 'src/core/graphql/schema.gql'),
 		sortSchema: true,
 
+		// 🔴 importante per upload
+		csrfPrevention: false,
+
 		subscriptions: {
 			'graphql-ws': {
-				onConnect: context => {
+				onConnect: (context: Context) => {
 					console.log('🟢 GraphQL WS connected');
 				},
 			},
@@ -39,6 +43,8 @@ export function getGraphQLConfig(
 					},
 				};
 			}
+
+			return {};
 		},
 		/* context: ({ req, res }) => ({ req, res }),
 		installSubscriptionHandlers: true, */

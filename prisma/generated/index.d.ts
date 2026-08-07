@@ -2371,7 +2371,7 @@ export namespace Prisma {
     stream?: boolean | User$streamArgs<ExtArgs>
     chatMessages?: boolean | User$chatMessagesArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
-    notificationsSettings?: boolean | User$notificationsSettingsArgs<ExtArgs>
+    notificationSettings?: boolean | User$notificationSettingsArgs<ExtArgs>
     transactions?: boolean | User$transactionsArgs<ExtArgs>
     sponsrshipPlans?: boolean | User$sponsrshipPlansArgs<ExtArgs>
     followers?: boolean | User$followersArgs<ExtArgs>
@@ -2445,7 +2445,7 @@ export namespace Prisma {
     stream?: boolean | User$streamArgs<ExtArgs>
     chatMessages?: boolean | User$chatMessagesArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
-    notificationsSettings?: boolean | User$notificationsSettingsArgs<ExtArgs>
+    notificationSettings?: boolean | User$notificationSettingsArgs<ExtArgs>
     transactions?: boolean | User$transactionsArgs<ExtArgs>
     sponsrshipPlans?: boolean | User$sponsrshipPlansArgs<ExtArgs>
     followers?: boolean | User$followersArgs<ExtArgs>
@@ -2465,7 +2465,7 @@ export namespace Prisma {
       stream: Prisma.$StreamPayload<ExtArgs> | null
       chatMessages: Prisma.$ChatMessagePayload<ExtArgs>[]
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
-      notificationsSettings: Prisma.$NotificationSettingsPayload<ExtArgs> | null
+      notificationSettings: Prisma.$NotificationSettingsPayload<ExtArgs> | null
       transactions: Prisma.$TransactionPayload<ExtArgs>[]
       sponsrshipPlans: Prisma.$SponsorshipPlanPayload<ExtArgs>[]
       followers: Prisma.$FollowPayload<ExtArgs>[]
@@ -2889,7 +2889,7 @@ export namespace Prisma {
     stream<T extends User$streamArgs<ExtArgs> = {}>(args?: Subset<T, User$streamArgs<ExtArgs>>): Prisma__StreamClient<$Result.GetResult<Prisma.$StreamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     chatMessages<T extends User$chatMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$chatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    notificationsSettings<T extends User$notificationsSettingsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsSettingsArgs<ExtArgs>>): Prisma__NotificationSettingsClient<$Result.GetResult<Prisma.$NotificationSettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    notificationSettings<T extends User$notificationSettingsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationSettingsArgs<ExtArgs>>): Prisma__NotificationSettingsClient<$Result.GetResult<Prisma.$NotificationSettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     transactions<T extends User$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sponsrshipPlans<T extends User$sponsrshipPlansArgs<ExtArgs> = {}>(args?: Subset<T, User$sponsrshipPlansArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SponsorshipPlanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     followers<T extends User$followersArgs<ExtArgs> = {}>(args?: Subset<T, User$followersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3444,9 +3444,9 @@ export namespace Prisma {
   }
 
   /**
-   * User.notificationsSettings
+   * User.notificationSettings
    */
-  export type User$notificationsSettingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$notificationSettingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the NotificationSettings
      */
@@ -16378,7 +16378,7 @@ export namespace Prisma {
     stream?: XOR<StreamNullableScalarRelationFilter, StreamWhereInput> | null
     chatMessages?: ChatMessageListRelationFilter
     notifications?: NotificationListRelationFilter
-    notificationsSettings?: XOR<NotificationSettingsNullableScalarRelationFilter, NotificationSettingsWhereInput> | null
+    notificationSettings?: XOR<NotificationSettingsNullableScalarRelationFilter, NotificationSettingsWhereInput> | null
     transactions?: TransactionListRelationFilter
     sponsrshipPlans?: SponsorshipPlanListRelationFilter
     followers?: FollowListRelationFilter
@@ -16409,7 +16409,7 @@ export namespace Prisma {
     stream?: StreamOrderByWithRelationInput
     chatMessages?: ChatMessageOrderByRelationAggregateInput
     notifications?: NotificationOrderByRelationAggregateInput
-    notificationsSettings?: NotificationSettingsOrderByWithRelationInput
+    notificationSettings?: NotificationSettingsOrderByWithRelationInput
     transactions?: TransactionOrderByRelationAggregateInput
     sponsrshipPlans?: SponsorshipPlanOrderByRelationAggregateInput
     followers?: FollowOrderByRelationAggregateInput
@@ -16443,7 +16443,7 @@ export namespace Prisma {
     stream?: XOR<StreamNullableScalarRelationFilter, StreamWhereInput> | null
     chatMessages?: ChatMessageListRelationFilter
     notifications?: NotificationListRelationFilter
-    notificationsSettings?: XOR<NotificationSettingsNullableScalarRelationFilter, NotificationSettingsWhereInput> | null
+    notificationSettings?: XOR<NotificationSettingsNullableScalarRelationFilter, NotificationSettingsWhereInput> | null
     transactions?: TransactionListRelationFilter
     sponsrshipPlans?: SponsorshipPlanListRelationFilter
     followers?: FollowListRelationFilter
@@ -17291,7 +17291,7 @@ export namespace Prisma {
     stream?: StreamCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
+    notificationSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
     sponsrshipPlans?: SponsorshipPlanCreateNestedManyWithoutChannelInput
     followers?: FollowCreateNestedManyWithoutFollowerInput
@@ -17322,7 +17322,7 @@ export namespace Prisma {
     stream?: StreamUncheckedCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
+    notificationSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     sponsrshipPlans?: SponsorshipPlanUncheckedCreateNestedManyWithoutChannelInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
@@ -17353,7 +17353,7 @@ export namespace Prisma {
     stream?: StreamUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     sponsrshipPlans?: SponsorshipPlanUpdateManyWithoutChannelNestedInput
     followers?: FollowUpdateManyWithoutFollowerNestedInput
@@ -17384,7 +17384,7 @@ export namespace Prisma {
     stream?: StreamUncheckedUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     sponsrshipPlans?: SponsorshipPlanUncheckedUpdateManyWithoutChannelNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
@@ -17594,7 +17594,7 @@ export namespace Prisma {
     telegramNotifications?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutNotificationsSettingsInput
+    user: UserCreateNestedOneWithoutNotificationSettingsInput
   }
 
   export type NotificationSettingsUncheckedCreateInput = {
@@ -17612,7 +17612,7 @@ export namespace Prisma {
     telegramNotifications?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutNotificationsSettingsNestedInput
+    user?: UserUpdateOneRequiredWithoutNotificationSettingsNestedInput
   }
 
   export type NotificationSettingsUncheckedUpdateInput = {
@@ -19605,18 +19605,18 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotificationsInput, UserUpdateWithoutNotificationsInput>, UserUncheckedUpdateWithoutNotificationsInput>
   }
 
-  export type UserCreateNestedOneWithoutNotificationsSettingsInput = {
-    create?: XOR<UserCreateWithoutNotificationsSettingsInput, UserUncheckedCreateWithoutNotificationsSettingsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutNotificationsSettingsInput
+  export type UserCreateNestedOneWithoutNotificationSettingsInput = {
+    create?: XOR<UserCreateWithoutNotificationSettingsInput, UserUncheckedCreateWithoutNotificationSettingsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotificationSettingsInput
     connect?: UserWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutNotificationsSettingsNestedInput = {
-    create?: XOR<UserCreateWithoutNotificationsSettingsInput, UserUncheckedCreateWithoutNotificationsSettingsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutNotificationsSettingsInput
-    upsert?: UserUpsertWithoutNotificationsSettingsInput
+  export type UserUpdateOneRequiredWithoutNotificationSettingsNestedInput = {
+    create?: XOR<UserCreateWithoutNotificationSettingsInput, UserUncheckedCreateWithoutNotificationSettingsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotificationSettingsInput
+    upsert?: UserUpsertWithoutNotificationSettingsInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotificationsSettingsInput, UserUpdateWithoutNotificationsSettingsInput>, UserUncheckedUpdateWithoutNotificationsSettingsInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotificationSettingsInput, UserUpdateWithoutNotificationSettingsInput>, UserUncheckedUpdateWithoutNotificationSettingsInput>
   }
 
   export type UserCreateNestedOneWithoutTransactionsInput = {
@@ -20881,7 +20881,7 @@ export namespace Prisma {
     stream?: StreamCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
+    notificationSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
     sponsrshipPlans?: SponsorshipPlanCreateNestedManyWithoutChannelInput
     followers?: FollowCreateNestedManyWithoutFollowerInput
@@ -20911,7 +20911,7 @@ export namespace Prisma {
     stream?: StreamUncheckedCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
+    notificationSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     sponsrshipPlans?: SponsorshipPlanUncheckedCreateNestedManyWithoutChannelInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
@@ -20957,7 +20957,7 @@ export namespace Prisma {
     stream?: StreamUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     sponsrshipPlans?: SponsorshipPlanUpdateManyWithoutChannelNestedInput
     followers?: FollowUpdateManyWithoutFollowerNestedInput
@@ -20987,7 +20987,7 @@ export namespace Prisma {
     stream?: StreamUncheckedUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     sponsrshipPlans?: SponsorshipPlanUncheckedUpdateManyWithoutChannelNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
@@ -21017,7 +21017,7 @@ export namespace Prisma {
     socialLinks?: SocailLinkCreateNestedManyWithoutUserInput
     stream?: StreamCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
+    notificationSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
     sponsrshipPlans?: SponsorshipPlanCreateNestedManyWithoutChannelInput
     followers?: FollowCreateNestedManyWithoutFollowerInput
@@ -21047,7 +21047,7 @@ export namespace Prisma {
     socialLinks?: SocailLinkUncheckedCreateNestedManyWithoutUserInput
     stream?: StreamUncheckedCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
+    notificationSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     sponsrshipPlans?: SponsorshipPlanUncheckedCreateNestedManyWithoutChannelInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
@@ -21093,7 +21093,7 @@ export namespace Prisma {
     socialLinks?: SocailLinkUpdateManyWithoutUserNestedInput
     stream?: StreamUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     sponsrshipPlans?: SponsorshipPlanUpdateManyWithoutChannelNestedInput
     followers?: FollowUpdateManyWithoutFollowerNestedInput
@@ -21123,7 +21123,7 @@ export namespace Prisma {
     socialLinks?: SocailLinkUncheckedUpdateManyWithoutUserNestedInput
     stream?: StreamUncheckedUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     sponsrshipPlans?: SponsorshipPlanUncheckedUpdateManyWithoutChannelNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
@@ -21132,7 +21132,7 @@ export namespace Prisma {
     sponsors?: SponsorshipSubscriptionUncheckedUpdateManyWithoutChannelNestedInput
   }
 
-  export type UserCreateWithoutNotificationsSettingsInput = {
+  export type UserCreateWithoutNotificationSettingsInput = {
     id?: string
     email: string
     password: string
@@ -21162,7 +21162,7 @@ export namespace Prisma {
     sponsors?: SponsorshipSubscriptionCreateNestedManyWithoutChannelInput
   }
 
-  export type UserUncheckedCreateWithoutNotificationsSettingsInput = {
+  export type UserUncheckedCreateWithoutNotificationSettingsInput = {
     id?: string
     email: string
     password: string
@@ -21192,23 +21192,23 @@ export namespace Prisma {
     sponsors?: SponsorshipSubscriptionUncheckedCreateNestedManyWithoutChannelInput
   }
 
-  export type UserCreateOrConnectWithoutNotificationsSettingsInput = {
+  export type UserCreateOrConnectWithoutNotificationSettingsInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutNotificationsSettingsInput, UserUncheckedCreateWithoutNotificationsSettingsInput>
+    create: XOR<UserCreateWithoutNotificationSettingsInput, UserUncheckedCreateWithoutNotificationSettingsInput>
   }
 
-  export type UserUpsertWithoutNotificationsSettingsInput = {
-    update: XOR<UserUpdateWithoutNotificationsSettingsInput, UserUncheckedUpdateWithoutNotificationsSettingsInput>
-    create: XOR<UserCreateWithoutNotificationsSettingsInput, UserUncheckedCreateWithoutNotificationsSettingsInput>
+  export type UserUpsertWithoutNotificationSettingsInput = {
+    update: XOR<UserUpdateWithoutNotificationSettingsInput, UserUncheckedUpdateWithoutNotificationSettingsInput>
+    create: XOR<UserCreateWithoutNotificationSettingsInput, UserUncheckedCreateWithoutNotificationSettingsInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutNotificationsSettingsInput = {
+  export type UserUpdateToOneWithWhereWithoutNotificationSettingsInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutNotificationsSettingsInput, UserUncheckedUpdateWithoutNotificationsSettingsInput>
+    data: XOR<UserUpdateWithoutNotificationSettingsInput, UserUncheckedUpdateWithoutNotificationSettingsInput>
   }
 
-  export type UserUpdateWithoutNotificationsSettingsInput = {
+  export type UserUpdateWithoutNotificationSettingsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -21238,7 +21238,7 @@ export namespace Prisma {
     sponsors?: SponsorshipSubscriptionUpdateManyWithoutChannelNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutNotificationsSettingsInput = {
+  export type UserUncheckedUpdateWithoutNotificationSettingsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -21290,7 +21290,7 @@ export namespace Prisma {
     stream?: StreamCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
+    notificationSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
     sponsrshipPlans?: SponsorshipPlanCreateNestedManyWithoutChannelInput
     followers?: FollowCreateNestedManyWithoutFollowerInput
     followings?: FollowCreateNestedManyWithoutFollowingInput
@@ -21320,7 +21320,7 @@ export namespace Prisma {
     stream?: StreamUncheckedCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
+    notificationSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
     sponsrshipPlans?: SponsorshipPlanUncheckedCreateNestedManyWithoutChannelInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
     followings?: FollowUncheckedCreateNestedManyWithoutFollowingInput
@@ -21366,7 +21366,7 @@ export namespace Prisma {
     stream?: StreamUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
     sponsrshipPlans?: SponsorshipPlanUpdateManyWithoutChannelNestedInput
     followers?: FollowUpdateManyWithoutFollowerNestedInput
     followings?: FollowUpdateManyWithoutFollowingNestedInput
@@ -21396,7 +21396,7 @@ export namespace Prisma {
     stream?: StreamUncheckedUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
     sponsrshipPlans?: SponsorshipPlanUncheckedUpdateManyWithoutChannelNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
     followings?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
@@ -21426,7 +21426,7 @@ export namespace Prisma {
     stream?: StreamCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
+    notificationSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
     followers?: FollowCreateNestedManyWithoutFollowerInput
     followings?: FollowCreateNestedManyWithoutFollowingInput
@@ -21456,7 +21456,7 @@ export namespace Prisma {
     stream?: StreamUncheckedCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
+    notificationSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
     followings?: FollowUncheckedCreateNestedManyWithoutFollowingInput
@@ -21530,7 +21530,7 @@ export namespace Prisma {
     stream?: StreamUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     followers?: FollowUpdateManyWithoutFollowerNestedInput
     followings?: FollowUpdateManyWithoutFollowingNestedInput
@@ -21560,7 +21560,7 @@ export namespace Prisma {
     stream?: StreamUncheckedUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
     followings?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
@@ -21635,7 +21635,7 @@ export namespace Prisma {
     stream?: StreamCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
+    notificationSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
     sponsrshipPlans?: SponsorshipPlanCreateNestedManyWithoutChannelInput
     followers?: FollowCreateNestedManyWithoutFollowerInput
@@ -21665,7 +21665,7 @@ export namespace Prisma {
     stream?: StreamUncheckedCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
+    notificationSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     sponsrshipPlans?: SponsorshipPlanUncheckedCreateNestedManyWithoutChannelInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
@@ -21700,7 +21700,7 @@ export namespace Prisma {
     stream?: StreamCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
+    notificationSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
     sponsrshipPlans?: SponsorshipPlanCreateNestedManyWithoutChannelInput
     followers?: FollowCreateNestedManyWithoutFollowerInput
@@ -21730,7 +21730,7 @@ export namespace Prisma {
     stream?: StreamUncheckedCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
+    notificationSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     sponsrshipPlans?: SponsorshipPlanUncheckedCreateNestedManyWithoutChannelInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
@@ -21811,7 +21811,7 @@ export namespace Prisma {
     stream?: StreamUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     sponsrshipPlans?: SponsorshipPlanUpdateManyWithoutChannelNestedInput
     followers?: FollowUpdateManyWithoutFollowerNestedInput
@@ -21841,7 +21841,7 @@ export namespace Prisma {
     stream?: StreamUncheckedUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     sponsrshipPlans?: SponsorshipPlanUncheckedUpdateManyWithoutChannelNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
@@ -21882,7 +21882,7 @@ export namespace Prisma {
     stream?: StreamUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     sponsrshipPlans?: SponsorshipPlanUpdateManyWithoutChannelNestedInput
     followers?: FollowUpdateManyWithoutFollowerNestedInput
@@ -21912,7 +21912,7 @@ export namespace Prisma {
     stream?: StreamUncheckedUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     sponsrshipPlans?: SponsorshipPlanUncheckedUpdateManyWithoutChannelNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
@@ -21941,7 +21941,7 @@ export namespace Prisma {
     stream?: StreamCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
+    notificationSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
     sponsrshipPlans?: SponsorshipPlanCreateNestedManyWithoutChannelInput
     followers?: FollowCreateNestedManyWithoutFollowerInput
@@ -21971,7 +21971,7 @@ export namespace Prisma {
     stream?: StreamUncheckedCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
+    notificationSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     sponsrshipPlans?: SponsorshipPlanUncheckedCreateNestedManyWithoutChannelInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
@@ -22017,7 +22017,7 @@ export namespace Prisma {
     stream?: StreamUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     sponsrshipPlans?: SponsorshipPlanUpdateManyWithoutChannelNestedInput
     followers?: FollowUpdateManyWithoutFollowerNestedInput
@@ -22047,7 +22047,7 @@ export namespace Prisma {
     stream?: StreamUncheckedUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     sponsrshipPlans?: SponsorshipPlanUncheckedUpdateManyWithoutChannelNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
@@ -22103,7 +22103,7 @@ export namespace Prisma {
     socialLinks?: SocailLinkCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
+    notificationSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
     sponsrshipPlans?: SponsorshipPlanCreateNestedManyWithoutChannelInput
     followers?: FollowCreateNestedManyWithoutFollowerInput
@@ -22133,7 +22133,7 @@ export namespace Prisma {
     socialLinks?: SocailLinkUncheckedCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
+    notificationSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     sponsrshipPlans?: SponsorshipPlanUncheckedCreateNestedManyWithoutChannelInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
@@ -22220,7 +22220,7 @@ export namespace Prisma {
     socialLinks?: SocailLinkUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     sponsrshipPlans?: SponsorshipPlanUpdateManyWithoutChannelNestedInput
     followers?: FollowUpdateManyWithoutFollowerNestedInput
@@ -22250,7 +22250,7 @@ export namespace Prisma {
     socialLinks?: SocailLinkUncheckedUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     sponsrshipPlans?: SponsorshipPlanUncheckedUpdateManyWithoutChannelNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
@@ -22311,7 +22311,7 @@ export namespace Prisma {
     socialLinks?: SocailLinkCreateNestedManyWithoutUserInput
     stream?: StreamCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
+    notificationSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
     sponsrshipPlans?: SponsorshipPlanCreateNestedManyWithoutChannelInput
     followers?: FollowCreateNestedManyWithoutFollowerInput
@@ -22341,7 +22341,7 @@ export namespace Prisma {
     socialLinks?: SocailLinkUncheckedCreateNestedManyWithoutUserInput
     stream?: StreamUncheckedCreateNestedOneWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
+    notificationSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     sponsrshipPlans?: SponsorshipPlanUncheckedCreateNestedManyWithoutChannelInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
@@ -22426,7 +22426,7 @@ export namespace Prisma {
     socialLinks?: SocailLinkUpdateManyWithoutUserNestedInput
     stream?: StreamUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     sponsrshipPlans?: SponsorshipPlanUpdateManyWithoutChannelNestedInput
     followers?: FollowUpdateManyWithoutFollowerNestedInput
@@ -22456,7 +22456,7 @@ export namespace Prisma {
     socialLinks?: SocailLinkUncheckedUpdateManyWithoutUserNestedInput
     stream?: StreamUncheckedUpdateOneWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     sponsrshipPlans?: SponsorshipPlanUncheckedUpdateManyWithoutChannelNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
@@ -22612,7 +22612,7 @@ export namespace Prisma {
     stream?: StreamCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
+    notificationSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
     sponsrshipPlans?: SponsorshipPlanCreateNestedManyWithoutChannelInput
     followings?: FollowCreateNestedManyWithoutFollowingInput
@@ -22642,7 +22642,7 @@ export namespace Prisma {
     stream?: StreamUncheckedCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
+    notificationSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     sponsrshipPlans?: SponsorshipPlanUncheckedCreateNestedManyWithoutChannelInput
     followings?: FollowUncheckedCreateNestedManyWithoutFollowingInput
@@ -22677,7 +22677,7 @@ export namespace Prisma {
     stream?: StreamCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
+    notificationSettings?: NotificationSettingsCreateNestedOneWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
     sponsrshipPlans?: SponsorshipPlanCreateNestedManyWithoutChannelInput
     followers?: FollowCreateNestedManyWithoutFollowerInput
@@ -22707,7 +22707,7 @@ export namespace Prisma {
     stream?: StreamUncheckedCreateNestedOneWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    notificationsSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
+    notificationSettings?: NotificationSettingsUncheckedCreateNestedOneWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     sponsrshipPlans?: SponsorshipPlanUncheckedCreateNestedManyWithoutChannelInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowerInput
@@ -22753,7 +22753,7 @@ export namespace Prisma {
     stream?: StreamUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     sponsrshipPlans?: SponsorshipPlanUpdateManyWithoutChannelNestedInput
     followings?: FollowUpdateManyWithoutFollowingNestedInput
@@ -22783,7 +22783,7 @@ export namespace Prisma {
     stream?: StreamUncheckedUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     sponsrshipPlans?: SponsorshipPlanUncheckedUpdateManyWithoutChannelNestedInput
     followings?: FollowUncheckedUpdateManyWithoutFollowingNestedInput
@@ -22824,7 +22824,7 @@ export namespace Prisma {
     stream?: StreamUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUpdateOneWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     sponsrshipPlans?: SponsorshipPlanUpdateManyWithoutChannelNestedInput
     followers?: FollowUpdateManyWithoutFollowerNestedInput
@@ -22854,7 +22854,7 @@ export namespace Prisma {
     stream?: StreamUncheckedUpdateOneWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    notificationsSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
+    notificationSettings?: NotificationSettingsUncheckedUpdateOneWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     sponsrshipPlans?: SponsorshipPlanUncheckedUpdateManyWithoutChannelNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowerNestedInput

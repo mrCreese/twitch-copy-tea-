@@ -29,7 +29,7 @@ export class NotificationSettingModel implements NotificationSettings {
 }
 
 @ObjectType()
-export class ChangeNotificationsSettingsResponse {
+export class ChangenotificationSettingsResponse {
 	@Field(() => NotificationSettingModel)
 	notificationSettings: NotificationSettingModel;
 

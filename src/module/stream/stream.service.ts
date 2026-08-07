@@ -157,7 +157,12 @@ export class StreamService {
 			},
 		);
 
-		token.addGrant({ room: channel.id, roomJoin: true, canPublish: false });
+		token.addGrant({
+			room: channel.id,
+			roomJoin: true,
+			canPublish: false,
+			canSubscribe: true,
+		});
 
 		return { token: token.toJwt() };
 	}
@@ -183,6 +188,11 @@ export class StreamService {
 				{
 					user: {
 						username: { contains: searchTerm, mode: 'insensitive' },
+					},
+				},
+				{
+					category: {
+						title: { contains: searchTerm, mode: 'insensitive' },
 					},
 				},
 			],

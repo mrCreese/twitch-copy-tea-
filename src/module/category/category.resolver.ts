@@ -16,7 +16,7 @@ export class CategoryResolver {
 		return this.categoryService.findRandom();
 	}
 
-	@Query(() => CategoryModel, { name: 'findCategoriesFindBySlug' })
+	@Query(() => CategoryModel, { name: 'findCategoryBySlug' })
 	async findBySlug(@Args('slug') slug: string) {
 		return this.categoryService.findBySlug(slug);
 	}

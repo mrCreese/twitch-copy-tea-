@@ -24,6 +24,8 @@ export class ChannelService {
 				socialLinks: { orderBy: { position: 'asc' } },
 				stream: { include: { category: true } },
 				followings: true,
+				sponsrshipPlans: true,
+				sponsorshipSubscription: true,
 			},
 		});
 
@@ -49,6 +51,7 @@ export class ChannelService {
 		if (!channel) {
 			throw new NotFoundException('Canale non trovato');
 		}
+
 		const sponsors =
 			await this.prismaService.sponsorshipSubscription.findMany({
 				where: { channelId: channel.id },

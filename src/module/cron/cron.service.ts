@@ -31,13 +31,13 @@ export class CronService {
 				isDeactivated: true,
 				deactivatedAt: { lte: sevenDaysAgo },
 			},
-			include: { notificationsSettings: true, stream: true },
+			include: { notificationSettings: true, stream: true },
 		});
 
 		for (const user of deactivatedAccounts) {
 			await this.mailService.sendAccountDeletion(user.email);
 			if (
-				user.notificationsSettings?.telegramNotifications &&
+				user.notificationSettings?.telegramNotifications &&
 				user.telegramId
 			) {
 				await this.telegramService.sendAccountDeletion(user.telegramId);
@@ -63,17 +63,17 @@ export class CronService {
 	async notifyUsersEnableTwoFactor() {
 		const users = await this.prismaService.user.findMany({
 			where: { isTotpEnabled: false },
-			include: { notificationsSettings: true },
+			include: { notificationSettings: true },
 		});
 
 		for (const user of users) {
 			await this.mailService.sendEnableTwoFactor(user.email);
-			if (user.notificationsSettings?.siteNotifications) {
+			if (user.notificationSettings?.siteNotifications) {
 				await this.notificationService.createEnableTwoFactor(user.id);
 			}
 
 			if (
-				user.notificationsSettings?.telegramNotifications &&
+				user.notificationSettings?.telegramNotifications &&
 				user.telegramId
 			) {
 				await this.telegramService.sendEnableTwoFactor(user.telegramId);
@@ -84,7 +84,7 @@ export class CronService {
 	@Cron(CronExpression.EVERY_DAY_AT_1PM)
 	async verifyChanels() {
 		const users = await this.prismaService.user.findMany({
-			include: { notificationsSettings: true },
+			include: { notificationSettings: true },
 		});
 
 		for (const user of users) {
@@ -100,12 +100,12 @@ export class CronService {
 
 				await this.mailService.sendVerifyChannel(user.email);
 
-				if (user.notificationsSettings?.siteNotifications) {
+				if (user.notificationSettings?.siteNotifications) {
 					await this.notificationService.createVerifyChannel(user.id);
 				}
 
 				if (
-					user.notificationsSettings?.telegramNotifications &&
+					user.notificationSettings?.telegramNotifications &&
 					user.telegramId
 				) {
 					await this.telegramService.sendVerifyChannel(

@@ -7,7 +7,7 @@ import {
 import { PrismaService } from '@/src/core/prisma/prisma.service';
 import { generateToken } from '@/src/shared/utils/generate-token.util';
 
-import { ChangeNotificationsSettingsInput } from './inputs/change-notifications-settings.input';
+import { ChangeNotificationSettingsInput } from './inputs/change-notifications-settings.input';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -53,7 +53,7 @@ export class NotificationService {
 		return notification;
 	}
 
-	async changeSettings(user: User, input: ChangeNotificationsSettingsInput) {
+	async changeSettings(user: User, input: ChangeNotificationSettingsInput) {
 		const { siteNotifications, telegramNotifications } = input;
 
 		const notificationSettings =

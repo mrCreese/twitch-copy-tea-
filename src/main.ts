@@ -1,6 +1,8 @@
 import RedisStore from 'connect-redis';
 import * as cookieParser from 'cookie-parser';
 import * as session from 'express-session';
+import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.mjs';
+
 
 import { CoreModule } from './core/core.module';
 import { RedisService } from './core/redis/redis.service';
@@ -15,6 +17,13 @@ async function bootstrap() {
 
 	const config = app.get(ConfigService);
 	const redis = app.get(RedisService);
+
+	app.use(
+		graphqlUploadExpress({
+			maxFileSize: 10_000_000,
+			maxFiles: 5,
+		}),
+	);
 
 	app.use(cookieParser(config.getOrThrow<string>('COOKIES_SECRET')));
 
@@ -32,7 +41,7 @@ async function bootstrap() {
 			resave: false,
 			saveUninitialized: false,
 			cookie: {
-				domain: config.getOrThrow<string>('SESSION_DOMAIN'),
+				//		domain: config.getOrThrow<string>('SESSION_DOMAIN'),
 				maxAge: ms(config.getOrThrow<StringValue>('SESSION_MAX_AGE')),
 				httpOnly: parseBoolean(
 					config.getOrThrow<string>('SESSION_HTTP_ONLY'),

@@ -31,7 +31,6 @@ export class ChatResolver {
 		@Authorized('id') userId: string,
 		@Args('data') input: SendMessageInput,
 	) {
-		console.log(input);
 		const message = await this.chatService.sendMessage(userId, input);
 		this.pubSub
 			.publish('CHAT_MESSAGE_ADDED', {

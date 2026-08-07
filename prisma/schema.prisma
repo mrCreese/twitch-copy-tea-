@@ -34,8 +34,8 @@ model User {
     stream       Stream?
     chatMessages ChatMessage[]
 
-    notifications         Notification[]
-    notificationsSettings NotificationSettings?
+    notifications        Notification[]
+    notificationSettings NotificationSettings?
 
     transactions    Transaction[]
     sponsrshipPlans SponsorshipPlan[]

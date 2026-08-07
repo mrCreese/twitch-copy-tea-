@@ -15,7 +15,7 @@ export class LocationModel implements LocationInfo {
 	city: string;
 
 	@Field(() => Number)
-	latidute: number;
+	latitude: number;
 
 	@Field(() => Number)
 	longitude: number;

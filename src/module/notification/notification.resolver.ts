@@ -2,8 +2,8 @@ import { User } from '@/prisma/generated';
 import { Authorization } from '@/src/shared/decatators/auth.decorator';
 import { Authorized } from '@/src/shared/decatators/authorized.decorator';
 
-import { ChangeNotificationsSettingsInput } from './inputs/change-notifications-settings.input';
-import { ChangeNotificationsSettingsResponse } from './models/notification-settings.model';
+import { ChangeNotificationSettingsInput } from './inputs/change-notifications-settings.input';
+import { ChangenotificationSettingsResponse } from './models/notification-settings.model';
 import { NotificationModel } from './models/notification.model';
 import { NotificationService } from './notification.service';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
@@ -25,12 +25,12 @@ export class NotificationResolver {
 	}
 
 	@Authorization()
-	@Mutation(() => ChangeNotificationsSettingsResponse, {
-		name: 'changeNotificationsSettings',
+	@Mutation(() => ChangenotificationSettingsResponse, {
+		name: 'changeNotificationSettings',
 	})
 	async changeSettings(
 		@Authorized() user: User,
-		@Args('data') input: ChangeNotificationsSettingsInput,
+		@Args('data') input: ChangeNotificationSettingsInput,
 	) {
 		return this.notificationService.changeSettings(user, input);
 	}

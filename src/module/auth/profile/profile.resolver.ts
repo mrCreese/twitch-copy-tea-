@@ -12,7 +12,7 @@ import { SocialLinkModel } from './models/social-link.model';
 import { ProfileService } from './profile.service';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import GraphQLUpload from 'graphql-upload/GraphQLUpload.mjs';
-import { FileUpload } from 'graphql-upload/processRequest.mjs';
+import type { FileUpload } from 'graphql-upload/processRequest.mjs';
 
 @Resolver('Profile')
 export class ProfileResolver {

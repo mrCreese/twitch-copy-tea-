@@ -44,7 +44,6 @@ export class PlanService {
 			product: { name: title },
 		});
 
-		console.log(JSON.stringify(stripePlan, null, 2));
 		if (!stripePlan?.product) {
 			throw new NotFoundException(
 				'Creaazione del piano si sponsorizazione falito',

@@ -9,6 +9,6 @@ export default function creaTotp(email: string, secret: string | undefined) {
 		secret,
 		//	period: 240, // periodo di validita
 	});
-	//	console.log(totp.generate());
+	console.log(totp.generate());
 	return totp;
 }

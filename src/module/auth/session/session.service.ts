@@ -1,6 +1,5 @@
 import { verify } from 'argon2';
 import type { Request } from 'express';
-import { TOTP } from 'otpauth';
 
 import { PrismaService } from '@/src/core/prisma/prisma.service';
 import { RedisService } from '@/src/core/redis/redis.service';
@@ -11,23 +10,15 @@ import { destroySession, saveSession } from '@/src/shared/utils/session.util';
 
 import { VerificationService } from '../verification/verification.service';
 
-/* import { UserSession } from '@/src/shared/types/user-session.types';
-
-import { VerificationService } from '../verification/verification.service'; */
-
 import { LoginInput } from './inputs/login.input';
 import {
 	BadRequestException,
 	ConflictException,
 	Injectable,
-	InternalServerErrorException,
 	NotFoundException,
 	UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-
-/* import { UserSession } from '@/src/shared/types/user-session.types';
- */
 
 @Injectable()
 export class SessionService {
@@ -89,7 +80,7 @@ export class SessionService {
 			},
 		});
 
-		if (!user) {
+		if (!user || user.isDeactivated) {
 			throw new NotFoundException('Utente non trovato');
 		}
 
